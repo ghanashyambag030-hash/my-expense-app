@@ -184,28 +184,36 @@ function saveCategory(){
  saveCategories(); renderCategories(); render(); closeCategoryModal();
 }
 function editCategory(i){openCategoryModal(i)}
-function deleteCategory(i){
- const name=categories[i];
+ function deleteCategory(i){
 
- if(i<0 || i>=categories.length)return;
+ if(!Number.isInteger(i)) return;
+
+ if(i < 0 || i >= categories.length) return;
+
+ const name=categories[i];
 
  const usedCount=expenses.filter(e=>e.category===name).length;
 
  let message=`"${name}" Category Delete করবেন?`;
 
  if(usedCount>0){
-  message+=`\n\nএই Category-তে ${usedCount}টি পুরনো হিসাব আছে।\nCategory মুছে দিলেও পুরনো হিসাবগুলো Delete হবে না।`;
+   message+=
+     `\n\nএই Category-তে ${usedCount}টি পুরনো হিসাব আছে।`+
+     `\nCategory Delete করলেও পুরনো হিসাবগুলো Delete হবে না।`;
  }
 
- if(!confirm(message))return;
+ const ok=confirm(message);
+
+ if(!ok) return;
 
  categories.splice(i,1);
+
  saveCategories();
 
  renderCategories();
- render();
-}
-
+ renderList();
+ updateTotals();
+ }
 function saveExpense(){
  const date=document.getElementById("date").value;
  const category=document.getElementById("category").value;

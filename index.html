@@ -233,13 +233,46 @@ function filtered(){
  );
 }
 function renderList(){
- const list=document.getElementById("expenseList"), arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
- if(!arr.length){list.innerHTML='<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';return}
+ const list=document.getElementById("expenseList");
+ const arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+
+ if(!arr.length){
+  list.innerHTML='<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
+  return;
+ }
+
  list.innerHTML=arr.map(e=>`
- <div class="expense"><div class="top"><div class="item">${esc(e.item)}</div><div class="amount">${money(e.amount)}</div></div>
- <div class="meta">📅 ${esc(e.date.split("-").reverse().join("-"))} &nbsp;|&nbsp; 🏷️ ${esc(e.category)}</div>
- ${e.note?`<div class="note">📝 ${esc(e.note)}</div>`:""}
- <div class="actions"><button class="yellow" onclick="editExpense(${e.id})">✏️ Edit</button><button class="red" onclick="deleteExpense(${e.id})">🗑️ Delete</button></div></div>`).join("");
+ <div class="expense">
+  <div class="top">
+   <div class="item">${esc(e.item)}</div>
+   <div class="amount">${money(e.amount)}</div>
+  </div>
+
+  <div class="meta">
+   📅 ${esc(e.date.split("-").reverse().join("-"))}
+   &nbsp;|&nbsp; 🏷️ ${esc(e.category)}
+  </div>
+
+  ${e.note?`<div class="note">📝 ${esc(e.note)}</div>`:""}
+
+  <div class="actions">
+   <button class="yellow editBtn" type="button" data-id="${e.id}">✏️ Edit</button>
+   <button class="red deleteBtn" type="button" data-id="${e.id}">🗑️ Delete</button>
+  </div>
+ </div>
+ `).join("");
+
+ list.querySelectorAll(".editBtn").forEach(btn=>{
+  btn.addEventListener("click",function(){
+   editExpense(this.dataset.id);
+  });
+ });
+
+ list.querySelectorAll(".deleteBtn").forEach(btn=>{
+  btn.addEventListener("click",function(){
+   deleteExpense(this.dataset.id);
+  });
+ });
 }
 function updateTotals(){
  const arr=filtered(), total=arr.reduce((s,e)=>s+Number(e.amount),0);

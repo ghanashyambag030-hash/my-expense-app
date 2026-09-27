@@ -27,6 +27,8 @@ jobs:
           mkdir -p app/src/main/java/com/myexpense/app
           mkdir -p app/src/main/assets
           mkdir -p app/src/main/res/values
+          mkdir -p app/src/main/res/drawable
+          cp app_icon.png app/src/main/res/drawable/app_icon.png
 
           cp index.html app/src/main/assets/index.html
 
@@ -90,6 +92,7 @@ jobs:
               <application
                   android:theme="@style/AppTheme"
                   android:label="আমার হিসাব"
+                  android:icon="@drawable/app_icon"
                   android:allowBackup="true"
                   android:supportsRtl="true">
 

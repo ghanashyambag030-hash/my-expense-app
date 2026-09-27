@@ -125,7 +125,7 @@ function renderCategories(){
  list.innerHTML=categories.length?categories.map((c,i)=>`
  <div class="cat-row"><span>🏷️ ${esc(c)}</span><div class="cat-actions">
  <button class="yellow" onclick="editCategory(${i})">✏️</button>
- <button class="red" onclick="deleteCategory(${i})">🗑️</button>
+ <button class="red" type="button" onclick="window.deleteExpense(${e.id})">🗑️ Delete</button>
  </div></div>`).join(""):'<div class="empty">কোনো Category নেই।</div>';
 }
 function openCategoryModal(index=null){

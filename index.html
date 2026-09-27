@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>আমার দৈনন্দিন হিসাব</title>
+<title>ржЖржорж╛рж░ ржжрзИржиржирзНржжрж┐ржи рж╣рж┐рж╕рж╛ржм</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:#f4f6f8;color:#222}
@@ -38,53 +38,53 @@ button{border:0;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointe
 </style>
 </head>
 <body>
-<header><h1>💰 আমার দৈনন্দিন হিসাব</h1><p>প্রতিদিনের খরচ সহজে লিখে রাখুন</p></header>
+<header><h1>ЁЯТ░ ржЖржорж╛рж░ ржжрзИржиржирзНржжрж┐ржи рж╣рж┐рж╕рж╛ржм</h1><p>ржкрзНрж░рждрж┐ржжрж┐ржирзЗрж░ ржЦрж░ржЪ рж╕рж╣ржЬрзЗ рж▓рж┐ржЦрзЗ рж░рж╛ржЦрзБржи</p></header>
 <div class="container">
 
 <div class="summary">
-<div class="card"><h3>আজকের খরচ</h3><strong id="todayTotal">₹0.00</strong></div>
-<div class="card"><h3>এই মাসের খরচ</h3><strong id="monthTotal">₹0.00</strong></div>
-<div class="card"><h3>এই বছরের খরচ</h3><strong id="yearTotal">₹0.00</strong></div>
+<div class="card"><h3>ржЖржЬржХрзЗрж░ ржЦрж░ржЪ</h3><strong id="todayTotal">тВ╣0.00</strong></div>
+<div class="card"><h3>ржПржЗ ржорж╛рж╕рзЗрж░ ржЦрж░ржЪ</h3><strong id="monthTotal">тВ╣0.00</strong></div>
+<div class="card"><h3>ржПржЗ ржмржЫрж░рзЗрж░ ржЦрж░ржЪ</h3><strong id="yearTotal">тВ╣0.00</strong></div>
 </div>
 
 <div class="box">
-<h2 id="formTitle">➕ নতুন খরচ যোগ করুন</h2>
+<h2 id="formTitle">тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи</h2>
 <div class="grid">
-<div><label>তারিখ</label><input type="date" id="date"></div>
+<div><label>рждрж╛рж░рж┐ржЦ</label><input type="date" id="date"></div>
 <div><label>Category</label><select id="category"></select></div>
-<div><label>কী কিনেছেন / Item</label><input id="item" placeholder="যেমন: রুই মাছ"></div>
-<div><label>টাকার পরিমাণ</label><input type="number" id="amount" min="0" step="0.01" placeholder="যেমন: 500"></div>
-<div class="full"><label>নোট (ঐচ্ছিক)</label><textarea id="note" placeholder="প্রয়োজনে কিছু লিখুন..."></textarea></div>
+<div><label>ржХрзА ржХрж┐ржирзЗржЫрзЗржи / Item</label><input id="item" placeholder="ржпрзЗржоржи: рж░рзБржЗ ржорж╛ржЫ"></div>
+<div><label>ржЯрж╛ржХрж╛рж░ ржкрж░рж┐ржорж╛ржг</label><input type="number" id="amount" min="0" step="0.01" placeholder="ржпрзЗржоржи: 500"></div>
+<div class="full"><label>ржирзЛржЯ (ржРржЪрзНржЫрж┐ржХ)</label><textarea id="note" placeholder="ржкрзНрж░рзЯрзЛржЬржирзЗ ржХрж┐ржЫрзБ рж▓рж┐ржЦрзБржи..."></textarea></div>
 </div>
-<button class="primary" id="saveBtn" onclick="saveExpense()">💾 খরচ Save করুন</button>
+<button class="primary" id="saveBtn" onclick="saveExpense()">ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи</button>
 <button class="primary secondary" id="cancelBtn" onclick="cancelEdit()" style="display:none">Cancel</button>
 </div>
 
 <div class="box">
-<h2>🏷️ Category Manager</h2>
-<button class="green" onclick="openCategoryModal()">➕ নতুন Category যোগ করুন</button>
+<h2>ЁЯП╖я╕П Category Manager</h2>
+<button class="green" onclick="openCategoryModal()">тЮХ ржирждрзБржи Category ржпрзЛржЧ ржХрж░рзБржи</button>
 <div id="categoryList" class="category-list"></div>
 </div>
 
 <div class="box">
-<h2>🔎 হিসাব খুঁজুন / Filter</h2>
+<h2>ЁЯФО рж╣рж┐рж╕рж╛ржм ржЦрзБржБржЬрзБржи / Filter</h2>
 <div class="grid">
-<div><label>Search</label><input id="search" placeholder="যেমন: মাছ, সবজি..."></div>
-<div><label>নির্দিষ্ট তারিখ</label><input type="date" id="filterDate"></div>
-<div><label>মাস</label><input type="month" id="filterMonth"></div>
+<div><label>Search</label><input id="search" placeholder="ржпрзЗржоржи: ржорж╛ржЫ, рж╕ржмржЬрж┐..."></div>
+<div><label>ржирж┐рж░рзНржжрж┐рж╖рзНржЯ рждрж╛рж░рж┐ржЦ</label><input type="date" id="filterDate"></div>
+<div><label>ржорж╛рж╕</label><input type="month" id="filterMonth"></div>
 <div><label>Category</label><select id="filterCategory"></select></div>
 </div>
-<div class="total">নির্বাচিত হিসাবের মোট: <span id="filteredTotal">₹0.00</span></div>
+<div class="total">ржирж┐рж░рзНржмрж╛ржЪрж┐ржд рж╣рж┐рж╕рж╛ржмрзЗрж░ ржорзЛржЯ: <span id="filteredTotal">тВ╣0.00</span></div>
 </div>
 
-<div class="box"><h2>📋 খরচের তালিকা</h2><div id="expenseList"></div></div>
+<div class="box"><h2>ЁЯУЛ ржЦрж░ржЪрзЗрж░ рждрж╛рж▓рж┐ржХрж╛</h2><div id="expenseList"></div></div>
 </div>
 
 <div class="modal" id="categoryModal">
 <div class="modal-content">
-<h2 id="catModalTitle">নতুন Category</h2>
-<label>Category-এর নাম</label>
-<input id="categoryName" placeholder="যেমন: ওষুধ">
+<h2 id="catModalTitle">ржирждрзБржи Category</h2>
+<label>Category-ржПрж░ ржирж╛ржо</label>
+<input id="categoryName" placeholder="ржпрзЗржоржи: ржУрж╖рзБржз">
 <div class="modal-actions">
 <button class="green" onclick="saveCategory()">Save</button>
 <button class="secondary" onclick="closeCategoryModal()">Cancel</button>
@@ -94,7 +94,7 @@ button{border:0;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointe
 
 <script>
 let expenses=[];
-let categories=["বাজার","সবজি","মাছ","মাংস","চাল / ডাল","যাতায়াত","বিদ্যুৎ","মোবাইল","বাড়ি","অন্যান্য"];
+let categories=["ржмрж╛ржЬрж╛рж░","рж╕ржмржЬрж┐","ржорж╛ржЫ","ржорж╛ржВрж╕","ржЪрж╛рж▓ / ржбрж╛рж▓","ржпрж╛рждрж╛ржпрж╝рж╛ржд","ржмрж┐ржжрзНржпрзБрзО","ржорзЛржмрж╛ржЗрж▓","ржмрж╛ржбрж╝рж┐","ржЕржирзНржпрж╛ржирзНржп"];
 let editId=null, editCategoryIndex=null;
 
 function loadData(){
@@ -110,59 +110,60 @@ function today(){
  const d=new Date(), y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,"0"), day=String(d.getDate()).padStart(2,"0");
  return `${y}-${m}-${day}`;
 }
-function money(v){return "₹"+Number(v||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function money(v){return "тВ╣"+Number(v||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
 function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
 function renderCategories(){
  const cat=document.getElementById("category");
  const filter=document.getElementById("filterCategory");
+ const list=document.getElementById("categoryList");
+ const oldCat=cat.value, oldFilter=filter.value;
 
- const oldCat=cat.value;
- const oldFilter=filter.value;
+ cat.innerHTML='<option value="">Category ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржи</option>';
+ filter.innerHTML='<option value="">рж╕ржм Category</option>';
 
- cat.innerHTML=
-   '<option value="">Category নির্বাচন করুন</option>'+
-   categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
-
- filter.innerHTML=
-   '<option value="">সব Category</option>'+
-   categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+ categories.forEach((name)=>{
+  const a=document.createElement("option");
+  a.value=name; a.textContent=name; cat.appendChild(a);
+  const b=document.createElement("option");
+  b.value=name; b.textContent=name; filter.appendChild(b);
+ });
 
  if(categories.includes(oldCat)) cat.value=oldCat;
  if(categories.includes(oldFilter)) filter.value=oldFilter;
 
- const list=document.getElementById("categoryList");
-
+ list.innerHTML="";
  if(!categories.length){
-   list.innerHTML='<div class="empty">কোনো Category নেই।</div>';
-   return;
+  list.innerHTML='<div class="empty">ржХрзЛржирзЛ Category ржирзЗржЗред</div>';
+  return;
  }
 
- list.innerHTML=categories.map((c,i)=>`
-   <div class="cat-row">
-     <span>🏷️ ${esc(c)}</span>
-     <div class="cat-actions">
-       <button type="button" class="yellow" data-edit-category="${i}">✏️</button>
-       <button type="button" class="red" data-delete-category="${i}">🗑️</button>
-     </div>
-   </div>
- `).join("");
+ categories.forEach((name,index)=>{
+  const row=document.createElement("div");
+  row.className="cat-row";
 
- list.querySelectorAll("[data-edit-category]").forEach(btn=>{
-   btn.addEventListener("click",function(){
-     editCategory(Number(this.dataset.editCategory));
-   });
- });
+  const title=document.createElement("span");
+  title.textContent="ЁЯП╖я╕П "+name;
 
- list.querySelectorAll("[data-delete-category]").forEach(btn=>{
-   btn.addEventListener("click",function(){
-     deleteCategory(Number(this.dataset.deleteCategory));
-   });
+  const actions=document.createElement("div");
+  actions.className="cat-actions";
+
+  const editBtn=document.createElement("button");
+  editBtn.type="button"; editBtn.className="yellow"; editBtn.textContent="тЬПя╕П";
+  editBtn.addEventListener("click",()=>editCategory(index));
+
+  const deleteBtn=document.createElement("button");
+  deleteBtn.type="button"; deleteBtn.className="red"; deleteBtn.textContent="ЁЯЧСя╕П";
+  deleteBtn.addEventListener("click",()=>deleteCategory(index));
+
+  actions.appendChild(editBtn); actions.appendChild(deleteBtn);
+  row.appendChild(title); row.appendChild(actions);
+  list.appendChild(row);
  });
 }
 function openCategoryModal(index=null){
  editCategoryIndex=index;
- document.getElementById("catModalTitle").textContent=index===null?"নতুন Category":"Category Edit করুন";
+ document.getElementById("catModalTitle").textContent=index===null?"ржирждрзБржи Category":"Category Edit ржХрж░рзБржи";
  document.getElementById("categoryName").value=index===null?"":categories[index];
  document.getElementById("categoryModal").style.display="flex";
  setTimeout(()=>document.getElementById("categoryName").focus(),100);
@@ -170,13 +171,13 @@ function openCategoryModal(index=null){
 function closeCategoryModal(){document.getElementById("categoryModal").style.display="none";editCategoryIndex=null}
 function saveCategory(){
  const name=document.getElementById("categoryName").value.trim();
- if(!name){alert("Category-এর নাম লিখুন।");return}
+ if(!name){alert("Category-ржПрж░ ржирж╛ржо рж▓рж┐ржЦрзБржиред");return}
  if(editCategoryIndex===null){
-  if(categories.some(c=>c.toLowerCase()===name.toLowerCase())){alert("এই Category আগে থেকেই আছে।");return}
+  if(categories.some(c=>c.toLowerCase()===name.toLowerCase())){alert("ржПржЗ Category ржЖржЧрзЗ ржерзЗржХрзЗржЗ ржЖржЫрзЗред");return}
   categories.push(name);
  }else{
   const old=categories[editCategoryIndex];
-  if(categories.some((c,i)=>i!==editCategoryIndex&&c.toLowerCase()===name.toLowerCase())){alert("এই Category আগে থেকেই আছে।");return}
+  if(categories.some((c,i)=>i!==editCategoryIndex&&c.toLowerCase()===name.toLowerCase())){alert("ржПржЗ Category ржЖржЧрзЗ ржерзЗржХрзЗржЗ ржЖржЫрзЗред");return}
   categories[editCategoryIndex]=name;
   expenses.forEach(e=>{if(e.category===old)e.category=name});
   saveData();
@@ -184,52 +185,40 @@ function saveCategory(){
  saveCategories(); renderCategories(); render(); closeCategoryModal();
 }
 function editCategory(i){openCategoryModal(i)}
- function deleteCategory(i){
-
- if(!Number.isInteger(i)) return;
-
- if(i < 0 || i >= categories.length) return;
-
+function deleteCategory(i){
+ if(!Number.isInteger(i)||i<0||i>=categories.length){
+  alert("Category ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред");
+  return;
+ }
  const name=categories[i];
-
  const usedCount=expenses.filter(e=>e.category===name).length;
-
- let message=`"${name}" Category Delete করবেন?`;
-
+ let msg='"'+name+'" Category Delete ржХрж░ржмрзЗржи?';
  if(usedCount>0){
-   message+=
-     `\n\nএই Category-তে ${usedCount}টি পুরনো হিসাব আছে।`+
-     `\nCategory Delete করলেও পুরনো হিসাবগুলো Delete হবে না।`;
+  msg+="\\n\\nржПржЗ Category-рждрзЗ "+usedCount+"ржЯрж┐ ржкрзБрж░ржирзЛ рж╣рж┐рж╕рж╛ржм ржЖржЫрзЗред";
+  msg+="\\nCategory Delete ржХрж░рж▓рзЗржУ ржкрзБрж░ржирзЛ рж╣рж┐рж╕рж╛ржмржЧрзБрж▓рзЛ Delete рж╣ржмрзЗ ржирж╛ред";
  }
-
- const ok=confirm(message);
-
- if(!ok) return;
-
+ if(!window.confirm(msg)) return;
  categories.splice(i,1);
-
  saveCategories();
+ render();
+}
 
- renderCategories();
- renderList();
- updateTotals();
- }
 function saveExpense(){
  const date=document.getElementById("date").value;
  const category=document.getElementById("category").value;
  const item=document.getElementById("item").value.trim();
  const amount=parseFloat(document.getElementById("amount").value);
  const note=document.getElementById("note").value.trim();
- if(!date){alert("তারিখ নির্বাচন করুন।");return}
- if(!category){alert("Category নির্বাচন করুন।");return}
- if(!item){alert("Item-এর নাম লিখুন।");return}
- if(isNaN(amount)||amount<=0){alert("সঠিক টাকার পরিমাণ লিখুন।");return}
+ if(!date){alert("рждрж╛рж░рж┐ржЦ ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржиред");return}
+ if(!category){alert("Category ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржиред");return}
+ if(!item){alert("Item-ржПрж░ ржирж╛ржо рж▓рж┐ржЦрзБржиред");return}
+ if(isNaN(amount)||amount<=0){alert("рж╕ржарж┐ржХ ржЯрж╛ржХрж╛рж░ ржкрж░рж┐ржорж╛ржг рж▓рж┐ржЦрзБржиред");return}
  if(editId!==null){
   const e=expenses.find(x=>x.id===editId);
   if(e)Object.assign(e,{date,category,item,amount,note});
   editId=null;
-  document.getElementById("formTitle").textContent="➕ নতুন খরচ যোগ করুন";
-  document.getElementById("saveBtn").textContent="💾 খরচ Save করুন";
+  document.getElementById("formTitle").textContent="тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи";
+  document.getElementById("saveBtn").textContent="ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи";
   document.getElementById("cancelBtn").style.display="none";
  }else{
   expenses.push({id:Date.now(),date,category,item,amount,note});
@@ -251,15 +240,30 @@ function editExpense(id){
  document.getElementById("item").value=e.item;
  document.getElementById("amount").value=e.amount;
  document.getElementById("note").value=e.note||"";
- document.getElementById("formTitle").textContent="✏️ খরচ Edit করুন";
- document.getElementById("saveBtn").textContent="💾 পরিবর্তন Save করুন";
+ document.getElementById("formTitle").textContent="тЬПя╕П ржЦрж░ржЪ Edit ржХрж░рзБржи";
+ document.getElementById("saveBtn").textContent="ЁЯТ╛ ржкрж░рж┐ржмрж░рзНрждржи Save ржХрж░рзБржи";
  document.getElementById("cancelBtn").style.display="block";
  scrollTo({top:0,behavior:"smooth"});
 }
-function cancelEdit(){editId=null;document.getElementById("formTitle").textContent="➕ নতুন খরচ যোগ করুন";document.getElementById("saveBtn").textContent="💾 খরচ Save করুন";document.getElementById("cancelBtn").style.display="none";clearForm()}
+function cancelEdit(){editId=null;document.getElementById("formTitle").textContent="тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи";document.getElementById("saveBtn").textContent="ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи";document.getElementById("cancelBtn").style.display="none";clearForm()}
 function deleteExpense(id){
- if(!confirm("এই খরচটি Delete করবেন?"))return;
- expenses=expenses.filter(e=>e.id!==id);saveData();render();
+ const numericId=Number(id);
+ const index=expenses.findIndex(e=>Number(e.id)===numericId);
+ if(index===-1){
+  alert("ржПржЗ рж╣рж┐рж╕рж╛ржмржЯрж┐ ржкрж╛ржУрзЯрж╛ ржпрж╛ржЪрзНржЫрзЗ ржирж╛ред");
+  return;
+ }
+ const e=expenses[index];
+ if(!window.confirm("ржПржЗ рж╣рж┐рж╕рж╛ржмржЯрж┐ Delete ржХрж░ржмрзЗржи?\n\nItem: "+(e.item||"")+"\nржкрж░рж┐ржорж╛ржг: "+money(e.amount)+"\nрждрж╛рж░рж┐ржЦ: "+(e.date||""))) return;
+ expenses.splice(index,1);
+ saveData();
+ if(editId!==null && Number(editId)===numericId){
+  editId=null;
+  document.getElementById("formTitle").textContent="тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи";
+  document.getElementById("saveBtn").textContent="ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи";
+  document.getElementById("cancelBtn").style.display="none";
+ }
+ render();
 }
 function filtered(){
  const s=document.getElementById("search").value.trim().toLowerCase();
@@ -272,13 +276,64 @@ function filtered(){
  );
 }
 function renderList(){
- const list=document.getElementById("expenseList"), arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
- if(!arr.length){list.innerHTML='<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';return}
- list.innerHTML=arr.map(e=>`
- <div class="expense"><div class="top"><div class="item">${esc(e.item)}</div><div class="amount">${money(e.amount)}</div></div>
- <div class="meta">📅 ${esc(e.date.split("-").reverse().join("-"))} &nbsp;|&nbsp; 🏷️ ${esc(e.category)}</div>
- ${e.note?`<div class="note">📝 ${esc(e.note)}</div>`:""}
- <div class="actions"><button class="yellow" onclick="editExpense(${e.id})">✏️ Edit</button><button class="red" onclick="deleteExpense(${e.id})">🗑️ Delete</button></div></div>`).join("");
+ const list=document.getElementById("expenseList");
+ const arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ list.innerHTML="";
+ if(!arr.length){
+  list.innerHTML='<div class="empty">ржХрзЛржирзЛ рж╣рж┐рж╕рж╛ржм ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред</div>';
+  return;
+ }
+ arr.forEach(e=>{
+  const box=document.createElement("div");
+  box.className="expense";
+
+  const top=document.createElement("div");
+  top.className="top";
+
+  const item=document.createElement("div");
+  item.className="item";
+  item.textContent=e.item||"";
+
+  const amount=document.createElement("div");
+  amount.className="amount";
+  amount.textContent=money(e.amount);
+
+  top.appendChild(item);
+  top.appendChild(amount);
+  box.appendChild(top);
+
+  const meta=document.createElement("div");
+  meta.className="meta";
+  meta.textContent="ЁЯУЕ "+String(e.date||"").split("-").reverse().join("-")+" | ЁЯП╖я╕П "+(e.category||"");
+  box.appendChild(meta);
+
+  if(e.note){
+   const note=document.createElement("div");
+   note.className="note";
+   note.textContent="ЁЯУЭ "+e.note;
+   box.appendChild(note);
+  }
+
+  const actions=document.createElement("div");
+  actions.className="actions";
+
+  const editBtn=document.createElement("button");
+  editBtn.type="button";
+  editBtn.className="yellow";
+  editBtn.textContent="тЬПя╕П Edit";
+  editBtn.addEventListener("click",()=>editExpense(e.id));
+
+  const deleteBtn=document.createElement("button");
+  deleteBtn.type="button";
+  deleteBtn.className="red";
+  deleteBtn.textContent="ЁЯЧСя╕П Delete";
+  deleteBtn.addEventListener("click",()=>deleteExpense(e.id));
+
+  actions.appendChild(editBtn);
+  actions.appendChild(deleteBtn);
+  box.appendChild(actions);
+  list.appendChild(box);
+ });
 }
 function updateTotals(){
  const arr=filtered(), total=arr.reduce((s,e)=>s+Number(e.amount),0);

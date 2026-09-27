@@ -114,19 +114,51 @@ function money(v){return "₹"+Number(v||0).toLocaleString("en-IN",{minimumFract
 function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
 function renderCategories(){
- const cat=document.getElementById("category"), filter=document.getElementById("filterCategory");
- const oldCat=cat.value, oldFilter=filter.value;
- cat.innerHTML='<option value="">Category নির্বাচন করুন</option>'+categories.map(c=>`<option>${esc(c)}</option>`).join("");
- filter.innerHTML='<option value="">সব Category</option>'+categories.map(c=>`<option>${esc(c)}</option>`).join("");
+ const cat=document.getElementById("category");
+ const filter=document.getElementById("filterCategory");
+
+ const oldCat=cat.value;
+ const oldFilter=filter.value;
+
+ cat.innerHTML=
+   '<option value="">Category নির্বাচন করুন</option>'+
+   categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+
+ filter.innerHTML=
+   '<option value="">সব Category</option>'+
+   categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+
  if(categories.includes(oldCat)) cat.value=oldCat;
  if(categories.includes(oldFilter)) filter.value=oldFilter;
 
  const list=document.getElementById("categoryList");
- list.innerHTML=categories.length?categories.map((c,i)=>`
- <div class="cat-row"><span>🏷️ ${esc(c)}</span><div class="cat-actions">
- <button class="yellow" onclick="editCategory(${i})">✏️</button>
- <button class="red" onclick="deleteCategory(${i})">🗑️</button>
- </div></div>`).join(""):'<div class="empty">কোনো Category নেই।</div>';
+
+ if(!categories.length){
+   list.innerHTML='<div class="empty">কোনো Category নেই।</div>';
+   return;
+ }
+
+ list.innerHTML=categories.map((c,i)=>`
+   <div class="cat-row">
+     <span>🏷️ ${esc(c)}</span>
+     <div class="cat-actions">
+       <button type="button" class="yellow" data-edit-category="${i}">✏️</button>
+       <button type="button" class="red" data-delete-category="${i}">🗑️</button>
+     </div>
+   </div>
+ `).join("");
+
+ list.querySelectorAll("[data-edit-category]").forEach(btn=>{
+   btn.addEventListener("click",function(){
+     editCategory(Number(this.dataset.editCategory));
+   });
+ });
+
+ list.querySelectorAll("[data-delete-category]").forEach(btn=>{
+   btn.addEventListener("click",function(){
+     deleteCategory(Number(this.dataset.deleteCategory));
+   });
+ });
 }
 function openCategoryModal(index=null){
  editCategoryIndex=index;

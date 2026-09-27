@@ -131,6 +131,7 @@ jobs:
           import android.webkit.WebResourceResponse;
           import android.webkit.WebSettings;
           import android.webkit.WebView;
+          import android.webkit.WebChromeClient;
 
           import androidx.annotation.NonNull;
           import androidx.annotation.RequiresApi;

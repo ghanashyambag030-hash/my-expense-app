@@ -114,52 +114,19 @@ function money(v){return "тВ╣"+Number(v||0).toLocaleString("en-IN",{minimumF
 function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
 function renderCategories(){
- const cat=document.getElementById("category");
- const filter=document.getElementById("filterCategory");
- const list=document.getElementById("categoryList");
+ const cat=document.getElementById("category"), filter=document.getElementById("filterCategory");
  const oldCat=cat.value, oldFilter=filter.value;
-
- cat.innerHTML='<option value="">Category ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржи</option>';
- filter.innerHTML='<option value="">рж╕ржм Category</option>';
-
- categories.forEach((name)=>{
-  const a=document.createElement("option");
-  a.value=name; a.textContent=name; cat.appendChild(a);
-  const b=document.createElement("option");
-  b.value=name; b.textContent=name; filter.appendChild(b);
- });
-
+ cat.innerHTML='<option value="">Category ржирж┐рж░рзНржмрж╛ржЪржи ржХрж░рзБржи</option>'+categories.map(c=>`<option>${esc(c)}</option>`).join("");
+ filter.innerHTML='<option value="">рж╕ржм Category</option>'+categories.map(c=>`<option>${esc(c)}</option>`).join("");
  if(categories.includes(oldCat)) cat.value=oldCat;
  if(categories.includes(oldFilter)) filter.value=oldFilter;
 
- list.innerHTML="";
- if(!categories.length){
-  list.innerHTML='<div class="empty">ржХрзЛржирзЛ Category ржирзЗржЗред</div>';
-  return;
- }
-
- categories.forEach((name,index)=>{
-  const row=document.createElement("div");
-  row.className="cat-row";
-
-  const title=document.createElement("span");
-  title.textContent="ЁЯП╖я╕П "+name;
-
-  const actions=document.createElement("div");
-  actions.className="cat-actions";
-
-  const editBtn=document.createElement("button");
-  editBtn.type="button"; editBtn.className="yellow"; editBtn.textContent="тЬПя╕П";
-  editBtn.addEventListener("click",()=>editCategory(index));
-
-  const deleteBtn=document.createElement("button");
-  deleteBtn.type="button"; deleteBtn.className="red"; deleteBtn.textContent="ЁЯЧСя╕П";
-  deleteBtn.addEventListener("click",()=>deleteCategory(index));
-
-  actions.appendChild(editBtn); actions.appendChild(deleteBtn);
-  row.appendChild(title); row.appendChild(actions);
-  list.appendChild(row);
- });
+ const list=document.getElementById("categoryList");
+ list.innerHTML=categories.length?categories.map((c,i)=>`
+ <div class="cat-row"><span>ЁЯП╖я╕П ${esc(c)}</span><div class="cat-actions">
+ <button class="yellow" onclick="editCategory(${i})">тЬПя╕П</button>
+ <button class="red" onclick="deleteCategory(${i})">ЁЯЧСя╕П</button>
+ </div></div>`).join(""):'<div class="empty">ржХрзЛржирзЛ Category ржирзЗржЗред</div>';
 }
 function openCategoryModal(index=null){
  editCategoryIndex=index;
@@ -186,21 +153,13 @@ function saveCategory(){
 }
 function editCategory(i){openCategoryModal(i)}
 function deleteCategory(i){
- if(!Number.isInteger(i)||i<0||i>=categories.length){
-  alert("Category ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред");
+ const name=categories[i];
+ if(expenses.some(e=>e.category===name)){
+  alert("ржПржЗ Category-рждрзЗ ржкрзБрж░ржирзЛ рж╣рж┐рж╕рж╛ржм ржЖржЫрзЗред рждрж╛ржЗ ржирж┐рж░рж╛ржкрждрзНрждрж╛рж░ ржЬржирзНржп ржПржЯрж┐ Delete ржХрж░рж╛ ржпрж╛ржмрзЗ ржирж╛ред ржЖржЧрзЗ рж╣рж┐рж╕рж╛ржмржЧрзБрж▓рзЛ ржЕржирзНржп Category-рждрзЗ Edit ржХрж░рзБржиред");
   return;
  }
- const name=categories[i];
- const usedCount=expenses.filter(e=>e.category===name).length;
- let msg='"'+name+'" Category Delete ржХрж░ржмрзЗржи?';
- if(usedCount>0){
-  msg+="\\n\\nржПржЗ Category-рждрзЗ "+usedCount+"ржЯрж┐ ржкрзБрж░ржирзЛ рж╣рж┐рж╕рж╛ржм ржЖржЫрзЗред";
-  msg+="\\nCategory Delete ржХрж░рж▓рзЗржУ ржкрзБрж░ржирзЛ рж╣рж┐рж╕рж╛ржмржЧрзБрж▓рзЛ Delete рж╣ржмрзЗ ржирж╛ред";
- }
- if(!window.confirm(msg)) return;
- categories.splice(i,1);
- saveCategories();
- render();
+ if(!confirm(`"${name}" Category Delete ржХрж░ржмрзЗржи?`))return;
+ categories.splice(i,1);saveCategories();renderCategories();render();
 }
 
 function saveExpense(){
@@ -247,21 +206,19 @@ function editExpense(id){
 }
 function cancelEdit(){editId=null;document.getElementById("formTitle").textContent="тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи";document.getElementById("saveBtn").textContent="ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи";document.getElementById("cancelBtn").style.display="none";clearForm()}
 function deleteExpense(id){
- const numericId=Number(id);
- const index=expenses.findIndex(e=>Number(e.id)===numericId);
- if(index===-1){
-  alert("ржПржЗ рж╣рж┐рж╕рж╛ржмржЯрж┐ ржкрж╛ржУрзЯрж╛ ржпрж╛ржЪрзНржЫрзЗ ржирж╛ред");
-  return;
- }
- const e=expenses[index];
- if(!window.confirm("ржПржЗ рж╣рж┐рж╕рж╛ржмржЯрж┐ Delete ржХрж░ржмрзЗржи?\n\nItem: "+(e.item||"")+"\nржкрж░рж┐ржорж╛ржг: "+money(e.amount)+"\nрждрж╛рж░рж┐ржЦ: "+(e.date||""))) return;
+ const targetId=Number(id);
+ const index=expenses.findIndex(e=>Number(e.id)===targetId);
+ if(index===-1){alert("ржПржЗ ржЦрж░ржЪржЯрж┐ ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред");return}
+ const item=expenses[index];
+ if(!confirm(`"${item.item||""}" ржЦрж░ржЪржЯрж┐ Delete ржХрж░ржмрзЗржи?\n\nржкрж░рж┐ржорж╛ржг: ${money(item.amount)}`))return;
  expenses.splice(index,1);
  saveData();
- if(editId!==null && Number(editId)===numericId){
+ if(Number(editId)===targetId){
   editId=null;
   document.getElementById("formTitle").textContent="тЮХ ржирждрзБржи ржЦрж░ржЪ ржпрзЛржЧ ржХрж░рзБржи";
   document.getElementById("saveBtn").textContent="ЁЯТ╛ ржЦрж░ржЪ Save ржХрж░рзБржи";
   document.getElementById("cancelBtn").style.display="none";
+  clearForm();
  }
  render();
 }
@@ -276,64 +233,13 @@ function filtered(){
  );
 }
 function renderList(){
- const list=document.getElementById("expenseList");
- const arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
- list.innerHTML="";
- if(!arr.length){
-  list.innerHTML='<div class="empty">ржХрзЛржирзЛ рж╣рж┐рж╕рж╛ржм ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред</div>';
-  return;
- }
- arr.forEach(e=>{
-  const box=document.createElement("div");
-  box.className="expense";
-
-  const top=document.createElement("div");
-  top.className="top";
-
-  const item=document.createElement("div");
-  item.className="item";
-  item.textContent=e.item||"";
-
-  const amount=document.createElement("div");
-  amount.className="amount";
-  amount.textContent=money(e.amount);
-
-  top.appendChild(item);
-  top.appendChild(amount);
-  box.appendChild(top);
-
-  const meta=document.createElement("div");
-  meta.className="meta";
-  meta.textContent="ЁЯУЕ "+String(e.date||"").split("-").reverse().join("-")+" | ЁЯП╖я╕П "+(e.category||"");
-  box.appendChild(meta);
-
-  if(e.note){
-   const note=document.createElement("div");
-   note.className="note";
-   note.textContent="ЁЯУЭ "+e.note;
-   box.appendChild(note);
-  }
-
-  const actions=document.createElement("div");
-  actions.className="actions";
-
-  const editBtn=document.createElement("button");
-  editBtn.type="button";
-  editBtn.className="yellow";
-  editBtn.textContent="тЬПя╕П Edit";
-  editBtn.addEventListener("click",()=>editExpense(e.id));
-
-  const deleteBtn=document.createElement("button");
-  deleteBtn.type="button";
-  deleteBtn.className="red";
-  deleteBtn.textContent="ЁЯЧСя╕П Delete";
-  deleteBtn.addEventListener("click",()=>deleteExpense(e.id));
-
-  actions.appendChild(editBtn);
-  actions.appendChild(deleteBtn);
-  box.appendChild(actions);
-  list.appendChild(box);
- });
+ const list=document.getElementById("expenseList"), arr=filtered().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ if(!arr.length){list.innerHTML='<div class="empty">ржХрзЛржирзЛ рж╣рж┐рж╕рж╛ржм ржкрж╛ржУрзЯрж╛ ржпрж╛рзЯржирж┐ред</div>';return}
+ list.innerHTML=arr.map(e=>`
+ <div class="expense"><div class="top"><div class="item">${esc(e.item)}</div><div class="amount">${money(e.amount)}</div></div>
+ <div class="meta">ЁЯУЕ ${esc(e.date.split("-").reverse().join("-"))} &nbsp;|&nbsp; ЁЯП╖я╕П ${esc(e.category)}</div>
+ ${e.note?`<div class="note">ЁЯУЭ ${esc(e.note)}</div>`:""}
+ <div class="actions"><button class="yellow" onclick="editExpense(${e.id})">тЬПя╕П Edit</button><button class="red" onclick="deleteExpense(${e.id})">ЁЯЧСя╕П Delete</button></div></div>`).join("");
 }
 function updateTotals(){
  const arr=filtered(), total=arr.reduce((s,e)=>s+Number(e.amount),0);

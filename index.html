@@ -154,12 +154,24 @@ function saveCategory(){
 function editCategory(i){openCategoryModal(i)}
 function deleteCategory(i){
  const name=categories[i];
- if(expenses.some(e=>e.category===name)){
-  alert("এই Category-তে পুরনো হিসাব আছে। তাই নিরাপত্তার জন্য এটি Delete করা যাবে না। আগে হিসাবগুলো অন্য Category-তে Edit করুন।");
-  return;
+
+ if(i<0 || i>=categories.length)return;
+
+ const usedCount=expenses.filter(e=>e.category===name).length;
+
+ let message=`"${name}" Category Delete করবেন?`;
+
+ if(usedCount>0){
+  message+=`\n\nএই Category-তে ${usedCount}টি পুরনো হিসাব আছে।\nCategory মুছে দিলেও পুরনো হিসাবগুলো Delete হবে না।`;
  }
- if(!confirm(`"${name}" Category Delete করবেন?`))return;
- categories.splice(i,1);saveCategories();renderCategories();render();
+
+ if(!confirm(message))return;
+
+ categories.splice(i,1);
+ saveCategories();
+
+ renderCategories();
+ render();
 }
 
 function saveExpense(){

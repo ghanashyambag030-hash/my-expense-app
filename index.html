@@ -1920,11 +1920,17 @@ document.getElementById(
 ========================= */
 
 loadData();
-
+loadIncome();
+ 
 document.getElementById(
  "date"
 ).value=today();
-
+ 
+ document.getElementById(
+ "incomeDate"
+).value=today();
+renderIncomeList();
+ 
 render();
 
 </script>

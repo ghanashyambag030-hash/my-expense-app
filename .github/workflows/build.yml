@@ -28,6 +28,7 @@ jobs:
           mkdir -p app/src/main/assets
           mkdir -p app/src/main/res/values
           mkdir -p app/src/main/res/drawable
+
           cp app_icon.png app/src/main/res/drawable/app_icon.png
 
           cp index.html app/src/main/assets/index.html
@@ -76,8 +77,9 @@ jobs:
                   applicationId 'com.myexpense.app'
                   minSdk 24
                   targetSdk 35
-                  versionCode 2
-                  versionName '1.1'
+
+                  versionCode 3
+                  versionName '1.2'
               }
           }
 
@@ -107,6 +109,7 @@ jobs:
                       </intent-filter>
 
                   </activity>
+
               </application>
 
           </manifest>
@@ -114,13 +117,19 @@ jobs:
 
           cat > app/src/main/res/values/styles.xml <<'EOF'
           <resources>
-              <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+
+              <style
+                  name="AppTheme"
+                  parent="android:style/Theme.Material.Light.NoActionBar">
+
                   <item name="android:fontFamily">sans</item>
                   <item name="android:colorAccent">#2196F3</item>
                   <item name="android:navigationBarColor">#000000</item>
                   <item name="android:statusBarColor">#000000</item>
                   <item name="android:windowLightStatusBar">false</item>
+
               </style>
+
           </resources>
           EOF
 
@@ -145,25 +154,36 @@ jobs:
 
               private WebView webView;
 
-              private static class LocalContentWebViewClient extends WebViewClientCompat {
+              private static class LocalContentWebViewClient
+                      extends WebViewClientCompat {
+
                   private final WebViewAssetLoader assetLoader;
 
-                  LocalContentWebViewClient(WebViewAssetLoader assetLoader) {
+                  LocalContentWebViewClient(
+                          WebViewAssetLoader assetLoader) {
                       this.assetLoader = assetLoader;
                   }
 
                   @Override
                   @RequiresApi(21)
                   public WebResourceResponse shouldInterceptRequest(
-                          WebView view, @NonNull WebResourceRequest request) {
-                      return assetLoader.shouldInterceptRequest(request.getUrl());
+                          WebView view,
+                          @NonNull WebResourceRequest request) {
+
+                      return assetLoader.shouldInterceptRequest(
+                              request.getUrl()
+                      );
                   }
 
                   @Override
                   @SuppressWarnings("deprecation")
                   public WebResourceResponse shouldInterceptRequest(
-                          WebView view, String url) {
-                      return assetLoader.shouldInterceptRequest(Uri.parse(url));
+                          WebView view,
+                          String url) {
+
+                      return assetLoader.shouldInterceptRequest(
+                              Uri.parse(url)
+                      );
                   }
               }
 
@@ -174,39 +194,65 @@ jobs:
                   webView = new WebView(this);
                   setContentView(webView);
 
-                  WebSettings settings = webView.getSettings();
+                  WebSettings settings =
+                          webView.getSettings();
+
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
                   settings.setDatabaseEnabled(true);
+
                   settings.setAllowFileAccess(false);
                   settings.setAllowContentAccess(false);
 
-                  WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                          .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
-                          .build();
+                  WebViewAssetLoader assetLoader =
+                          new WebViewAssetLoader.Builder()
+                                  .addPathHandler(
+                                          "/assets/",
+                                          new WebViewAssetLoader
+                                                  .AssetsPathHandler(this)
+                                  )
+                                  .build();
 
-                  webView.setWebViewClient(new LocalContentWebViewClient(assetLoader));
-                  webView.setWebChromeClient(new WebChromeClient());
-                  webView.loadUrl("https://appassets.androidplatform.net/assets/index.html");
+                  webView.setWebViewClient(
+                          new LocalContentWebViewClient(
+                                  assetLoader
+                          )
+                  );
+
+                  webView.setWebChromeClient(
+                          new WebChromeClient()
+                  );
+
+                  webView.loadUrl(
+                          "https://appassets.androidplatform.net/assets/index.html"
+                  );
               }
 
               @Override
               public void onBackPressed() {
-                  if (webView != null && webView.canGoBack()) {
+
+                  if (
+                      webView != null &&
+                      webView.canGoBack()
+                  ) {
+
                       webView.goBack();
+
                   } else {
+
                       super.onBackPressed();
+
                   }
               }
           }
           EOF
 
-      - name: Build APK
-        run: gradle assembleDebug
+      - name: Clean and Build APK
+        run: |
+          gradle clean assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: My-Expense-App-Fixed
+          name: My-Expense-App-v3
           path: app/build/outputs/apk/debug/app-debug.apk
-          

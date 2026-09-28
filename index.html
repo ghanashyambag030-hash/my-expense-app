@@ -1164,6 +1164,73 @@ function saveIncome(){
  alert("আয় সফলভাবে Save হয়েছে।");
 
 }
+
+ /* =========================
+   INCOME LIST
+========================= */
+
+function renderIncomeList(){
+
+ const list=document.getElementById(
+  "incomeList"
+ );
+
+ if(!incomes.length){
+
+  list.innerHTML=
+   '<div class="empty">কোনো আয়ের হিসাব পাওয়া যায়নি।</div>';
+
+  return;
+
+ }
+
+ const arr=[...incomes].sort(
+  (a,b)=>
+   String(b.date||"").localeCompare(
+    String(a.date||"")
+   ) ||
+   Number(b.id)-Number(a.id)
+ );
+
+
+ list.innerHTML=arr.map(e=>`
+
+ <div class="expense">
+
+  <div class="top">
+
+   <div class="item">
+    ${esc(e.item)}
+   </div>
+
+   <div class="amount">
+    ${money(e.amount)}
+   </div>
+
+  </div>
+
+  <div class="meta">
+   📅 ${esc(
+    String(e.date||"")
+    .split("-")
+    .reverse()
+    .join("-")
+   )}
+  </div>
+
+  ${
+   e.note
+   ? `<div class="note">
+      📝 ${esc(e.note)}
+     </div>`
+   : ""
+  }
+
+ </div>
+
+ `).join("");
+
+}
 function saveExpense(){
 
  const date=document.getElementById(

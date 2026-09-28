@@ -452,6 +452,42 @@ button{
  
 </div>
 
+ 
+ <!-- ADD INCOME -->
+<div class="box">
+
+<h2 id="incomeFormTitle">💰 নতুন আয় যোগ করুন</h2>
+
+<div class="grid">
+
+<div>
+<label>তারিখ</label>
+<input type="date" id="incomeDate">
+</div>
+
+<div>
+<label>আয়ের নাম</label>
+<input id="incomeItem" placeholder="যেমন: Salary">
+</div>
+
+<div>
+<label>টাকার পরিমাণ</label>
+<input type="number" id="incomeAmount" min="0" step="0.01" placeholder="যেমন: 30000">
+</div>
+
+<div class="full">
+<label>নোট (ঐচ্ছিক)</label>
+<textarea id="incomeNote" placeholder="প্রয়োজনে কিছু লিখুন..."></textarea>
+</div>
+
+</div>
+
+<button class="primary" id="saveIncomeBtn" type="button">
+💾 আয় Save করুন
+</button>
+
+</div>
+
 
 <!-- ADD EXPENSE -->
 <div class="box">

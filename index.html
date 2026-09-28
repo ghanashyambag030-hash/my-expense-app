@@ -1026,6 +1026,136 @@ function deleteCategory(i){
    EXPENSE SAVE
 ========================= */
 
+ /* =========================
+   INCOME DATA
+========================= */
+
+let incomes=[];
+
+
+/* =========================
+   LOAD INCOME
+========================= */
+
+function loadIncome(){
+
+ try{
+
+  const data=JSON.parse(
+   localStorage.getItem("myIncomeData") || "[]"
+  );
+
+  incomes=Array.isArray(data)?data:[];
+
+ }catch(e){
+
+  incomes=[];
+
+ }
+
+}
+
+
+function saveIncomeData(){
+
+ localStorage.setItem(
+  "myIncomeData",
+  JSON.stringify(incomes)
+ );
+
+}
+
+
+/* =========================
+   SAVE INCOME
+========================= */
+
+function saveIncome(){
+
+ const date=document.getElementById(
+  "incomeDate"
+ ).value;
+
+ const item=document.getElementById(
+  "incomeItem"
+ ).value.trim();
+
+ const amount=parseFloat(
+  document.getElementById(
+   "incomeAmount"
+  ).value
+ );
+
+ const note=document.getElementById(
+  "incomeNote"
+ ).value.trim();
+
+
+ if(!date){
+
+  alert("আয়ের তারিখ নির্বাচন করুন।");
+  return;
+
+ }
+
+
+ if(!item){
+
+  alert("আয়ের নাম লিখুন।");
+  return;
+
+ }
+
+
+ if(isNaN(amount)||amount<=0){
+
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
+  return;
+
+ }
+
+
+ incomes.push({
+
+  id:Date.now(),
+
+  date,
+
+  item,
+
+  amount,
+
+  note
+
+ });
+
+
+ saveIncomeData();
+
+
+ document.getElementById(
+  "incomeDate"
+ ).value=today();
+
+ document.getElementById(
+  "incomeItem"
+ ).value="";
+
+ document.getElementById(
+  "incomeAmount"
+ ).value="";
+
+ document.getElementById(
+  "incomeNote"
+ ).value="";
+
+
+ updateTotals();
+
+
+ alert("আয় সফলভাবে Save হয়েছে।");
+
+}
 function saveExpense(){
 
  const date=document.getElementById(

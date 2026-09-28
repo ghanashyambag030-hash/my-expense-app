@@ -10,12 +10,22 @@
  box-sizing:border-box;
 }
 
-body{
+html,body{
  margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+}
+
+body{
  font-family:Arial,"Noto Sans Bengali",sans-serif;
  background:linear-gradient(180deg,#f7fbff,#eef7f4);
  color:#263238;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 header{
  background:linear-gradient(135deg,#00a878,#00c9a7);
@@ -36,13 +46,20 @@ header p{
  font-size:13px;
 }
 
+/* =========================
+   MAIN
+========================= */
+
 .container{
+ width:100%;
  max-width:900px;
- margin:auto;
+ margin:0 auto;
  padding:15px 14px 35px;
 }
 
-/* TOP ICONS */
+/* =========================
+   TOP ICONS
+========================= */
 
 .toolbar{
  display:grid;
@@ -52,6 +69,7 @@ header p{
 }
 
 .tool{
+ width:100%;
  background:#fff;
  border:1px solid #e5eeee;
  border-radius:14px;
@@ -60,6 +78,7 @@ header p{
  font-weight:700;
  font-size:12px;
  box-shadow:0 3px 10px #0000000d;
+ color:#263238;
 }
 
 .tool span{
@@ -72,7 +91,9 @@ header p{
  transform:scale(.97);
 }
 
-/* SUMMARY */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary{
  display:grid;
@@ -107,7 +128,9 @@ header p{
  font-size:16px;
 }
 
-/* BOX */
+/* =========================
+   BOX
+========================= */
 
 .box{
  padding:17px;
@@ -119,7 +142,9 @@ header p{
  font-size:18px;
 }
 
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 .grid{
  display:grid;
@@ -162,7 +187,9 @@ textarea{
  resize:vertical;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 
 button{
  border:0;
@@ -204,7 +231,9 @@ button:active{
  color:#fff;
 }
 
-/* EXPENSE */
+/* =========================
+   EXPENSE / INCOME CARD
+========================= */
 
 .expense{
  background:#fff;
@@ -219,13 +248,14 @@ button:active{
  display:flex;
  justify-content:space-between;
  gap:8px;
- align-items:center;
+ align-items:flex-start;
 }
 
 .item{
  font-size:16px;
  font-weight:800;
  min-width:0;
+ overflow-wrap:anywhere;
 }
 
 .amount{
@@ -235,7 +265,9 @@ button:active{
  white-space:nowrap;
 }
 
-/* CATEGORY BADGE */
+/* =========================
+   CATEGORY BADGE
+========================= */
 
 .category-badge{
  display:inline-flex;
@@ -280,12 +312,15 @@ button:active{
  padding:8px 11px;
 }
 
-/* CATEGORY */
+/* =========================
+   CATEGORY
+========================= */
 
 .cat-row{
  display:flex;
  align-items:center;
  justify-content:space-between;
+ gap:8px;
  border:1px solid #e5eeee;
  border-radius:12px;
  padding:9px;
@@ -301,7 +336,9 @@ button:active{
  padding:7px 9px;
 }
 
-/* TOTAL */
+/* =========================
+   TOTAL
+========================= */
 
 .total{
  margin-top:12px;
@@ -313,7 +350,9 @@ button:active{
  color:#00796b;
 }
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
  text-align:center;
@@ -321,17 +360,19 @@ button:active{
  color:#90a4ae;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
  display:none;
  position:fixed;
  inset:0;
- background:#0008;
+ background:rgba(0,0,0,.55);
  align-items:center;
  justify-content:center;
  padding:15px;
- z-index:50;
+ z-index:1000;
 }
 
 .modal-content{
@@ -349,6 +390,7 @@ button:active{
  display:flex;
  justify-content:space-between;
  align-items:center;
+ gap:10px;
  margin-bottom:12px;
 }
 
@@ -367,7 +409,34 @@ button:active{
  flex:1;
 }
 
-/* CHART */
+/* =========================
+   DELETE CONFIRMATION
+========================= */
+
+.confirm-icon{
+ font-size:48px;
+ text-align:center;
+ margin-bottom:8px;
+}
+
+.confirm-text{
+ text-align:center;
+ font-size:16px;
+ font-weight:700;
+ line-height:1.5;
+ color:#37474f;
+}
+
+.confirm-sub{
+ text-align:center;
+ font-size:13px;
+ color:#78909c;
+ margin-top:7px;
+}
+
+/* =========================
+   CHART
+========================= */
 
 .tabs{
  display:flex;
@@ -392,10 +461,12 @@ button:active{
  display:flex;
  align-items:center;
  justify-content:center;
+ overflow:hidden;
 }
 
 .chart-wrap canvas{
  max-width:100%;
+ height:auto;
 }
 
 .legend{
@@ -416,7 +487,9 @@ button:active{
  display:none;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -431,6 +504,7 @@ button:active{
  .toolbar{
   grid-template-columns:repeat(4,1fr);
  }
+
 }
 
 @media(max-width:520px){
@@ -441,10 +515,6 @@ button:active{
 
  .full{
   grid-column:auto;
- }
-
- .top{
-  align-items:flex-start;
  }
 
  .item{
@@ -472,515 +542,424 @@ button:active{
  .tool span{
   font-size:20px;
  }
+
+ .modal{
+  padding:10px;
+ }
+
+ .modal-content{
+  border-radius:17px;
+  padding:15px;
+ }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-
-<h1>আমার দৈনন্দিন হিসাব</h1>
-
-<p>আয় ও খরচ সহজে লিখে রাখুন</p>
-
+ <h1>আমার দৈনন্দিন হিসাব</h1>
+ <p>আয় ও খরচ সহজে লিখে রাখুন</p>
 </header>
 
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
 
 <div class="container">
 
-<!-- TOP ICONS -->
+ <!-- TOP ICONS -->
+ <div class="toolbar">
 
-<div class="toolbar">
+  <button type="button" class="tool" id="chartBtn">
+   <span>📊</span>
+   চার্ট
+  </button>
 
-<button class="tool" id="chartBtn">
-<span>📊</span>
-চার্ট
-</button>
+  <button type="button" class="tool" id="categoryBtn">
+   <span>🏷️</span>
+   Category
+  </button>
 
-<button class="tool" id="categoryBtn">
-<span>🏷️</span>
-Category
-</button>
+  <button type="button" class="tool" id="backupBtn">
+   <span>💾</span>
+   Backup
+  </button>
 
-<button class="tool" id="backupBtn">
-<span>💾</span>
-Backup
-</button>
+  <button type="button" class="tool" id="restoreBtn">
+   <span>♻️</span>
+   Restore
+  </button>
 
-<button class="tool" id="restoreBtn">
-<span>♻️</span>
-Restore
-</button>
+  <input
+   class="file-input"
+   id="restoreFile"
+   type="file"
+   accept=".json,application/json"
+  >
 
-<input
- class="file-input"
- id="restoreFile"
- type="file"
- accept=".json,application/json"
->
+ </div>
+
+ <!-- SUMMARY -->
+ <div class="summary">
+
+  <div class="card">
+   <h3>আজকের খরচ</h3>
+   <strong id="todayTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের খরচ</h3>
+   <strong id="monthTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই বছরের খরচ</h3>
+   <strong id="yearTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের আয়</h3>
+   <strong id="monthIncome">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসে বাকি</h3>
+   <strong id="monthBalance">₹0.00</strong>
+  </div>
+
+ </div>
+
+ <!-- INCOME FORM -->
+ <div class="box">
+
+  <h2 id="incomeFormTitle">
+   💰 নতুন আয় যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="incomeDate">
+   </div>
+
+   <div>
+    <label>আয়ের নাম</label>
+    <input id="incomeItem" placeholder="যেমন: Salary">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="incomeAmount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 30000"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="incomeNote"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveIncomeBtn">
+   💾 আয় Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelIncomeBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- EXPENSE FORM -->
+ <div class="box">
+
+  <h2 id="formTitle">
+   ➕ নতুন খরচ যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="date">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="category"></select>
+   </div>
+
+   <div>
+    <label>কী কিনেছেন / Item</label>
+    <input id="item" placeholder="যেমন: রুই মাছ">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="amount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 500"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="note"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveBtn">
+   💾 খরচ Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- FILTER -->
+ <div class="box">
+
+  <h2>🔎 হিসাব খুঁজুন / Filter</h2>
+
+  <div class="grid">
+
+   <div>
+    <label>Search</label>
+    <input id="search" placeholder="যেমন: মাছ, সবজি...">
+   </div>
+
+   <div>
+    <label>নির্দিষ্ট তারিখ</label>
+    <input type="date" id="filterDate">
+   </div>
+
+   <div>
+    <label>মাস</label>
+    <input type="month" id="filterMonth">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="filterCategory"></select>
+   </div>
+
+  </div>
+
+  <div class="total">
+   নির্বাচিত হিসাবের মোট:
+   <span id="filteredTotal">₹0.00</span>
+  </div>
+
+ </div>
+
+ <!-- EXPENSE LIST -->
+ <div class="box">
+
+  <h2>📋 খরচের তালিকা</h2>
+
+  <div id="expenseList"></div>
+
+ </div>
+
+ <!-- INCOME LIST -->
+ <div class="box">
+
+  <h2>💰 আয়ের তালিকা</h2>
+
+  <div id="incomeList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY MODAL
+========================= -->
 
-<!-- SUMMARY -->
+<div class="modal" id="categoryModal">
 
-<div class="summary">
+ <div class="modal-content">
 
-<div class="card">
-<h3>আজকের খরচ</h3>
-<strong id="todayTotal">₹0.00</strong>
-</div>
+  <div class="modal-head">
 
-<div class="card">
-<h3>এই মাসের খরচ</h3>
-<strong id="monthTotal">₹0.00</strong>
-</div>
+   <h2>🏷️ Category Manager</h2>
 
-<div class="card">
-<h3>এই বছরের খরচ</h3>
-<strong id="yearTotal">₹0.00</strong>
-</div>
+   <button type="button" class="secondary" id="closeCategoryBtn">
+    ✕
+   </button>
 
-<div class="card">
-<h3>এই মাসের আয়</h3>
-<strong id="monthIncome">₹0.00</strong>
-</div>
+  </div>
 
-<div class="card">
-<h3>এই মাসে বাকি</h3>
-<strong id="monthBalance">₹0.00</strong>
-</div>
+  <button type="button" class="green" id="addCategoryBtn">
+   ➕ নতুন Category
+  </button>
+
+  <div id="categoryList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY EDIT MODAL
+========================= -->
 
-<!-- INCOME -->
+<div class="modal" id="categoryEditModal">
 
-<div class="box">
+ <div class="modal-content">
 
-<h2 id="incomeFormTitle">
-💰 নতুন আয় যোগ করুন
-</h2>
+  <div class="modal-head">
 
-<div class="grid">
+   <h2 id="catEditTitle">
+    নতুন Category
+   </h2>
 
-<div>
-<label>তারিখ</label>
-<input type="date" id="incomeDate">
-</div>
+  </div>
 
-<div>
-<label>আয়ের নাম</label>
-<input id="incomeItem" placeholder="যেমন: Salary">
-</div>
+  <label>Category-এর নাম</label>
 
-<div>
-<label>টাকার পরিমাণ</label>
-<input
- type="number"
- id="incomeAmount"
- min="0"
- step="0.01"
- placeholder="যেমন: 30000"
->
-</div>
+  <input
+   id="categoryName"
+   placeholder="যেমন: ওষুধ"
+  >
 
-<div class="full">
+  <div class="modal-actions">
 
-<label>নোট (ঐচ্ছিক)</label>
+   <button type="button" class="green" id="saveCategoryBtn">
+    Save
+   </button>
 
-<textarea
- id="incomeNote"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+   <button type="button" class="secondary" id="closeCategoryEditBtn">
+    Cancel
+   </button>
+
+  </div>
+
+ </div>
 
 </div>
 
-</div>
+<!-- =========================
+     CHART MODAL
+========================= -->
 
-<button
- class="primary"
- id="saveIncomeBtn"
->
-💾 আয় Save করুন
-</button>
+<div class="modal" id="chartModal">
 
-<button
- class="primary secondary"
- id="cancelIncomeBtn"
- style="display:none"
->
-Cancel
-</button>
+ <div class="modal-content">
 
-</div>
+  <div class="modal-head">
 
+   <h2>📊 হিসাবের চার্ট</h2>
 
-<!-- EXPENSE FORM -->
+   <button type="button" class="secondary" id="closeChartBtn">
+    ✕
+   </button>
 
-<div class="box">
+  </div>
 
-<h2 id="formTitle">
-➕ নতুন খরচ যোগ করুন
-</h2>
+  <div class="tabs">
 
-<div class="grid">
+   <button type="button" class="active" data-chart="daily">
+    Daily
+   </button>
 
-<div>
+   <button type="button" data-chart="monthly">
+    Monthly
+   </button>
 
-<label>তারিখ</label>
+   <button type="button" data-chart="yearly">
+    Yearly
+   </button>
 
-<input
- type="date"
- id="date"
->
+  </div>
 
-</div>
+  <div class="chart-wrap">
+   <canvas id="chartCanvas" width="650" height="330"></canvas>
+  </div>
 
+  <div id="chartLegend" class="legend"></div>
 
-<div>
-
-<label>Category</label>
-
-<select id="category"></select>
+ </div>
 
 </div>
 
+<!-- =========================
+     DELETE CONFIRM MODAL
+========================= -->
 
-<div>
+<div class="modal" id="deleteModal">
 
-<label>কী কিনেছেন / Item</label>
+ <div class="modal-content">
 
-<input
- id="item"
- placeholder="যেমন: রুই মাছ"
->
+  <div class="confirm-icon">🗑️</div>
 
-</div>
+  <div class="confirm-text" id="deleteMessage">
+   এই হিসাবটি Delete করবেন?
+  </div>
 
+  <div class="confirm-sub" id="deleteSubMessage"></div>
 
-<div>
+  <div class="modal-actions">
 
-<label>টাকার পরিমাণ</label>
+   <button type="button" class="secondary" id="deleteCancelBtn">
+    Cancel
+   </button>
 
-<input
- type="number"
- id="amount"
- min="0"
- step="0.01"
- placeholder="যেমন: 500"
->
+   <button type="button" class="red" id="deleteConfirmBtn">
+    🗑️ Delete
+   </button>
 
-</div>
+  </div>
 
-
-<div class="full">
-
-<label>নোট (ঐচ্ছিক)</label>
-
-<textarea
- id="note"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+ </div>
 
 </div>
-
-</div>
-
-
-<button
- class="primary"
- id="saveBtn"
->
-💾 খরচ Save করুন
-</button>
-
-
-<button
- class="primary secondary"
- id="cancelBtn"
- style="display:none"
->
-Cancel
-</button>
-
-</div>
-
-
-<!-- FILTER -->
-
-<div class="box">
-
-<h2>
-🔎 হিসাব খুঁজুন / Filter
-</h2>
-
-<div class="grid">
-
-<div>
-
-<label>Search</label>
-
-<input
- id="search"
- placeholder="যেমন: মাছ, সবজি..."
->
-
-</div>
-
-
-<div>
-
-<label>নির্দিষ্ট তারিখ</label>
-
-<input
- type="date"
- id="filterDate"
->
-
-</div>
-
-
-<div>
-
-<label>মাস</label>
-
-<input
- type="month"
- id="filterMonth"
->
-
-</div>
-
-
-<div>
-
-<label>Category</label>
-
-<select id="filterCategory"></select>
-
-</div>
-
-</div>
-
-
-<div class="total">
-
-নির্বাচিত হিসাবের মোট:
-
-<span id="filteredTotal">
-₹0.00
-</span>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE LIST -->
-
-<div class="box">
-
-<h2>
-📋 খরচের তালিকা
-</h2>
-
-<div id="expenseList"></div>
-
-</div>
-
-
-<!-- INCOME LIST -->
-
-<div class="box">
-
-<h2>
-💰 আয়ের তালিকা
-</h2>
-
-<div id="incomeList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY MODAL -->
-
-<div
- class="modal"
- id="categoryModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-🏷️ Category Manager
-</h2>
-
-<button
- class="secondary"
- id="closeCategoryBtn"
->
-✕
-</button>
-
-</div>
-
-
-<button
- class="green"
- id="addCategoryBtn"
->
-➕ নতুন Category
-</button>
-
-
-<div id="categoryList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY EDIT MODAL -->
-
-<div
- class="modal"
- id="categoryEditModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2 id="catEditTitle">
-নতুন Category
-</h2>
-
-</div>
-
-
-<label>
-Category-এর নাম
-</label>
-
-<input
- id="categoryName"
- placeholder="যেমন: ওষুধ"
->
-
-
-<div class="modal-actions">
-
-<button
- class="green"
- id="saveCategoryBtn"
->
-Save
-</button>
-
-<button
- class="secondary"
- id="closeCategoryEditBtn"
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- CHART MODAL -->
-
-<div
- class="modal"
- id="chartModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-📊 হিসাবের চার্ট
-</h2>
-
-<button
- class="secondary"
- id="closeChartBtn"
->
-✕
-</button>
-
-</div>
-
-
-<div class="tabs">
-
-<button
- class="active"
- data-chart="daily"
->
-Daily
-</button>
-
-<button
- data-chart="monthly"
->
-Monthly
-</button>
-
-<button
- data-chart="yearly"
->
-Yearly
-</button>
-
-</div>
-
-
-<div class="chart-wrap">
-
-<canvas
- id="chartCanvas"
- width="650"
- height="330"
-></canvas>
-
-</div>
-
-
-<div
- id="chartLegend"
- class="legend"
-></div>
-
-</div>
-
-</div>
-
 
 <script>
-
 "use strict";
 
-
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
-let expenses=[];
+let expenses = [];
+let incomes = [];
 
-let incomes=[];
-
-let categories=[
+let categories = [
  "বাজার",
  "সবজি",
  "মাছ",
@@ -993,28 +972,29 @@ let categories=[
  "অন্যান্য"
 ];
 
+let editId = null;
+let editIncomeId = null;
+let editCategoryIndex = null;
 
-let editId=null;
+let chartMode = "daily";
 
-let editIncomeId=null;
-
-let editCategoryIndex=null;
-
-let chartMode="daily";
-
-
-/* =========================
-   HELPERS
-========================= */
-
-const $=id=>
- document.getElementById(id);
+let pendingDeleteType = null;
+let pendingDeleteId = null;
 
 
-function money(v){
+/* =========================================================
+   HELPER
+========================================================= */
 
- return "₹"+
- Number(v||0).toLocaleString(
+function $(id){
+ return document.getElementById(id);
+}
+
+
+function money(value){
+
+ return "₹" +
+ Number(value || 0).toLocaleString(
   "en-IN",
   {
    minimumFractionDigits:2,
@@ -1025,44 +1005,53 @@ function money(v){
 }
 
 
-function esc(v){
+function esc(value){
 
- return String(v??"")
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;")
- .replace(/'/g,"&#039;");
+ return String(value ?? "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
 function today(){
 
- const d=new Date();
+ const d = new Date();
 
- return d.getFullYear()+
- "-"+
- String(d.getMonth()+1).padStart(2,"0")+
- "-"+
- String(d.getDate()).padStart(2,"0");
-
-}
-
-
-function fmtDate(s){
-
- return String(s||"")
- .split("-")
- .reverse()
- .join("-");
+ return (
+  d.getFullYear() +
+  "-" +
+  String(d.getMonth()+1).padStart(2,"0") +
+  "-" +
+  String(d.getDate()).padStart(2,"0")
+ );
 
 }
 
 
-/* =========================
+function fmtDate(value){
+
+ if(!value){
+  return "";
+ }
+
+ const parts = String(value).split("-");
+
+ if(parts.length !== 3){
+  return String(value);
+ }
+
+ return parts.reverse().join("-");
+
+}
+
+
+/* =========================================================
    STORAGE
-========================= */
+========================================================= */
 
 function saveAll(){
 
@@ -1088,189 +1077,204 @@ function loadAll(){
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseData") || "[]"
   );
 
-  expenses=Array.isArray(x)?x:[];
+  expenses = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  expenses=[];
+  expenses = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myIncomeData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myIncomeData") || "[]"
   );
 
-  incomes=Array.isArray(x)?x:[];
+  incomes = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  incomes=[];
+  incomes = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseCategories"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseCategories") || "[]"
   );
 
   if(
-   Array.isArray(x)&&
-   x.length
+   Array.isArray(data) &&
+   data.length > 0
   ){
 
-   categories=x;
+   categories = data;
 
   }
 
- }catch(e){}
+ }catch(error){}
 
 }
 
 
-/* =========================
+/* =========================================================
    CATEGORY
-========================= */
+========================================================= */
 
 function renderCategories(){
 
- const old=$("category").value;
-
- const oldF=$("filterCategory").value;
-
-
- $("category").innerHTML=
- '<option value="">Category নির্বাচন করুন</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ const currentCategory = $("category").value;
+ const currentFilter = $("filterCategory").value;
 
 
- $("filterCategory").innerHTML=
- '<option value="">সব Category</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ $("category").innerHTML =
+  '<option value="">Category নির্বাচন করুন</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
 
- if(categories.includes(old)){
+ $("filterCategory").innerHTML =
+  '<option value="">সব Category</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
-  $("category").value=old;
+
+ if(categories.includes(currentCategory)){
+  $("category").value = currentCategory;
+ }
+
+ if(categories.includes(currentFilter)){
+  $("filterCategory").value = currentFilter;
+ }
+
+
+ if(categories.length === 0){
+
+  $("categoryList").innerHTML =
+   '<div class="empty">কোনো Category নেই।</div>';
+
+  return;
 
  }
 
 
- if(categories.includes(oldF)){
+ $("categoryList").innerHTML =
+  categories.map(
+   function(category,index){
 
-  $("filterCategory").value=oldF;
+    return `
+     <div class="cat-row">
 
- }
+      <span>
+       🏷️ ${esc(category)}
+      </span>
 
+      <div class="cat-actions">
 
- $("categoryList").innerHTML=
- categories.length
+       <button
+        type="button"
+        class="yellow"
+        data-category-edit="${index}"
+       >
+        ✏️
+       </button>
 
- ?
+       <button
+        type="button"
+        class="red"
+        data-category-delete="${index}"
+       >
+        🗑️
+       </button>
 
- categories.map(
-  (c,i)=>
-  `<div class="cat-row">
+      </div>
 
-   <span>
-    🏷️ ${esc(c)}
-   </span>
+     </div>
+    `;
 
-   <div class="cat-actions">
-
-    <button
-     class="yellow"
-     data-ce="${i}"
-    >
-     ✏️
-    </button>
-
-    <button
-     class="red"
-     data-cd="${i}"
-    >
-     🗑️
-    </button>
-
-   </div>
-
-  </div>`
- ).join("")
-
- :
-
- '<div class="empty">কোনো Category নেই।</div>';
+   }
+  ).join("");
 
 
  document
- .querySelectorAll("[data-ce]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    openCategoryEdit(
-     +b.dataset.ce
-    )
- );
+  .querySelectorAll("[data-category-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     openCategoryEdit(
+      Number(button.dataset.categoryEdit)
+     );
+
+    };
+
+   }
+  );
 
 
  document
- .querySelectorAll("[data-cd]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    deleteCategory(
-     +b.dataset.cd
-    )
- );
+  .querySelectorAll("[data-category-delete]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     deleteCategory(
+      Number(button.dataset.categoryDelete)
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-function openCategoryEdit(i=null){
+function openCategoryEdit(index = null){
 
- editCategoryIndex=i;
+ editCategoryIndex = index;
 
- $("catEditTitle").textContent=
-  i===null
-  ?"নতুন Category"
-  :"Category Edit করুন";
+ $("catEditTitle").textContent =
+  index === null
+  ? "নতুন Category"
+  : "Category Edit করুন";
 
- $("categoryName").value=
-  i===null
-  ?""
-  :categories[i];
+ $("categoryName").value =
+  index === null
+  ? ""
+  : categories[index];
 
- $("categoryEditModal")
- .style.display="flex";
-
+ $("categoryEditModal").style.display = "flex";
 
  setTimeout(
-  ()=>$("categoryName").focus(),
-  80
+  function(){
+   $("categoryName").focus();
+  },
+  100
  );
 
 }
@@ -1278,69 +1282,69 @@ function openCategoryEdit(i=null){
 
 function closeCategoryEdit(){
 
- $("categoryEditModal")
- .style.display="none";
+ $("categoryEditModal").style.display = "none";
 
- editCategoryIndex=null;
+ editCategoryIndex = null;
+
+ $("categoryName").value = "";
 
 }
 
 
 function saveCategory(){
 
- const n=$("categoryName")
- .value
- .trim();
+ const name =
+  $("categoryName").value.trim();
 
 
- if(!n){
+ if(!name){
 
-  alert(
-   "Category-এর নাম লিখুন।"
-  );
+  alert("Category-এর নাম লিখুন।");
 
   return;
 
  }
 
 
- if(
+ const duplicate =
   categories.some(
-   (c,i)=>
-    String(c).toLowerCase()===
-    n.toLowerCase()&&
-    i!==editCategoryIndex
-  )
- ){
+   function(category,index){
 
-  alert(
-   "এই Category আগে থেকেই আছে।"
+    return (
+     String(category).toLowerCase() ===
+     name.toLowerCase() &&
+     index !== editCategoryIndex
+    );
+
+   }
   );
+
+
+ if(duplicate){
+
+  alert("এই Category আগে থেকেই আছে।");
 
   return;
 
  }
 
 
- if(editCategoryIndex===null){
+ if(editCategoryIndex === null){
 
-  categories.push(n);
+  categories.push(name);
 
  }else{
 
-  const old=
+  const oldName =
    categories[editCategoryIndex];
 
-  categories[editCategoryIndex]=n;
-
+  categories[editCategoryIndex] = name;
 
   expenses.forEach(
-   e=>{
+   function(expense){
 
-    if(e.category===old){
-
-     e.category=n;
-
+    if(expense.category === oldName){
+     expense.category = name;
     }
 
    }
@@ -1351,23 +1355,31 @@ function saveCategory(){
 
  saveAll();
 
- render();
-
  closeCategoryEdit();
+
+ render();
 
 }
 
 
-function deleteCategory(i){
+function deleteCategory(index){
 
- const n=categories[i];
+ const name = categories[index];
+
+ if(!name){
+  return;
+ }
 
 
- if(
+ const used =
   expenses.some(
-   e=>e.category===n
-  )
- ){
+   function(expense){
+    return expense.category === name;
+   }
+  );
+
+
+ if(used){
 
   alert(
    "এই Category-তে পুরনো হিসাব আছে। আগে সেই হিসাবগুলো Edit করুন।"
@@ -1378,52 +1390,39 @@ function deleteCategory(i){
  }
 
 
- if(
-  confirm(
-   `"${n}" Category Delete করবেন?`
-  )
- ){
-
-  categories.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "category",
+  index,
+  "এই Category-টি Delete করবেন?",
+  `"${name}" Category`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE
-========================= */
+========================================================= */
 
 function saveExpense(){
 
- const date=$("date").value;
+ const date = $("date").value;
 
- const category=$("category").value;
+ const category = $("category").value;
 
- const item=$("item")
- .value
- .trim();
+ const item =
+  $("item").value.trim();
 
- const amount=parseFloat(
-  $("amount").value
- );
+ const amount =
+  parseFloat($("amount").value);
 
- const note=$("note")
- .value
- .trim();
+ const note =
+  $("note").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন।");
   return;
 
  }
@@ -1431,10 +1430,7 @@ function saveExpense(){
 
  if(!category){
 
-  alert(
-   "Category নির্বাচন করুন।"
-  );
-
+  alert("Category নির্বাচন করুন।");
   return;
 
  }
@@ -1442,68 +1438,60 @@ function saveExpense(){
 
  if(!item){
 
-  alert(
-   "Item-এর নাম লিখুন।"
-  );
-
+  alert("Item-এর নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editId!==null){
+ if(editId !== null){
 
-  const e=
+  const expense =
    expenses.find(
-    x=>
-     Number(x.id)===
-     Number(editId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     category,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editId);
     }
    );
 
-  }
 
-  editId=null;
+  if(expense){
+
+   expense.date = date;
+   expense.category = category;
+   expense.item = item;
+   expense.amount = amount;
+   expense.note = note;
+
+  }
 
  }else{
 
-  expenses.push(
-   {
-    id:Date.now(),
-    date,
-    category,
-    item,
-    amount,
-    note
-   }
-  );
+  expenses.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   category: category,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -1519,152 +1507,125 @@ function saveExpense(){
 
 function resetExpenseForm(){
 
- editId=null;
+ editId = null;
 
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "➕ নতুন খরচ যোগ করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 খরচ Save করুন";
 
- $("cancelBtn")
- .style.display="none";
+ $("cancelBtn").style.display = "none";
 
+ $("date").value = today();
 
- $("date").value=today();
+ $("category").value = "";
 
- $("category").value="";
+ $("item").value = "";
 
- $("item").value="";
+ $("amount").value = "";
 
- $("amount").value="";
-
- $("note").value="";
+ $("note").value = "";
 
 }
 
 
 function editExpense(id){
 
- const e=
+ const expense =
   expenses.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!expense){
   return;
-
  }
 
 
- editId=Number(id);
+ editId = Number(id);
+
+ $("date").value =
+  expense.date || today();
+
+ $("category").value =
+  expense.category || "";
+
+ $("item").value =
+  expense.item || "";
+
+ $("amount").value =
+  expense.amount || "";
+
+ $("note").value =
+  expense.note || "";
 
 
- $("date").value=
-  e.date||today();
-
- $("category").value=
-  e.category||"";
-
- $("item").value=
-  e.item||"";
-
- $("amount").value=
-  e.amount||"";
-
- $("note").value=
-  e.note||"";
-
-
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "✏️ খরচ Edit করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelBtn")
- .style.display="block";
+ $("cancelBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteExpense(id){
 
- const i=
-  expenses.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const expense =
+  expenses.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
-
+ if(!expense){
   return;
-
  }
 
 
- if(
-  confirm(
-   `"${expenses[i].item}" খরচটি Delete করবেন?\n\nপরিমাণ: ${money(expenses[i].amount)}`
-  )
- ){
-
-  expenses.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "expense",
+  id,
+  "এই খরচটি Delete করবেন?",
+  `${expense.item} — ${money(expense.amount)}`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME
-========================= */
+========================================================= */
 
 function saveIncome(){
 
- const date=
+ const date =
   $("incomeDate").value;
 
- const item=
-  $("incomeItem")
-  .value
-  .trim();
+ const item =
+  $("incomeItem").value.trim();
 
- const amount=
-  parseFloat(
-   $("incomeAmount").value
-  );
+ const amount =
+  parseFloat($("incomeAmount").value);
 
- const note=
-  $("incomeNote")
-  .value
-  .trim();
+ const note =
+  $("incomeNote").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন.");
   return;
 
  }
@@ -1672,66 +1633,57 @@ function saveIncome(){
 
  if(!item){
 
-  alert(
-   "আয়ের নাম লিখুন।"
-  );
-
+  alert("আয়ের নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editIncomeId!==null){
+ if(editIncomeId !== null){
 
-  const e=
+  const income =
    incomes.find(
-    x=>
-     Number(x.id)===
-     Number(editIncomeId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editIncomeId);
     }
    );
 
-  }
 
-  editIncomeId=null;
+  if(income){
+
+   income.date = date;
+   income.item = item;
+   income.amount = amount;
+   income.note = note;
+
+  }
 
  }else{
 
-  incomes.push(
-   {
-    id:Date.now(),
-    date,
-    item,
-    amount,
-    note
-   }
-  );
+  incomes.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -1747,188 +1699,283 @@ function saveIncome(){
 
 function resetIncomeForm(){
 
- editIncomeId=null;
+ editIncomeId = null;
 
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "💰 নতুন আয় যোগ করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 আয় Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="none";
+ $("cancelIncomeBtn").style.display = "none";
 
+ $("incomeDate").value = today();
 
- $("incomeDate").value=today();
+ $("incomeItem").value = "";
 
- $("incomeItem").value="";
+ $("incomeAmount").value = "";
 
- $("incomeAmount").value="";
-
- $("incomeNote").value="";
+ $("incomeNote").value = "";
 
 }
 
 
 function editIncome(id){
 
- const e=
+ const income =
   incomes.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!income){
   return;
-
  }
 
 
- editIncomeId=Number(id);
+ editIncomeId = Number(id);
+
+ $("incomeDate").value =
+  income.date || today();
+
+ $("incomeItem").value =
+  income.item || "";
+
+ $("incomeAmount").value =
+  income.amount || "";
+
+ $("incomeNote").value =
+  income.note || "";
 
 
- $("incomeDate").value=e.date;
-
- $("incomeItem").value=e.item;
-
- $("incomeAmount").value=e.amount;
-
- $("incomeNote").value=
-  e.note||"";
-
-
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "✏️ আয় Edit করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="block";
+ $("cancelIncomeBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteIncome(id){
 
- const i=
-  incomes.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const income =
+  incomes.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
+ if(!income){
+  return;
+ }
+
+
+ openDeleteConfirm(
+  "income",
+  id,
+  "এই আয়টি Delete করবেন?",
+  `${income.item} — ${money(income.amount)}`
+ );
+
+}
+
+
+/* =========================================================
+   DELETE CONFIRM
+========================================================= */
+
+function openDeleteConfirm(
+ type,
+ id,
+ message,
+ subMessage
+){
+
+ pendingDeleteType = type;
+
+ pendingDeleteId = id;
+
+ $("deleteMessage").textContent =
+  message;
+
+ $("deleteSubMessage").textContent =
+  subMessage || "";
+
+ $("deleteModal").style.display =
+  "flex";
+
+}
+
+
+function closeDeleteConfirm(){
+
+ pendingDeleteType = null;
+
+ pendingDeleteId = null;
+
+ $("deleteModal").style.display =
+  "none";
+
+}
+
+
+function confirmDelete(){
+
+ if(
+  pendingDeleteType === null ||
+  pendingDeleteId === null
+ ){
+
+  closeDeleteConfirm();
 
   return;
 
  }
 
 
- if(
-  confirm(
-   `"${incomes[i].item}" আয়টি Delete করবেন?`
-  )
- ){
+ if(pendingDeleteType === "expense"){
 
-  incomes.splice(i,1);
+  const index =
+   expenses.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
 
-  saveAll();
 
-  render();
+  if(index >= 0){
+
+   expenses.splice(index,1);
+
+  }
 
  }
+
+
+ else if(pendingDeleteType === "income"){
+
+  const index =
+   incomes.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
+
+
+  if(index >= 0){
+
+   incomes.splice(index,1);
+
+  }
+
+ }
+
+
+ else if(pendingDeleteType === "category"){
+
+  const index =
+   Number(pendingDeleteId);
+
+
+  if(
+   index >= 0 &&
+   index < categories.length
+  ){
+
+   categories.splice(index,1);
+
+  }
+
+ }
+
+
+ saveAll();
+
+ closeDeleteConfirm();
+
+ render();
 
 }
 
 
-/* =========================
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
-function filtered(){
+function getFilteredExpenses(){
 
- const s=
-  $("search")
-  .value
-  .trim()
-  .toLowerCase();
+ const search =
+  $("search").value
+   .trim()
+   .toLowerCase();
 
- const fd=
+ const filterDate =
   $("filterDate").value;
 
- const fm=
+ const filterMonth =
   $("filterMonth").value;
 
- const fc=
+ const filterCategory =
   $("filterCategory").value;
 
 
  return expenses.filter(
-  e=>{
+  function(expense){
 
-   const item=
-    String(e.item||"")
-    .toLowerCase();
+   const item =
+    String(expense.item || "")
+     .toLowerCase();
 
-   const cat=
-    String(e.category||"")
-    .toLowerCase();
+   const category =
+    String(expense.category || "")
+     .toLowerCase();
 
-   const note=
-    String(e.note||"")
-    .toLowerCase();
+   const note =
+    String(expense.note || "")
+     .toLowerCase();
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   return(
+   const searchMatch =
+    !search ||
+    item.includes(search) ||
+    category.includes(search) ||
+    note.includes(search);
 
-    (
-     !s||
-     item.includes(s)||
-     cat.includes(s)||
-     note.includes(s)
-    )
 
-    &&
+   const dateMatch =
+    !filterDate ||
+    date === filterDate;
 
-    (
-     !fd||
-     d===fd
-    )
 
-    &&
+   const monthMatch =
+    !filterMonth ||
+    date.startsWith(filterMonth);
 
-    (
-     !fm||
-     d.startsWith(fm)
-    )
 
-    &&
+   const categoryMatch =
+    !filterCategory ||
+    expense.category === filterCategory;
 
-    (
-     !fc||
-     e.category===fc
-    )
 
+   return (
+    searchMatch &&
+    dateMatch &&
+    monthMatch &&
+    categoryMatch
    );
 
   }
@@ -1937,316 +1984,332 @@ function filtered(){
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE LIST
-========================= */
+========================================================= */
 
 function renderExpenses(){
 
- const arr=
-  filtered()
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  getFilteredExpenses()
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("expenseList").innerHTML =
+   '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
+
+  return;
+
+ }
+
+
+ $("expenseList").innerHTML =
+  list.map(
+   function(expense){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+
+        ${esc(expense.item)}
+
+        <span class="category-badge">
+         🏷️ ${esc(expense.category)}
+        </span>
+
+       </div>
+
+       <div class="amount">
+        ${money(expense.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(expense.date)}
+      </div>
+
+      ${
+       expense.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(expense.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-expense-edit="${expense.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-expense-delete="${expense.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-expense-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editExpense(
+      button.dataset.expenseEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("expenseList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-
-      ${esc(e.item)}
-
-      <span class="category-badge">
-
-       🏷️ ${esc(e.category)}
-
-      </span>
-
-     </div>
-
-
-     <div class="amount">
-
-      ${money(e.amount)}
-
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-
-     📅 ${fmtDate(e.date)}
-
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ee="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-ed="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
-
-
  document
- .querySelectorAll("[data-ee]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editExpense(
-      b.dataset.ee
-     )
- );
+  .querySelectorAll("[data-expense-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-ed]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteExpense(
-      b.dataset.ed
-     )
- );
+      button.dataset.expenseDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME LIST
-========================= */
+========================================================= */
 
 function renderIncomes(){
 
- const arr=
-  [...incomes]
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  incomes
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("incomeList").innerHTML =
+   '<div class="empty">কোনো আয় নেই।</div>';
+
+  return;
+
+ }
+
+
+ $("incomeList").innerHTML =
+  list.map(
+   function(income){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+        ${esc(income.item)}
+       </div>
+
+       <div class="amount">
+        ${money(income.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(income.date)}
+      </div>
+
+      ${
+       income.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(income.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-income-edit="${income.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-income-delete="${income.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-income-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editIncome(
+      button.dataset.incomeEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("incomeList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-      ${esc(e.item)}
-     </div>
-
-     <div class="amount">
-      ${money(e.amount)}
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-     📅 ${fmtDate(e.date)}
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ie="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-idel="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো আয় নেই।</div>';
-
-
  document
- .querySelectorAll("[data-ie]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editIncome(
-      b.dataset.ie
-     )
- );
+  .querySelectorAll("[data-income-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-idel]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteIncome(
-      b.dataset.idel
-     )
- );
+      button.dataset.incomeDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    TOTALS
-========================= */
+========================================================= */
 
 function updateTotals(){
 
- const now=new Date();
+ const now = new Date();
 
- const y=
+ const year =
   now.getFullYear();
 
- const m=
+ const month =
   String(
    now.getMonth()+1
   ).padStart(2,"0");
 
- const t=today();
+ const currentDate =
+  today();
 
-
- let day=0;
-
- let month=0;
-
- let year=0;
-
- let inc=0;
+ let todayTotal = 0;
+ let monthTotal = 0;
+ let yearTotal = 0;
+ let incomeTotal = 0;
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const a=
-    Number(e.amount||0);
+   const amount =
+    Number(expense.amount || 0);
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   if(d===t){
+   if(date === currentDate){
+    todayTotal += amount;
+   }
 
-    day+=a;
+
+   if(
+    date.startsWith(
+     `${year}-${month}`
+    )
+   ){
+
+    monthTotal += amount;
 
    }
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-`
     )
    ){
 
-    month+=a;
-
-   }
-
-
-   if(
-    d.startsWith(
-     `${y}-`
-    )
-   ){
-
-    year+=a;
+    yearTotal += amount;
 
    }
 
@@ -2255,22 +2318,20 @@ function updateTotals(){
 
 
  incomes.forEach(
-  e=>{
+  function(income){
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(income.date || "");
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-${month}`
     )
    ){
 
-    inc+=
-     Number(
-      e.amount||0
-     );
+    incomeTotal +=
+     Number(income.amount || 0);
 
    }
 
@@ -2278,211 +2339,269 @@ function updateTotals(){
  );
 
 
- $("todayTotal")
- .textContent=
-  money(day);
+ $("todayTotal").textContent =
+  money(todayTotal);
 
- $("monthTotal")
- .textContent=
-  money(month);
+ $("monthTotal").textContent =
+  money(monthTotal);
 
- $("yearTotal")
- .textContent=
-  money(year);
+ $("yearTotal").textContent =
+  money(yearTotal);
 
- $("monthIncome")
- .textContent=
-  money(inc);
+ $("monthIncome").textContent =
+  money(incomeTotal);
 
- $("monthBalance")
- .textContent=
-  money(inc-month);
+ $("monthBalance").textContent =
+  money(incomeTotal - monthTotal);
 
 
- $("filteredTotal")
- .textContent=
-  money(
-   filtered()
+ const filteredTotal =
+  getFilteredExpenses()
    .reduce(
-    (s,e)=>
-     s+
-     Number(
-      e.amount||0
-     ),
+    function(total,expense){
+
+     return total +
+      Number(expense.amount || 0);
+
+    },
     0
-   )
-  );
+   );
+
+
+ $("filteredTotal").textContent =
+  money(filteredTotal);
 
 }
 
 
-/* =========================
+/* =========================================================
    BACKUP
-========================= */
+========================================================= */
 
-function backup(){
+function createBackupData(){
 
- const data={
+ return {
 
   appName:
    "আমার দৈনন্দিন হিসাব",
 
-  backupVersion:2,
+  backupVersion:
+   3,
 
   backupDate:
    new Date().toISOString(),
 
   expenses:
-
-   expenses,
+   JSON.parse(
+    JSON.stringify(expenses)
+   ),
 
   incomes:
-
-   incomes,
+   JSON.parse(
+    JSON.stringify(incomes)
+   ),
 
   categories:
-
-   categories
+   JSON.parse(
+    JSON.stringify(categories)
+   )
 
  };
-
-
- const blob=
-  new Blob(
-   [
-    JSON.stringify(
-     data,
-     null,
-     2
-    )
-   ],
-   {
-    type:
-     "application/json"
-   }
-  );
-
-
- const a=
-  document.createElement("a");
-
-
- a.href=
-  URL.createObjectURL(
-   blob
-  );
-
-
- a.download=
-  `My-Stock-Backup-${today()}-${new Date().getHours()}-${new Date().getMinutes()}.json`;
-
-
- a.click();
-
-
- setTimeout(
-  ()=>
-   URL.revokeObjectURL(
-    a.href
-   ),
-  500
- );
 
 }
 
 
-/* =========================
+function backup(){
+
+ try{
+
+  const backupData =
+   createBackupData();
+
+
+  const json =
+   JSON.stringify(
+    backupData,
+    null,
+    2
+   );
+
+
+  const blob =
+   new Blob(
+    [json],
+    {
+     type:"application/json"
+    }
+   );
+
+
+  const url =
+   URL.createObjectURL(blob);
+
+
+  const link =
+   document.createElement("a");
+
+
+  link.href = url;
+
+  link.download =
+   `My-Stock-Backup-${today()}-${String(
+    new Date().getHours()
+   ).padStart(2,"0")}-${String(
+    new Date().getMinutes()
+   ).padStart(2,"0")}.json`;
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+   function(){
+    URL.revokeObjectURL(url);
+   },
+   1000
+  );
+
+
+ }catch(error){
+
+  alert(
+   "Backup তৈরি করা যায়নি।"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
    RESTORE
-========================= */
+========================================================= */
 
 function restoreFile(file){
 
  if(!file){
-
   return;
-
  }
 
 
- const reader=
+ const reader =
   new FileReader();
 
 
- reader.onload=()=>{
+ reader.onload =
+  function(){
 
-  try{
+   let backupData;
 
-   const d=
-    JSON.parse(
-     reader.result
+
+   try{
+
+    backupData =
+     JSON.parse(
+      reader.result
+     );
+
+   }catch(error){
+
+    alert(
+     "এই Backup ফাইলটি সঠিক JSON নয়।"
     );
-
-
-   if(
-    !Array.isArray(
-     d.expenses
-    )||
-
-    !Array.isArray(
-     d.incomes
-    )||
-
-    !Array.isArray(
-     d.categories
-    )
-   ){
-
-    throw new Error();
-
-   }
-
-
-   if(
-    !confirm(
-     "Restore করলে বর্তমান হিসাবগুলো এই Backup দিয়ে replace হবে। Continue করবেন?"
-    )
-   ){
 
     return;
 
    }
 
 
-   expenses=
-    d.expenses;
+   if(
+    !backupData ||
+    !Array.isArray(backupData.expenses) ||
+    !Array.isArray(backupData.incomes) ||
+    !Array.isArray(backupData.categories)
+   ){
 
-   incomes=
-    d.incomes;
+    alert(
+     "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
+    );
 
-   categories=
-    d.categories;
+    return;
+
+   }
 
 
-   saveAll();
+   const confirmed =
+    window.confirm(
+     "Restore করলে বর্তমান হিসাবগুলো Backup-এর data দিয়ে replace হবে।\n\nContinue করবেন?"
+    );
 
 
-   resetExpenseForm();
+   if(!confirmed){
+    return;
+   }
 
-   resetIncomeForm();
 
-   render();
+   try{
 
+    expenses =
+     JSON.parse(
+      JSON.stringify(
+       backupData.expenses
+      )
+     );
+
+    incomes =
+     JSON.parse(
+      JSON.stringify(
+       backupData.incomes
+      )
+     );
+
+    categories =
+     JSON.parse(
+      JSON.stringify(
+       backupData.categories
+      )
+     );
+
+
+    saveAll();
+
+    resetExpenseForm();
+
+    resetIncomeForm();
+
+    render();
+
+
+    alert(
+     "Restore সফল হয়েছে।"
+    );
+
+   }catch(error){
+
+    alert(
+     "Restore করা যায়নি। বর্তমান data অপরিবর্তিত রাখার চেষ্টা করা হয়েছে।"
+    );
+
+   }
+
+  };
+
+
+ reader.onerror =
+  function(){
 
    alert(
-    "Restore সফল হয়েছে।"
+    "Backup ফাইল পড়া যায়নি।"
    );
 
-  }
-
-  catch(e){
-
-   alert(
-    "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
-   );
-
-  }
-
- };
+  };
 
 
  reader.readAsText(file);
@@ -2490,63 +2609,68 @@ function restoreFile(file){
 }
 
 
-/* =========================
+/* =========================================================
    CHART
-========================= */
+========================================================= */
 
 function openChart(){
 
- $("chartModal")
- .style.display="flex";
+ $("chartModal").style.display =
+  "flex";
 
  drawChart();
 
 }
 
 
+function closeChart(){
+
+ $("chartModal").style.display =
+  "none";
+
+}
+
+
 function drawChart(){
 
- const canvas=
+ const canvas =
   $("chartCanvas");
 
- const ctx=
+ const ctx =
   canvas.getContext("2d");
 
- const W=
+ const width =
   canvas.width;
 
- const H=
+ const height =
   canvas.height;
 
 
  ctx.clearRect(
   0,
   0,
-  W,
-  H
+  width,
+  height
  );
 
 
- $("chartLegend")
- .innerHTML="";
+ $("chartLegend").innerHTML = "";
 
 
- if(
-  chartMode==="daily"
- ){
+ if(chartMode === "daily"){
 
-  drawPie(
+  drawPieChart(
    ctx,
-   W,
-   H
+   width,
+   height
   );
 
  }else{
 
-  drawBars(
+  drawBarChart(
    ctx,
-   W,
-   H,
+   width,
+   height,
    chartMode
   );
 
@@ -2555,54 +2679,60 @@ function drawChart(){
 }
 
 
-/* =========================
+/* =========================================================
    PIE CHART
-========================= */
+========================================================= */
 
-function drawPie(
+function drawPieChart(
  ctx,
- W,
- H
+ width,
+ height
 ){
 
- const map={};
+ const categoryTotals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   map[e.category]=
+   const category =
+    expense.category || "অন্যান্য";
+
+   const amount =
+    Number(expense.amount || 0);
+
+
+   categoryTotals[category] =
     (
-     map[e.category]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     categoryTotals[category] || 0
+    ) + amount;
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .filter(
-   x=>x[1]>0
-  );
+   .entries(categoryTotals)
+   .filter(
+    function(row){
+     return row[1] > 0;
+    }
+   );
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -2610,194 +2740,191 @@ function drawPie(
  }
 
 
- const total=
+ const total =
   rows.reduce(
-   (s,x)=>
-    s+x[1],
+   function(sum,row){
+    return sum + row[1];
+   },
    0
   );
 
 
- const cx=W/2;
+ const centerX =
+  width / 2;
 
- const cy=145;
+ const centerY =
+  145;
 
- const r=105;
+ const radius =
+  105;
 
- let start=
-  -Math.PI/2;
+
+ let startAngle =
+  -Math.PI / 2;
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const ang=
-    x[1]/
-    total*
-    Math.PI*2;
+   const angle =
+    (row[1] / total) *
+    Math.PI *
+    2;
 
 
    ctx.beginPath();
 
    ctx.moveTo(
-    cx,
-    cy
+    centerX,
+    centerY
    );
-
 
    ctx.arc(
-    cx,
-    cy,
-    r,
-    start,
-    start+ang
+    centerX,
+    centerY,
+    radius,
+    startAngle,
+    startAngle + angle
    );
-
 
    ctx.closePath();
 
 
-   ctx.fillStyle=
-    `hsl(${i*360/rows.length},65%,55%)`;
-
+   ctx.fillStyle =
+    `hsl(${
+     index * 360 / rows.length
+    },65%,55%)`;
 
    ctx.fill();
 
 
-   start+=ang;
+   startAngle += angle;
 
 
-   const sp=
-    document.createElement(
-     "span"
-    );
+   const legend =
+    document.createElement("span");
 
-
-   sp.textContent=
-    `🏷️ ${x[0]}: ${money(x[1])}`;
-
+   legend.textContent =
+    `🏷️ ${row[0]}: ${money(row[1])}`;
 
    $("chartLegend")
-   .appendChild(sp);
+    .appendChild(legend);
 
   }
  );
 
 
+ /* DONUT CENTER */
+
  ctx.beginPath();
 
- ctx.fillStyle="#fff";
+ ctx.fillStyle = "#fff";
 
  ctx.arc(
-  cx,
-  cy,
+  centerX,
+  centerY,
   48,
   0,
-  Math.PI*2
+  Math.PI * 2
  );
 
  ctx.fill();
 
 
- ctx.fillStyle="#263238";
+ ctx.fillStyle = "#263238";
 
- ctx.font=
+ ctx.font =
   "bold 15px Arial";
 
- ctx.textAlign=
+ ctx.textAlign =
   "center";
 
  ctx.fillText(
   money(total),
-  cx,
-  cy+5
+  centerX,
+  centerY + 5
  );
 
 }
 
 
-/* =========================
+/* =========================================================
    BAR CHART
-========================= */
+========================================================= */
 
-function drawBars(
+function drawBarChart(
  ctx,
- W,
- H,
+ width,
+ height,
  mode
 ){
 
- const map={};
+ const totals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const d=
+   const date =
     new Date(
-     e.date+
+     String(expense.date) +
      "T00:00:00"
     );
 
 
-   let k;
+   let key;
 
 
-   if(
-    mode==="monthly"
-   ){
+   if(mode === "monthly"){
 
-    k=
-     `${d.getFullYear()}-${String(
-      d.getMonth()+1
+    key =
+     `${date.getFullYear()}-${String(
+      date.getMonth()+1
      ).padStart(2,"0")}`;
 
    }else{
 
-    k=
+    key =
      String(
-      d.getFullYear()
+      date.getFullYear()
      );
 
    }
 
 
-   map[k]=
+   totals[key] =
     (
-     map[k]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     totals[key] || 0
+    ) +
+    Number(expense.amount || 0);
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .sort(
-   (a,b)=>
-    a[0].localeCompare(
-     b[0]
-    )
-  )
-  .slice(-12);
+   .entries(totals)
+   .sort(
+    function(a,b){
+     return a[0].localeCompare(b[0]);
+    }
+   )
+   .slice(-12);
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -2805,33 +2932,34 @@ function drawBars(
  }
 
 
- const max=
-  Math.max(
-   ...rows.map(
-    x=>x[1]
+ const max =
+  Math.max.apply(
+   null,
+   rows.map(
+    function(row){
+     return row[1];
+    }
    )
-  )||1;
+  ) || 1;
 
 
- const left=45;
+ const left = 45;
 
- const bottom=275;
+ const bottom = 275;
 
- const top=25;
+ const top = 25;
 
- const usable=
-  W-left-20;
+ const usable =
+  width - left - 20;
 
- const bw=
+ const barWidth =
   Math.max(
    16,
-   usable/
-   rows.length*
-   .55
+   (usable / rows.length) * .55
   );
 
 
- ctx.strokeStyle=
+ ctx.strokeStyle =
   "#cfd8dc";
 
  ctx.beginPath();
@@ -2847,7 +2975,7 @@ function drawBars(
  );
 
  ctx.lineTo(
-  W-15,
+  width - 15,
   bottom
  );
 
@@ -2855,78 +2983,82 @@ function drawBars(
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const gap=
-    usable/
-    rows.length;
+   const gap =
+    usable / rows.length;
 
+   const centerX =
+    left +
+    gap * index +
+    gap / 2;
 
-   const cx=
-    left+
-    gap*i+
-    gap/2;
-
-
-   const h=
+   const barHeight =
     (
-     x[1]/
-     max
-    )*
+     row[1] / max
+    ) *
     (
-     bottom-
-     top-
+     bottom -
+     top -
      20
     );
 
 
-   ctx.fillStyle=
-    `hsl(${i*300/Math.max(1,rows.length)},65%,50%)`;
+   ctx.fillStyle =
+    `hsl(${
+     index * 300 /
+     Math.max(1,rows.length)
+    },65%,50%)`;
 
 
    ctx.fillRect(
-    cx-bw/2,
-    bottom-h,
-    bw,
-    h
+    centerX - barWidth / 2,
+    bottom - barHeight,
+    barWidth,
+    barHeight
    );
 
 
-   ctx.fillStyle=
+   ctx.fillStyle =
     "#455a64";
 
-   ctx.font=
+   ctx.font =
     "11px Arial";
 
-   ctx.textAlign=
+   ctx.textAlign =
     "center";
 
 
    ctx.fillText(
-    x[0],
-    cx,
-    bottom+17
+    row[0],
+    centerX,
+    bottom + 17
    );
 
 
    ctx.fillText(
-    money(x[1]),
-    cx,
-    bottom-h-6
+    money(row[1]),
+    centerX,
+    bottom - barHeight - 6
    );
 
   }
  );
 
-
 }
 
 
-/* =========================
+/* =========================================================
    RENDER
-========================= */
+========================================================= */
 
 function render(){
+
+ /*
+   IMPORTANT:
+   Each renderer replaces only its own container's
+   innerHTML. It never appends the main application again.
+ */
 
  renderCategories();
 
@@ -2939,182 +3071,219 @@ function render(){
 }
 
 
-/* =========================
+/* =========================================================
    EVENTS
-========================= */
+========================================================= */
 
-$("saveBtn")
-.onclick=
+/* Expense */
+
+$("saveBtn").onclick =
  saveExpense;
 
-
-$("cancelBtn")
-.onclick=
+$("cancelBtn").onclick =
  resetExpenseForm;
 
 
-$("saveIncomeBtn")
-.onclick=
+/* Income */
+
+$("saveIncomeBtn").onclick =
  saveIncome;
 
-
-$("cancelIncomeBtn")
-.onclick=
+$("cancelIncomeBtn").onclick =
  resetIncomeForm;
 
 
-$("categoryBtn")
-.onclick=()=>{
+/* Category */
 
- $("categoryModal")
- .style.display="flex";
+$("categoryBtn").onclick =
+ function(){
 
- renderCategories();
+  $("categoryModal").style.display =
+   "flex";
 
-};
+  renderCategories();
 
-
-$("closeCategoryBtn")
-.onclick=()=>{
-
- $("categoryModal")
- .style.display="none";
-
-};
+ };
 
 
-$("addCategoryBtn")
-.onclick=()=>
- openCategoryEdit();
+$("closeCategoryBtn").onclick =
+ function(){
+
+  $("categoryModal").style.display =
+   "none";
+
+ };
 
 
-$("saveCategoryBtn")
-.onclick=
+$("addCategoryBtn").onclick =
+ function(){
+
+  openCategoryEdit();
+
+ };
+
+
+$("saveCategoryBtn").onclick =
  saveCategory;
 
-
-$("closeCategoryEditBtn")
-.onclick=
+$("closeCategoryEditBtn").onclick =
  closeCategoryEdit;
 
 
-$("chartBtn")
-.onclick=
+/* Chart */
+
+$("chartBtn").onclick =
  openChart;
 
-
-$("closeChartBtn")
-.onclick=()=>{
-
- $("chartModal")
- .style.display="none";
-
-};
+$("closeChartBtn").onclick =
+ closeChart;
 
 
 document
-.querySelectorAll(
- "[data-chart]"
-)
-.forEach(
- b=>
-  b.onclick=()=>{
+ .querySelectorAll("[data-chart]")
+ .forEach(
+  function(button){
 
-   document
-   .querySelectorAll(
-    "[data-chart]"
-   )
-   .forEach(
-    x=>
-     x.classList
-     .remove("active")
-   );
+   button.onclick =
+    function(){
+
+     document
+      .querySelectorAll("[data-chart]")
+      .forEach(
+       function(tab){
+        tab.classList.remove("active");
+       }
+      );
 
 
-   b.classList
-   .add("active");
+     button.classList.add("active");
 
+     chartMode =
+      button.dataset.chart;
 
-   chartMode=
-    b.dataset.chart;
+     drawChart();
 
-
-   drawChart();
+    };
 
   }
  );
 
 
-$("backupBtn")
-.onclick=
+/* Backup */
+
+$("backupBtn").onclick =
  backup;
 
 
-$("restoreBtn")
-.onclick=()=>{
+/* Restore */
 
- $("restoreFile")
- .click();
+$("restoreBtn").onclick =
+ function(){
 
-};
+  $("restoreFile").click();
 
-
-$("restoreFile")
-.onchange=e=>{
-
- restoreFile(
-  e.target.files[0]
- );
-
- e.target.value="";
-
-};
+ };
 
 
-[
- "search",
- "filterDate",
- "filterMonth",
- "filterCategory"
-]
-.forEach(
- id=>
-  $(id).addEventListener(
-   id==="search"
-   ?"input"
-   :"change",
-   render
-  )
+$("restoreFile").onchange =
+ function(event){
+
+  const file =
+   event.target.files[0];
+
+  restoreFile(file);
+
+  /*
+    Same file আবার select করার
+    সুযোগ রাখার জন্য input reset.
+  */
+
+  event.target.value = "";
+
+ };
+
+
+/* Delete confirmation */
+
+$("deleteCancelBtn").onclick =
+ closeDeleteConfirm;
+
+$("deleteConfirmBtn").onclick =
+ confirmDelete;
+
+
+/* Search / Filters */
+
+$("search").addEventListener(
+ "input",
+ render
+);
+
+$("filterDate").addEventListener(
+ "change",
+ render
+);
+
+$("filterMonth").addEventListener(
+ "change",
+ render
+);
+
+$("filterCategory").addEventListener(
+ "change",
+ render
 );
 
 
-/* CLOSE MODAL OUTSIDE */
+/* =========================================================
+   CLOSE MODALS BY BACKDROP
+========================================================= */
 
-window.onclick=e=>{
+window.addEventListener(
+ "click",
+ function(event){
 
- if(
-  e.target.classList
-  .contains("modal")
- ){
+  if(
+   event.target.classList.contains("modal")
+  ){
 
-  e.target.style.display=
-   "none";
+   event.target.style.display =
+    "none";
+
+   if(
+    event.target.id === "categoryEditModal"
+   ){
+
+    editCategoryIndex = null;
+
+   }
+
+
+   if(
+    event.target.id === "deleteModal"
+   ){
+
+    pendingDeleteType = null;
+    pendingDeleteId = null;
+
+   }
+
+  }
 
  }
+);
 
-};
 
-
-/* =========================
-   START
-========================= */
+/* =========================================================
+   START APP
+========================================================= */
 
 loadAll();
 
-$("date").value=
+$("date").value =
  today();
 
-$("incomeDate").value=
+$("incomeDate").value =
  today();
 
 render();
@@ -3134,12 +3303,22 @@ render();
  box-sizing:border-box;
 }
 
-body{
+html,body{
  margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+}
+
+body{
  font-family:Arial,"Noto Sans Bengali",sans-serif;
  background:linear-gradient(180deg,#f7fbff,#eef7f4);
  color:#263238;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 header{
  background:linear-gradient(135deg,#00a878,#00c9a7);
@@ -3160,13 +3339,20 @@ header p{
  font-size:13px;
 }
 
+/* =========================
+   MAIN
+========================= */
+
 .container{
+ width:100%;
  max-width:900px;
- margin:auto;
+ margin:0 auto;
  padding:15px 14px 35px;
 }
 
-/* TOP ICONS */
+/* =========================
+   TOP ICONS
+========================= */
 
 .toolbar{
  display:grid;
@@ -3176,6 +3362,7 @@ header p{
 }
 
 .tool{
+ width:100%;
  background:#fff;
  border:1px solid #e5eeee;
  border-radius:14px;
@@ -3184,6 +3371,7 @@ header p{
  font-weight:700;
  font-size:12px;
  box-shadow:0 3px 10px #0000000d;
+ color:#263238;
 }
 
 .tool span{
@@ -3196,7 +3384,9 @@ header p{
  transform:scale(.97);
 }
 
-/* SUMMARY */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary{
  display:grid;
@@ -3231,7 +3421,9 @@ header p{
  font-size:16px;
 }
 
-/* BOX */
+/* =========================
+   BOX
+========================= */
 
 .box{
  padding:17px;
@@ -3243,7 +3435,9 @@ header p{
  font-size:18px;
 }
 
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 .grid{
  display:grid;
@@ -3286,7 +3480,9 @@ textarea{
  resize:vertical;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 
 button{
  border:0;
@@ -3328,7 +3524,9 @@ button:active{
  color:#fff;
 }
 
-/* EXPENSE */
+/* =========================
+   EXPENSE / INCOME CARD
+========================= */
 
 .expense{
  background:#fff;
@@ -3343,13 +3541,14 @@ button:active{
  display:flex;
  justify-content:space-between;
  gap:8px;
- align-items:center;
+ align-items:flex-start;
 }
 
 .item{
  font-size:16px;
  font-weight:800;
  min-width:0;
+ overflow-wrap:anywhere;
 }
 
 .amount{
@@ -3359,7 +3558,9 @@ button:active{
  white-space:nowrap;
 }
 
-/* CATEGORY BADGE */
+/* =========================
+   CATEGORY BADGE
+========================= */
 
 .category-badge{
  display:inline-flex;
@@ -3404,12 +3605,15 @@ button:active{
  padding:8px 11px;
 }
 
-/* CATEGORY */
+/* =========================
+   CATEGORY
+========================= */
 
 .cat-row{
  display:flex;
  align-items:center;
  justify-content:space-between;
+ gap:8px;
  border:1px solid #e5eeee;
  border-radius:12px;
  padding:9px;
@@ -3425,7 +3629,9 @@ button:active{
  padding:7px 9px;
 }
 
-/* TOTAL */
+/* =========================
+   TOTAL
+========================= */
 
 .total{
  margin-top:12px;
@@ -3437,7 +3643,9 @@ button:active{
  color:#00796b;
 }
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
  text-align:center;
@@ -3445,17 +3653,19 @@ button:active{
  color:#90a4ae;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
  display:none;
  position:fixed;
  inset:0;
- background:#0008;
+ background:rgba(0,0,0,.55);
  align-items:center;
  justify-content:center;
  padding:15px;
- z-index:50;
+ z-index:1000;
 }
 
 .modal-content{
@@ -3473,6 +3683,7 @@ button:active{
  display:flex;
  justify-content:space-between;
  align-items:center;
+ gap:10px;
  margin-bottom:12px;
 }
 
@@ -3491,7 +3702,34 @@ button:active{
  flex:1;
 }
 
-/* CHART */
+/* =========================
+   DELETE CONFIRMATION
+========================= */
+
+.confirm-icon{
+ font-size:48px;
+ text-align:center;
+ margin-bottom:8px;
+}
+
+.confirm-text{
+ text-align:center;
+ font-size:16px;
+ font-weight:700;
+ line-height:1.5;
+ color:#37474f;
+}
+
+.confirm-sub{
+ text-align:center;
+ font-size:13px;
+ color:#78909c;
+ margin-top:7px;
+}
+
+/* =========================
+   CHART
+========================= */
 
 .tabs{
  display:flex;
@@ -3516,10 +3754,12 @@ button:active{
  display:flex;
  align-items:center;
  justify-content:center;
+ overflow:hidden;
 }
 
 .chart-wrap canvas{
  max-width:100%;
+ height:auto;
 }
 
 .legend{
@@ -3540,7 +3780,9 @@ button:active{
  display:none;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -3555,6 +3797,7 @@ button:active{
  .toolbar{
   grid-template-columns:repeat(4,1fr);
  }
+
 }
 
 @media(max-width:520px){
@@ -3565,10 +3808,6 @@ button:active{
 
  .full{
   grid-column:auto;
- }
-
- .top{
-  align-items:flex-start;
  }
 
  .item{
@@ -3596,515 +3835,424 @@ button:active{
  .tool span{
   font-size:20px;
  }
+
+ .modal{
+  padding:10px;
+ }
+
+ .modal-content{
+  border-radius:17px;
+  padding:15px;
+ }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-
-<h1>আমার দৈনন্দিন হিসাব</h1>
-
-<p>আয় ও খরচ সহজে লিখে রাখুন</p>
-
+ <h1>আমার দৈনন্দিন হিসাব</h1>
+ <p>আয় ও খরচ সহজে লিখে রাখুন</p>
 </header>
 
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
 
 <div class="container">
 
-<!-- TOP ICONS -->
+ <!-- TOP ICONS -->
+ <div class="toolbar">
 
-<div class="toolbar">
+  <button type="button" class="tool" id="chartBtn">
+   <span>📊</span>
+   চার্ট
+  </button>
 
-<button class="tool" id="chartBtn">
-<span>📊</span>
-চার্ট
-</button>
+  <button type="button" class="tool" id="categoryBtn">
+   <span>🏷️</span>
+   Category
+  </button>
 
-<button class="tool" id="categoryBtn">
-<span>🏷️</span>
-Category
-</button>
+  <button type="button" class="tool" id="backupBtn">
+   <span>💾</span>
+   Backup
+  </button>
 
-<button class="tool" id="backupBtn">
-<span>💾</span>
-Backup
-</button>
+  <button type="button" class="tool" id="restoreBtn">
+   <span>♻️</span>
+   Restore
+  </button>
 
-<button class="tool" id="restoreBtn">
-<span>♻️</span>
-Restore
-</button>
+  <input
+   class="file-input"
+   id="restoreFile"
+   type="file"
+   accept=".json,application/json"
+  >
 
-<input
- class="file-input"
- id="restoreFile"
- type="file"
- accept=".json,application/json"
->
+ </div>
+
+ <!-- SUMMARY -->
+ <div class="summary">
+
+  <div class="card">
+   <h3>আজকের খরচ</h3>
+   <strong id="todayTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের খরচ</h3>
+   <strong id="monthTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই বছরের খরচ</h3>
+   <strong id="yearTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের আয়</h3>
+   <strong id="monthIncome">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসে বাকি</h3>
+   <strong id="monthBalance">₹0.00</strong>
+  </div>
+
+ </div>
+
+ <!-- INCOME FORM -->
+ <div class="box">
+
+  <h2 id="incomeFormTitle">
+   💰 নতুন আয় যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="incomeDate">
+   </div>
+
+   <div>
+    <label>আয়ের নাম</label>
+    <input id="incomeItem" placeholder="যেমন: Salary">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="incomeAmount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 30000"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="incomeNote"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveIncomeBtn">
+   💾 আয় Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelIncomeBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- EXPENSE FORM -->
+ <div class="box">
+
+  <h2 id="formTitle">
+   ➕ নতুন খরচ যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="date">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="category"></select>
+   </div>
+
+   <div>
+    <label>কী কিনেছেন / Item</label>
+    <input id="item" placeholder="যেমন: রুই মাছ">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="amount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 500"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="note"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveBtn">
+   💾 খরচ Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- FILTER -->
+ <div class="box">
+
+  <h2>🔎 হিসাব খুঁজুন / Filter</h2>
+
+  <div class="grid">
+
+   <div>
+    <label>Search</label>
+    <input id="search" placeholder="যেমন: মাছ, সবজি...">
+   </div>
+
+   <div>
+    <label>নির্দিষ্ট তারিখ</label>
+    <input type="date" id="filterDate">
+   </div>
+
+   <div>
+    <label>মাস</label>
+    <input type="month" id="filterMonth">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="filterCategory"></select>
+   </div>
+
+  </div>
+
+  <div class="total">
+   নির্বাচিত হিসাবের মোট:
+   <span id="filteredTotal">₹0.00</span>
+  </div>
+
+ </div>
+
+ <!-- EXPENSE LIST -->
+ <div class="box">
+
+  <h2>📋 খরচের তালিকা</h2>
+
+  <div id="expenseList"></div>
+
+ </div>
+
+ <!-- INCOME LIST -->
+ <div class="box">
+
+  <h2>💰 আয়ের তালিকা</h2>
+
+  <div id="incomeList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY MODAL
+========================= -->
 
-<!-- SUMMARY -->
+<div class="modal" id="categoryModal">
 
-<div class="summary">
+ <div class="modal-content">
 
-<div class="card">
-<h3>আজকের খরচ</h3>
-<strong id="todayTotal">₹0.00</strong>
-</div>
+  <div class="modal-head">
 
-<div class="card">
-<h3>এই মাসের খরচ</h3>
-<strong id="monthTotal">₹0.00</strong>
-</div>
+   <h2>🏷️ Category Manager</h2>
 
-<div class="card">
-<h3>এই বছরের খরচ</h3>
-<strong id="yearTotal">₹0.00</strong>
-</div>
+   <button type="button" class="secondary" id="closeCategoryBtn">
+    ✕
+   </button>
 
-<div class="card">
-<h3>এই মাসের আয়</h3>
-<strong id="monthIncome">₹0.00</strong>
-</div>
+  </div>
 
-<div class="card">
-<h3>এই মাসে বাকি</h3>
-<strong id="monthBalance">₹0.00</strong>
-</div>
+  <button type="button" class="green" id="addCategoryBtn">
+   ➕ নতুন Category
+  </button>
+
+  <div id="categoryList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY EDIT MODAL
+========================= -->
 
-<!-- INCOME -->
+<div class="modal" id="categoryEditModal">
 
-<div class="box">
+ <div class="modal-content">
 
-<h2 id="incomeFormTitle">
-💰 নতুন আয় যোগ করুন
-</h2>
+  <div class="modal-head">
 
-<div class="grid">
+   <h2 id="catEditTitle">
+    নতুন Category
+   </h2>
 
-<div>
-<label>তারিখ</label>
-<input type="date" id="incomeDate">
-</div>
+  </div>
 
-<div>
-<label>আয়ের নাম</label>
-<input id="incomeItem" placeholder="যেমন: Salary">
-</div>
+  <label>Category-এর নাম</label>
 
-<div>
-<label>টাকার পরিমাণ</label>
-<input
- type="number"
- id="incomeAmount"
- min="0"
- step="0.01"
- placeholder="যেমন: 30000"
->
-</div>
+  <input
+   id="categoryName"
+   placeholder="যেমন: ওষুধ"
+  >
 
-<div class="full">
+  <div class="modal-actions">
 
-<label>নোট (ঐচ্ছিক)</label>
+   <button type="button" class="green" id="saveCategoryBtn">
+    Save
+   </button>
 
-<textarea
- id="incomeNote"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+   <button type="button" class="secondary" id="closeCategoryEditBtn">
+    Cancel
+   </button>
+
+  </div>
+
+ </div>
 
 </div>
 
-</div>
+<!-- =========================
+     CHART MODAL
+========================= -->
 
-<button
- class="primary"
- id="saveIncomeBtn"
->
-💾 আয় Save করুন
-</button>
+<div class="modal" id="chartModal">
 
-<button
- class="primary secondary"
- id="cancelIncomeBtn"
- style="display:none"
->
-Cancel
-</button>
+ <div class="modal-content">
 
-</div>
+  <div class="modal-head">
 
+   <h2>📊 হিসাবের চার্ট</h2>
 
-<!-- EXPENSE FORM -->
+   <button type="button" class="secondary" id="closeChartBtn">
+    ✕
+   </button>
 
-<div class="box">
+  </div>
 
-<h2 id="formTitle">
-➕ নতুন খরচ যোগ করুন
-</h2>
+  <div class="tabs">
 
-<div class="grid">
+   <button type="button" class="active" data-chart="daily">
+    Daily
+   </button>
 
-<div>
+   <button type="button" data-chart="monthly">
+    Monthly
+   </button>
 
-<label>তারিখ</label>
+   <button type="button" data-chart="yearly">
+    Yearly
+   </button>
 
-<input
- type="date"
- id="date"
->
+  </div>
 
-</div>
+  <div class="chart-wrap">
+   <canvas id="chartCanvas" width="650" height="330"></canvas>
+  </div>
 
+  <div id="chartLegend" class="legend"></div>
 
-<div>
-
-<label>Category</label>
-
-<select id="category"></select>
+ </div>
 
 </div>
 
+<!-- =========================
+     DELETE CONFIRM MODAL
+========================= -->
 
-<div>
+<div class="modal" id="deleteModal">
 
-<label>কী কিনেছেন / Item</label>
+ <div class="modal-content">
 
-<input
- id="item"
- placeholder="যেমন: রুই মাছ"
->
+  <div class="confirm-icon">🗑️</div>
 
-</div>
+  <div class="confirm-text" id="deleteMessage">
+   এই হিসাবটি Delete করবেন?
+  </div>
 
+  <div class="confirm-sub" id="deleteSubMessage"></div>
 
-<div>
+  <div class="modal-actions">
 
-<label>টাকার পরিমাণ</label>
+   <button type="button" class="secondary" id="deleteCancelBtn">
+    Cancel
+   </button>
 
-<input
- type="number"
- id="amount"
- min="0"
- step="0.01"
- placeholder="যেমন: 500"
->
+   <button type="button" class="red" id="deleteConfirmBtn">
+    🗑️ Delete
+   </button>
 
-</div>
+  </div>
 
-
-<div class="full">
-
-<label>নোট (ঐচ্ছিক)</label>
-
-<textarea
- id="note"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+ </div>
 
 </div>
-
-</div>
-
-
-<button
- class="primary"
- id="saveBtn"
->
-💾 খরচ Save করুন
-</button>
-
-
-<button
- class="primary secondary"
- id="cancelBtn"
- style="display:none"
->
-Cancel
-</button>
-
-</div>
-
-
-<!-- FILTER -->
-
-<div class="box">
-
-<h2>
-🔎 হিসাব খুঁজুন / Filter
-</h2>
-
-<div class="grid">
-
-<div>
-
-<label>Search</label>
-
-<input
- id="search"
- placeholder="যেমন: মাছ, সবজি..."
->
-
-</div>
-
-
-<div>
-
-<label>নির্দিষ্ট তারিখ</label>
-
-<input
- type="date"
- id="filterDate"
->
-
-</div>
-
-
-<div>
-
-<label>মাস</label>
-
-<input
- type="month"
- id="filterMonth"
->
-
-</div>
-
-
-<div>
-
-<label>Category</label>
-
-<select id="filterCategory"></select>
-
-</div>
-
-</div>
-
-
-<div class="total">
-
-নির্বাচিত হিসাবের মোট:
-
-<span id="filteredTotal">
-₹0.00
-</span>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE LIST -->
-
-<div class="box">
-
-<h2>
-📋 খরচের তালিকা
-</h2>
-
-<div id="expenseList"></div>
-
-</div>
-
-
-<!-- INCOME LIST -->
-
-<div class="box">
-
-<h2>
-💰 আয়ের তালিকা
-</h2>
-
-<div id="incomeList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY MODAL -->
-
-<div
- class="modal"
- id="categoryModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-🏷️ Category Manager
-</h2>
-
-<button
- class="secondary"
- id="closeCategoryBtn"
->
-✕
-</button>
-
-</div>
-
-
-<button
- class="green"
- id="addCategoryBtn"
->
-➕ নতুন Category
-</button>
-
-
-<div id="categoryList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY EDIT MODAL -->
-
-<div
- class="modal"
- id="categoryEditModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2 id="catEditTitle">
-নতুন Category
-</h2>
-
-</div>
-
-
-<label>
-Category-এর নাম
-</label>
-
-<input
- id="categoryName"
- placeholder="যেমন: ওষুধ"
->
-
-
-<div class="modal-actions">
-
-<button
- class="green"
- id="saveCategoryBtn"
->
-Save
-</button>
-
-<button
- class="secondary"
- id="closeCategoryEditBtn"
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- CHART MODAL -->
-
-<div
- class="modal"
- id="chartModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-📊 হিসাবের চার্ট
-</h2>
-
-<button
- class="secondary"
- id="closeChartBtn"
->
-✕
-</button>
-
-</div>
-
-
-<div class="tabs">
-
-<button
- class="active"
- data-chart="daily"
->
-Daily
-</button>
-
-<button
- data-chart="monthly"
->
-Monthly
-</button>
-
-<button
- data-chart="yearly"
->
-Yearly
-</button>
-
-</div>
-
-
-<div class="chart-wrap">
-
-<canvas
- id="chartCanvas"
- width="650"
- height="330"
-></canvas>
-
-</div>
-
-
-<div
- id="chartLegend"
- class="legend"
-></div>
-
-</div>
-
-</div>
-
 
 <script>
-
 "use strict";
 
-
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
-let expenses=[];
+let expenses = [];
+let incomes = [];
 
-let incomes=[];
-
-let categories=[
+let categories = [
  "বাজার",
  "সবজি",
  "মাছ",
@@ -4117,28 +4265,29 @@ let categories=[
  "অন্যান্য"
 ];
 
+let editId = null;
+let editIncomeId = null;
+let editCategoryIndex = null;
 
-let editId=null;
+let chartMode = "daily";
 
-let editIncomeId=null;
-
-let editCategoryIndex=null;
-
-let chartMode="daily";
-
-
-/* =========================
-   HELPERS
-========================= */
-
-const $=id=>
- document.getElementById(id);
+let pendingDeleteType = null;
+let pendingDeleteId = null;
 
 
-function money(v){
+/* =========================================================
+   HELPER
+========================================================= */
 
- return "₹"+
- Number(v||0).toLocaleString(
+function $(id){
+ return document.getElementById(id);
+}
+
+
+function money(value){
+
+ return "₹" +
+ Number(value || 0).toLocaleString(
   "en-IN",
   {
    minimumFractionDigits:2,
@@ -4149,44 +4298,53 @@ function money(v){
 }
 
 
-function esc(v){
+function esc(value){
 
- return String(v??"")
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;")
- .replace(/'/g,"&#039;");
+ return String(value ?? "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
 function today(){
 
- const d=new Date();
+ const d = new Date();
 
- return d.getFullYear()+
- "-"+
- String(d.getMonth()+1).padStart(2,"0")+
- "-"+
- String(d.getDate()).padStart(2,"0");
-
-}
-
-
-function fmtDate(s){
-
- return String(s||"")
- .split("-")
- .reverse()
- .join("-");
+ return (
+  d.getFullYear() +
+  "-" +
+  String(d.getMonth()+1).padStart(2,"0") +
+  "-" +
+  String(d.getDate()).padStart(2,"0")
+ );
 
 }
 
 
-/* =========================
+function fmtDate(value){
+
+ if(!value){
+  return "";
+ }
+
+ const parts = String(value).split("-");
+
+ if(parts.length !== 3){
+  return String(value);
+ }
+
+ return parts.reverse().join("-");
+
+}
+
+
+/* =========================================================
    STORAGE
-========================= */
+========================================================= */
 
 function saveAll(){
 
@@ -4212,189 +4370,204 @@ function loadAll(){
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseData") || "[]"
   );
 
-  expenses=Array.isArray(x)?x:[];
+  expenses = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  expenses=[];
+  expenses = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myIncomeData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myIncomeData") || "[]"
   );
 
-  incomes=Array.isArray(x)?x:[];
+  incomes = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  incomes=[];
+  incomes = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseCategories"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseCategories") || "[]"
   );
 
   if(
-   Array.isArray(x)&&
-   x.length
+   Array.isArray(data) &&
+   data.length > 0
   ){
 
-   categories=x;
+   categories = data;
 
   }
 
- }catch(e){}
+ }catch(error){}
 
 }
 
 
-/* =========================
+/* =========================================================
    CATEGORY
-========================= */
+========================================================= */
 
 function renderCategories(){
 
- const old=$("category").value;
-
- const oldF=$("filterCategory").value;
-
-
- $("category").innerHTML=
- '<option value="">Category নির্বাচন করুন</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ const currentCategory = $("category").value;
+ const currentFilter = $("filterCategory").value;
 
 
- $("filterCategory").innerHTML=
- '<option value="">সব Category</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ $("category").innerHTML =
+  '<option value="">Category নির্বাচন করুন</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
 
- if(categories.includes(old)){
+ $("filterCategory").innerHTML =
+  '<option value="">সব Category</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
-  $("category").value=old;
+
+ if(categories.includes(currentCategory)){
+  $("category").value = currentCategory;
+ }
+
+ if(categories.includes(currentFilter)){
+  $("filterCategory").value = currentFilter;
+ }
+
+
+ if(categories.length === 0){
+
+  $("categoryList").innerHTML =
+   '<div class="empty">কোনো Category নেই।</div>';
+
+  return;
 
  }
 
 
- if(categories.includes(oldF)){
+ $("categoryList").innerHTML =
+  categories.map(
+   function(category,index){
 
-  $("filterCategory").value=oldF;
+    return `
+     <div class="cat-row">
 
- }
+      <span>
+       🏷️ ${esc(category)}
+      </span>
 
+      <div class="cat-actions">
 
- $("categoryList").innerHTML=
- categories.length
+       <button
+        type="button"
+        class="yellow"
+        data-category-edit="${index}"
+       >
+        ✏️
+       </button>
 
- ?
+       <button
+        type="button"
+        class="red"
+        data-category-delete="${index}"
+       >
+        🗑️
+       </button>
 
- categories.map(
-  (c,i)=>
-  `<div class="cat-row">
+      </div>
 
-   <span>
-    🏷️ ${esc(c)}
-   </span>
+     </div>
+    `;
 
-   <div class="cat-actions">
-
-    <button
-     class="yellow"
-     data-ce="${i}"
-    >
-     ✏️
-    </button>
-
-    <button
-     class="red"
-     data-cd="${i}"
-    >
-     🗑️
-    </button>
-
-   </div>
-
-  </div>`
- ).join("")
-
- :
-
- '<div class="empty">কোনো Category নেই।</div>';
+   }
+  ).join("");
 
 
  document
- .querySelectorAll("[data-ce]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    openCategoryEdit(
-     +b.dataset.ce
-    )
- );
+  .querySelectorAll("[data-category-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     openCategoryEdit(
+      Number(button.dataset.categoryEdit)
+     );
+
+    };
+
+   }
+  );
 
 
  document
- .querySelectorAll("[data-cd]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    deleteCategory(
-     +b.dataset.cd
-    )
- );
+  .querySelectorAll("[data-category-delete]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     deleteCategory(
+      Number(button.dataset.categoryDelete)
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-function openCategoryEdit(i=null){
+function openCategoryEdit(index = null){
 
- editCategoryIndex=i;
+ editCategoryIndex = index;
 
- $("catEditTitle").textContent=
-  i===null
-  ?"নতুন Category"
-  :"Category Edit করুন";
+ $("catEditTitle").textContent =
+  index === null
+  ? "নতুন Category"
+  : "Category Edit করুন";
 
- $("categoryName").value=
-  i===null
-  ?""
-  :categories[i];
+ $("categoryName").value =
+  index === null
+  ? ""
+  : categories[index];
 
- $("categoryEditModal")
- .style.display="flex";
-
+ $("categoryEditModal").style.display = "flex";
 
  setTimeout(
-  ()=>$("categoryName").focus(),
-  80
+  function(){
+   $("categoryName").focus();
+  },
+  100
  );
 
 }
@@ -4402,69 +4575,69 @@ function openCategoryEdit(i=null){
 
 function closeCategoryEdit(){
 
- $("categoryEditModal")
- .style.display="none";
+ $("categoryEditModal").style.display = "none";
 
- editCategoryIndex=null;
+ editCategoryIndex = null;
+
+ $("categoryName").value = "";
 
 }
 
 
 function saveCategory(){
 
- const n=$("categoryName")
- .value
- .trim();
+ const name =
+  $("categoryName").value.trim();
 
 
- if(!n){
+ if(!name){
 
-  alert(
-   "Category-এর নাম লিখুন।"
-  );
+  alert("Category-এর নাম লিখুন।");
 
   return;
 
  }
 
 
- if(
+ const duplicate =
   categories.some(
-   (c,i)=>
-    String(c).toLowerCase()===
-    n.toLowerCase()&&
-    i!==editCategoryIndex
-  )
- ){
+   function(category,index){
 
-  alert(
-   "এই Category আগে থেকেই আছে।"
+    return (
+     String(category).toLowerCase() ===
+     name.toLowerCase() &&
+     index !== editCategoryIndex
+    );
+
+   }
   );
+
+
+ if(duplicate){
+
+  alert("এই Category আগে থেকেই আছে।");
 
   return;
 
  }
 
 
- if(editCategoryIndex===null){
+ if(editCategoryIndex === null){
 
-  categories.push(n);
+  categories.push(name);
 
  }else{
 
-  const old=
+  const oldName =
    categories[editCategoryIndex];
 
-  categories[editCategoryIndex]=n;
-
+  categories[editCategoryIndex] = name;
 
   expenses.forEach(
-   e=>{
+   function(expense){
 
-    if(e.category===old){
-
-     e.category=n;
-
+    if(expense.category === oldName){
+     expense.category = name;
     }
 
    }
@@ -4475,23 +4648,31 @@ function saveCategory(){
 
  saveAll();
 
- render();
-
  closeCategoryEdit();
+
+ render();
 
 }
 
 
-function deleteCategory(i){
+function deleteCategory(index){
 
- const n=categories[i];
+ const name = categories[index];
+
+ if(!name){
+  return;
+ }
 
 
- if(
+ const used =
   expenses.some(
-   e=>e.category===n
-  )
- ){
+   function(expense){
+    return expense.category === name;
+   }
+  );
+
+
+ if(used){
 
   alert(
    "এই Category-তে পুরনো হিসাব আছে। আগে সেই হিসাবগুলো Edit করুন।"
@@ -4502,52 +4683,39 @@ function deleteCategory(i){
  }
 
 
- if(
-  confirm(
-   `"${n}" Category Delete করবেন?`
-  )
- ){
-
-  categories.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "category",
+  index,
+  "এই Category-টি Delete করবেন?",
+  `"${name}" Category`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE
-========================= */
+========================================================= */
 
 function saveExpense(){
 
- const date=$("date").value;
+ const date = $("date").value;
 
- const category=$("category").value;
+ const category = $("category").value;
 
- const item=$("item")
- .value
- .trim();
+ const item =
+  $("item").value.trim();
 
- const amount=parseFloat(
-  $("amount").value
- );
+ const amount =
+  parseFloat($("amount").value);
 
- const note=$("note")
- .value
- .trim();
+ const note =
+  $("note").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন।");
   return;
 
  }
@@ -4555,10 +4723,7 @@ function saveExpense(){
 
  if(!category){
 
-  alert(
-   "Category নির্বাচন করুন।"
-  );
-
+  alert("Category নির্বাচন করুন।");
   return;
 
  }
@@ -4566,68 +4731,60 @@ function saveExpense(){
 
  if(!item){
 
-  alert(
-   "Item-এর নাম লিখুন।"
-  );
-
+  alert("Item-এর নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editId!==null){
+ if(editId !== null){
 
-  const e=
+  const expense =
    expenses.find(
-    x=>
-     Number(x.id)===
-     Number(editId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     category,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editId);
     }
    );
 
-  }
 
-  editId=null;
+  if(expense){
+
+   expense.date = date;
+   expense.category = category;
+   expense.item = item;
+   expense.amount = amount;
+   expense.note = note;
+
+  }
 
  }else{
 
-  expenses.push(
-   {
-    id:Date.now(),
-    date,
-    category,
-    item,
-    amount,
-    note
-   }
-  );
+  expenses.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   category: category,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -4643,152 +4800,125 @@ function saveExpense(){
 
 function resetExpenseForm(){
 
- editId=null;
+ editId = null;
 
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "➕ নতুন খরচ যোগ করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 খরচ Save করুন";
 
- $("cancelBtn")
- .style.display="none";
+ $("cancelBtn").style.display = "none";
 
+ $("date").value = today();
 
- $("date").value=today();
+ $("category").value = "";
 
- $("category").value="";
+ $("item").value = "";
 
- $("item").value="";
+ $("amount").value = "";
 
- $("amount").value="";
-
- $("note").value="";
+ $("note").value = "";
 
 }
 
 
 function editExpense(id){
 
- const e=
+ const expense =
   expenses.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!expense){
   return;
-
  }
 
 
- editId=Number(id);
+ editId = Number(id);
+
+ $("date").value =
+  expense.date || today();
+
+ $("category").value =
+  expense.category || "";
+
+ $("item").value =
+  expense.item || "";
+
+ $("amount").value =
+  expense.amount || "";
+
+ $("note").value =
+  expense.note || "";
 
 
- $("date").value=
-  e.date||today();
-
- $("category").value=
-  e.category||"";
-
- $("item").value=
-  e.item||"";
-
- $("amount").value=
-  e.amount||"";
-
- $("note").value=
-  e.note||"";
-
-
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "✏️ খরচ Edit করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelBtn")
- .style.display="block";
+ $("cancelBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteExpense(id){
 
- const i=
-  expenses.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const expense =
+  expenses.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
-
+ if(!expense){
   return;
-
  }
 
 
- if(
-  confirm(
-   `"${expenses[i].item}" খরচটি Delete করবেন?\n\nপরিমাণ: ${money(expenses[i].amount)}`
-  )
- ){
-
-  expenses.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "expense",
+  id,
+  "এই খরচটি Delete করবেন?",
+  `${expense.item} — ${money(expense.amount)}`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME
-========================= */
+========================================================= */
 
 function saveIncome(){
 
- const date=
+ const date =
   $("incomeDate").value;
 
- const item=
-  $("incomeItem")
-  .value
-  .trim();
+ const item =
+  $("incomeItem").value.trim();
 
- const amount=
-  parseFloat(
-   $("incomeAmount").value
-  );
+ const amount =
+  parseFloat($("incomeAmount").value);
 
- const note=
-  $("incomeNote")
-  .value
-  .trim();
+ const note =
+  $("incomeNote").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন.");
   return;
 
  }
@@ -4796,66 +4926,57 @@ function saveIncome(){
 
  if(!item){
 
-  alert(
-   "আয়ের নাম লিখুন।"
-  );
-
+  alert("আয়ের নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editIncomeId!==null){
+ if(editIncomeId !== null){
 
-  const e=
+  const income =
    incomes.find(
-    x=>
-     Number(x.id)===
-     Number(editIncomeId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editIncomeId);
     }
    );
 
-  }
 
-  editIncomeId=null;
+  if(income){
+
+   income.date = date;
+   income.item = item;
+   income.amount = amount;
+   income.note = note;
+
+  }
 
  }else{
 
-  incomes.push(
-   {
-    id:Date.now(),
-    date,
-    item,
-    amount,
-    note
-   }
-  );
+  incomes.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -4871,188 +4992,283 @@ function saveIncome(){
 
 function resetIncomeForm(){
 
- editIncomeId=null;
+ editIncomeId = null;
 
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "💰 নতুন আয় যোগ করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 আয় Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="none";
+ $("cancelIncomeBtn").style.display = "none";
 
+ $("incomeDate").value = today();
 
- $("incomeDate").value=today();
+ $("incomeItem").value = "";
 
- $("incomeItem").value="";
+ $("incomeAmount").value = "";
 
- $("incomeAmount").value="";
-
- $("incomeNote").value="";
+ $("incomeNote").value = "";
 
 }
 
 
 function editIncome(id){
 
- const e=
+ const income =
   incomes.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!income){
   return;
-
  }
 
 
- editIncomeId=Number(id);
+ editIncomeId = Number(id);
+
+ $("incomeDate").value =
+  income.date || today();
+
+ $("incomeItem").value =
+  income.item || "";
+
+ $("incomeAmount").value =
+  income.amount || "";
+
+ $("incomeNote").value =
+  income.note || "";
 
 
- $("incomeDate").value=e.date;
-
- $("incomeItem").value=e.item;
-
- $("incomeAmount").value=e.amount;
-
- $("incomeNote").value=
-  e.note||"";
-
-
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "✏️ আয় Edit করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="block";
+ $("cancelIncomeBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteIncome(id){
 
- const i=
-  incomes.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const income =
+  incomes.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
+ if(!income){
+  return;
+ }
+
+
+ openDeleteConfirm(
+  "income",
+  id,
+  "এই আয়টি Delete করবেন?",
+  `${income.item} — ${money(income.amount)}`
+ );
+
+}
+
+
+/* =========================================================
+   DELETE CONFIRM
+========================================================= */
+
+function openDeleteConfirm(
+ type,
+ id,
+ message,
+ subMessage
+){
+
+ pendingDeleteType = type;
+
+ pendingDeleteId = id;
+
+ $("deleteMessage").textContent =
+  message;
+
+ $("deleteSubMessage").textContent =
+  subMessage || "";
+
+ $("deleteModal").style.display =
+  "flex";
+
+}
+
+
+function closeDeleteConfirm(){
+
+ pendingDeleteType = null;
+
+ pendingDeleteId = null;
+
+ $("deleteModal").style.display =
+  "none";
+
+}
+
+
+function confirmDelete(){
+
+ if(
+  pendingDeleteType === null ||
+  pendingDeleteId === null
+ ){
+
+  closeDeleteConfirm();
 
   return;
 
  }
 
 
- if(
-  confirm(
-   `"${incomes[i].item}" আয়টি Delete করবেন?`
-  )
- ){
+ if(pendingDeleteType === "expense"){
 
-  incomes.splice(i,1);
+  const index =
+   expenses.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
 
-  saveAll();
 
-  render();
+  if(index >= 0){
+
+   expenses.splice(index,1);
+
+  }
 
  }
+
+
+ else if(pendingDeleteType === "income"){
+
+  const index =
+   incomes.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
+
+
+  if(index >= 0){
+
+   incomes.splice(index,1);
+
+  }
+
+ }
+
+
+ else if(pendingDeleteType === "category"){
+
+  const index =
+   Number(pendingDeleteId);
+
+
+  if(
+   index >= 0 &&
+   index < categories.length
+  ){
+
+   categories.splice(index,1);
+
+  }
+
+ }
+
+
+ saveAll();
+
+ closeDeleteConfirm();
+
+ render();
 
 }
 
 
-/* =========================
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
-function filtered(){
+function getFilteredExpenses(){
 
- const s=
-  $("search")
-  .value
-  .trim()
-  .toLowerCase();
+ const search =
+  $("search").value
+   .trim()
+   .toLowerCase();
 
- const fd=
+ const filterDate =
   $("filterDate").value;
 
- const fm=
+ const filterMonth =
   $("filterMonth").value;
 
- const fc=
+ const filterCategory =
   $("filterCategory").value;
 
 
  return expenses.filter(
-  e=>{
+  function(expense){
 
-   const item=
-    String(e.item||"")
-    .toLowerCase();
+   const item =
+    String(expense.item || "")
+     .toLowerCase();
 
-   const cat=
-    String(e.category||"")
-    .toLowerCase();
+   const category =
+    String(expense.category || "")
+     .toLowerCase();
 
-   const note=
-    String(e.note||"")
-    .toLowerCase();
+   const note =
+    String(expense.note || "")
+     .toLowerCase();
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   return(
+   const searchMatch =
+    !search ||
+    item.includes(search) ||
+    category.includes(search) ||
+    note.includes(search);
 
-    (
-     !s||
-     item.includes(s)||
-     cat.includes(s)||
-     note.includes(s)
-    )
 
-    &&
+   const dateMatch =
+    !filterDate ||
+    date === filterDate;
 
-    (
-     !fd||
-     d===fd
-    )
 
-    &&
+   const monthMatch =
+    !filterMonth ||
+    date.startsWith(filterMonth);
 
-    (
-     !fm||
-     d.startsWith(fm)
-    )
 
-    &&
+   const categoryMatch =
+    !filterCategory ||
+    expense.category === filterCategory;
 
-    (
-     !fc||
-     e.category===fc
-    )
 
+   return (
+    searchMatch &&
+    dateMatch &&
+    monthMatch &&
+    categoryMatch
    );
 
   }
@@ -5061,316 +5277,332 @@ function filtered(){
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE LIST
-========================= */
+========================================================= */
 
 function renderExpenses(){
 
- const arr=
-  filtered()
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  getFilteredExpenses()
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("expenseList").innerHTML =
+   '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
+
+  return;
+
+ }
+
+
+ $("expenseList").innerHTML =
+  list.map(
+   function(expense){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+
+        ${esc(expense.item)}
+
+        <span class="category-badge">
+         🏷️ ${esc(expense.category)}
+        </span>
+
+       </div>
+
+       <div class="amount">
+        ${money(expense.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(expense.date)}
+      </div>
+
+      ${
+       expense.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(expense.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-expense-edit="${expense.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-expense-delete="${expense.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-expense-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editExpense(
+      button.dataset.expenseEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("expenseList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-
-      ${esc(e.item)}
-
-      <span class="category-badge">
-
-       🏷️ ${esc(e.category)}
-
-      </span>
-
-     </div>
-
-
-     <div class="amount">
-
-      ${money(e.amount)}
-
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-
-     📅 ${fmtDate(e.date)}
-
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ee="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-ed="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
-
-
  document
- .querySelectorAll("[data-ee]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editExpense(
-      b.dataset.ee
-     )
- );
+  .querySelectorAll("[data-expense-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-ed]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteExpense(
-      b.dataset.ed
-     )
- );
+      button.dataset.expenseDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME LIST
-========================= */
+========================================================= */
 
 function renderIncomes(){
 
- const arr=
-  [...incomes]
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  incomes
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("incomeList").innerHTML =
+   '<div class="empty">কোনো আয় নেই।</div>';
+
+  return;
+
+ }
+
+
+ $("incomeList").innerHTML =
+  list.map(
+   function(income){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+        ${esc(income.item)}
+       </div>
+
+       <div class="amount">
+        ${money(income.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(income.date)}
+      </div>
+
+      ${
+       income.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(income.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-income-edit="${income.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-income-delete="${income.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-income-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editIncome(
+      button.dataset.incomeEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("incomeList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-      ${esc(e.item)}
-     </div>
-
-     <div class="amount">
-      ${money(e.amount)}
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-     📅 ${fmtDate(e.date)}
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ie="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-idel="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো আয় নেই।</div>';
-
-
  document
- .querySelectorAll("[data-ie]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editIncome(
-      b.dataset.ie
-     )
- );
+  .querySelectorAll("[data-income-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-idel]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteIncome(
-      b.dataset.idel
-     )
- );
+      button.dataset.incomeDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    TOTALS
-========================= */
+========================================================= */
 
 function updateTotals(){
 
- const now=new Date();
+ const now = new Date();
 
- const y=
+ const year =
   now.getFullYear();
 
- const m=
+ const month =
   String(
    now.getMonth()+1
   ).padStart(2,"0");
 
- const t=today();
+ const currentDate =
+  today();
 
-
- let day=0;
-
- let month=0;
-
- let year=0;
-
- let inc=0;
+ let todayTotal = 0;
+ let monthTotal = 0;
+ let yearTotal = 0;
+ let incomeTotal = 0;
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const a=
-    Number(e.amount||0);
+   const amount =
+    Number(expense.amount || 0);
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   if(d===t){
+   if(date === currentDate){
+    todayTotal += amount;
+   }
 
-    day+=a;
+
+   if(
+    date.startsWith(
+     `${year}-${month}`
+    )
+   ){
+
+    monthTotal += amount;
 
    }
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-`
     )
    ){
 
-    month+=a;
-
-   }
-
-
-   if(
-    d.startsWith(
-     `${y}-`
-    )
-   ){
-
-    year+=a;
+    yearTotal += amount;
 
    }
 
@@ -5379,22 +5611,20 @@ function updateTotals(){
 
 
  incomes.forEach(
-  e=>{
+  function(income){
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(income.date || "");
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-${month}`
     )
    ){
 
-    inc+=
-     Number(
-      e.amount||0
-     );
+    incomeTotal +=
+     Number(income.amount || 0);
 
    }
 
@@ -5402,211 +5632,269 @@ function updateTotals(){
  );
 
 
- $("todayTotal")
- .textContent=
-  money(day);
+ $("todayTotal").textContent =
+  money(todayTotal);
 
- $("monthTotal")
- .textContent=
-  money(month);
+ $("monthTotal").textContent =
+  money(monthTotal);
 
- $("yearTotal")
- .textContent=
-  money(year);
+ $("yearTotal").textContent =
+  money(yearTotal);
 
- $("monthIncome")
- .textContent=
-  money(inc);
+ $("monthIncome").textContent =
+  money(incomeTotal);
 
- $("monthBalance")
- .textContent=
-  money(inc-month);
+ $("monthBalance").textContent =
+  money(incomeTotal - monthTotal);
 
 
- $("filteredTotal")
- .textContent=
-  money(
-   filtered()
+ const filteredTotal =
+  getFilteredExpenses()
    .reduce(
-    (s,e)=>
-     s+
-     Number(
-      e.amount||0
-     ),
+    function(total,expense){
+
+     return total +
+      Number(expense.amount || 0);
+
+    },
     0
-   )
-  );
+   );
+
+
+ $("filteredTotal").textContent =
+  money(filteredTotal);
 
 }
 
 
-/* =========================
+/* =========================================================
    BACKUP
-========================= */
+========================================================= */
 
-function backup(){
+function createBackupData(){
 
- const data={
+ return {
 
   appName:
    "আমার দৈনন্দিন হিসাব",
 
-  backupVersion:2,
+  backupVersion:
+   3,
 
   backupDate:
    new Date().toISOString(),
 
   expenses:
-
-   expenses,
+   JSON.parse(
+    JSON.stringify(expenses)
+   ),
 
   incomes:
-
-   incomes,
+   JSON.parse(
+    JSON.stringify(incomes)
+   ),
 
   categories:
-
-   categories
+   JSON.parse(
+    JSON.stringify(categories)
+   )
 
  };
-
-
- const blob=
-  new Blob(
-   [
-    JSON.stringify(
-     data,
-     null,
-     2
-    )
-   ],
-   {
-    type:
-     "application/json"
-   }
-  );
-
-
- const a=
-  document.createElement("a");
-
-
- a.href=
-  URL.createObjectURL(
-   blob
-  );
-
-
- a.download=
-  `My-Stock-Backup-${today()}-${new Date().getHours()}-${new Date().getMinutes()}.json`;
-
-
- a.click();
-
-
- setTimeout(
-  ()=>
-   URL.revokeObjectURL(
-    a.href
-   ),
-  500
- );
 
 }
 
 
-/* =========================
+function backup(){
+
+ try{
+
+  const backupData =
+   createBackupData();
+
+
+  const json =
+   JSON.stringify(
+    backupData,
+    null,
+    2
+   );
+
+
+  const blob =
+   new Blob(
+    [json],
+    {
+     type:"application/json"
+    }
+   );
+
+
+  const url =
+   URL.createObjectURL(blob);
+
+
+  const link =
+   document.createElement("a");
+
+
+  link.href = url;
+
+  link.download =
+   `My-Stock-Backup-${today()}-${String(
+    new Date().getHours()
+   ).padStart(2,"0")}-${String(
+    new Date().getMinutes()
+   ).padStart(2,"0")}.json`;
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+   function(){
+    URL.revokeObjectURL(url);
+   },
+   1000
+  );
+
+
+ }catch(error){
+
+  alert(
+   "Backup তৈরি করা যায়নি।"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
    RESTORE
-========================= */
+========================================================= */
 
 function restoreFile(file){
 
  if(!file){
-
   return;
-
  }
 
 
- const reader=
+ const reader =
   new FileReader();
 
 
- reader.onload=()=>{
+ reader.onload =
+  function(){
 
-  try{
+   let backupData;
 
-   const d=
-    JSON.parse(
-     reader.result
+
+   try{
+
+    backupData =
+     JSON.parse(
+      reader.result
+     );
+
+   }catch(error){
+
+    alert(
+     "এই Backup ফাইলটি সঠিক JSON নয়।"
     );
-
-
-   if(
-    !Array.isArray(
-     d.expenses
-    )||
-
-    !Array.isArray(
-     d.incomes
-    )||
-
-    !Array.isArray(
-     d.categories
-    )
-   ){
-
-    throw new Error();
-
-   }
-
-
-   if(
-    !confirm(
-     "Restore করলে বর্তমান হিসাবগুলো এই Backup দিয়ে replace হবে। Continue করবেন?"
-    )
-   ){
 
     return;
 
    }
 
 
-   expenses=
-    d.expenses;
+   if(
+    !backupData ||
+    !Array.isArray(backupData.expenses) ||
+    !Array.isArray(backupData.incomes) ||
+    !Array.isArray(backupData.categories)
+   ){
 
-   incomes=
-    d.incomes;
+    alert(
+     "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
+    );
 
-   categories=
-    d.categories;
+    return;
+
+   }
 
 
-   saveAll();
+   const confirmed =
+    window.confirm(
+     "Restore করলে বর্তমান হিসাবগুলো Backup-এর data দিয়ে replace হবে।\n\nContinue করবেন?"
+    );
 
 
-   resetExpenseForm();
+   if(!confirmed){
+    return;
+   }
 
-   resetIncomeForm();
 
-   render();
+   try{
 
+    expenses =
+     JSON.parse(
+      JSON.stringify(
+       backupData.expenses
+      )
+     );
+
+    incomes =
+     JSON.parse(
+      JSON.stringify(
+       backupData.incomes
+      )
+     );
+
+    categories =
+     JSON.parse(
+      JSON.stringify(
+       backupData.categories
+      )
+     );
+
+
+    saveAll();
+
+    resetExpenseForm();
+
+    resetIncomeForm();
+
+    render();
+
+
+    alert(
+     "Restore সফল হয়েছে।"
+    );
+
+   }catch(error){
+
+    alert(
+     "Restore করা যায়নি। বর্তমান data অপরিবর্তিত রাখার চেষ্টা করা হয়েছে।"
+    );
+
+   }
+
+  };
+
+
+ reader.onerror =
+  function(){
 
    alert(
-    "Restore সফল হয়েছে।"
+    "Backup ফাইল পড়া যায়নি।"
    );
 
-  }
-
-  catch(e){
-
-   alert(
-    "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
-   );
-
-  }
-
- };
+  };
 
 
  reader.readAsText(file);
@@ -5614,63 +5902,68 @@ function restoreFile(file){
 }
 
 
-/* =========================
+/* =========================================================
    CHART
-========================= */
+========================================================= */
 
 function openChart(){
 
- $("chartModal")
- .style.display="flex";
+ $("chartModal").style.display =
+  "flex";
 
  drawChart();
 
 }
 
 
+function closeChart(){
+
+ $("chartModal").style.display =
+  "none";
+
+}
+
+
 function drawChart(){
 
- const canvas=
+ const canvas =
   $("chartCanvas");
 
- const ctx=
+ const ctx =
   canvas.getContext("2d");
 
- const W=
+ const width =
   canvas.width;
 
- const H=
+ const height =
   canvas.height;
 
 
  ctx.clearRect(
   0,
   0,
-  W,
-  H
+  width,
+  height
  );
 
 
- $("chartLegend")
- .innerHTML="";
+ $("chartLegend").innerHTML = "";
 
 
- if(
-  chartMode==="daily"
- ){
+ if(chartMode === "daily"){
 
-  drawPie(
+  drawPieChart(
    ctx,
-   W,
-   H
+   width,
+   height
   );
 
  }else{
 
-  drawBars(
+  drawBarChart(
    ctx,
-   W,
-   H,
+   width,
+   height,
    chartMode
   );
 
@@ -5679,54 +5972,60 @@ function drawChart(){
 }
 
 
-/* =========================
+/* =========================================================
    PIE CHART
-========================= */
+========================================================= */
 
-function drawPie(
+function drawPieChart(
  ctx,
- W,
- H
+ width,
+ height
 ){
 
- const map={};
+ const categoryTotals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   map[e.category]=
+   const category =
+    expense.category || "অন্যান্য";
+
+   const amount =
+    Number(expense.amount || 0);
+
+
+   categoryTotals[category] =
     (
-     map[e.category]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     categoryTotals[category] || 0
+    ) + amount;
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .filter(
-   x=>x[1]>0
-  );
+   .entries(categoryTotals)
+   .filter(
+    function(row){
+     return row[1] > 0;
+    }
+   );
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -5734,194 +6033,191 @@ function drawPie(
  }
 
 
- const total=
+ const total =
   rows.reduce(
-   (s,x)=>
-    s+x[1],
+   function(sum,row){
+    return sum + row[1];
+   },
    0
   );
 
 
- const cx=W/2;
+ const centerX =
+  width / 2;
 
- const cy=145;
+ const centerY =
+  145;
 
- const r=105;
+ const radius =
+  105;
 
- let start=
-  -Math.PI/2;
+
+ let startAngle =
+  -Math.PI / 2;
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const ang=
-    x[1]/
-    total*
-    Math.PI*2;
+   const angle =
+    (row[1] / total) *
+    Math.PI *
+    2;
 
 
    ctx.beginPath();
 
    ctx.moveTo(
-    cx,
-    cy
+    centerX,
+    centerY
    );
-
 
    ctx.arc(
-    cx,
-    cy,
-    r,
-    start,
-    start+ang
+    centerX,
+    centerY,
+    radius,
+    startAngle,
+    startAngle + angle
    );
-
 
    ctx.closePath();
 
 
-   ctx.fillStyle=
-    `hsl(${i*360/rows.length},65%,55%)`;
-
+   ctx.fillStyle =
+    `hsl(${
+     index * 360 / rows.length
+    },65%,55%)`;
 
    ctx.fill();
 
 
-   start+=ang;
+   startAngle += angle;
 
 
-   const sp=
-    document.createElement(
-     "span"
-    );
+   const legend =
+    document.createElement("span");
 
-
-   sp.textContent=
-    `🏷️ ${x[0]}: ${money(x[1])}`;
-
+   legend.textContent =
+    `🏷️ ${row[0]}: ${money(row[1])}`;
 
    $("chartLegend")
-   .appendChild(sp);
+    .appendChild(legend);
 
   }
  );
 
 
+ /* DONUT CENTER */
+
  ctx.beginPath();
 
- ctx.fillStyle="#fff";
+ ctx.fillStyle = "#fff";
 
  ctx.arc(
-  cx,
-  cy,
+  centerX,
+  centerY,
   48,
   0,
-  Math.PI*2
+  Math.PI * 2
  );
 
  ctx.fill();
 
 
- ctx.fillStyle="#263238";
+ ctx.fillStyle = "#263238";
 
- ctx.font=
+ ctx.font =
   "bold 15px Arial";
 
- ctx.textAlign=
+ ctx.textAlign =
   "center";
 
  ctx.fillText(
   money(total),
-  cx,
-  cy+5
+  centerX,
+  centerY + 5
  );
 
 }
 
 
-/* =========================
+/* =========================================================
    BAR CHART
-========================= */
+========================================================= */
 
-function drawBars(
+function drawBarChart(
  ctx,
- W,
- H,
+ width,
+ height,
  mode
 ){
 
- const map={};
+ const totals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const d=
+   const date =
     new Date(
-     e.date+
+     String(expense.date) +
      "T00:00:00"
     );
 
 
-   let k;
+   let key;
 
 
-   if(
-    mode==="monthly"
-   ){
+   if(mode === "monthly"){
 
-    k=
-     `${d.getFullYear()}-${String(
-      d.getMonth()+1
+    key =
+     `${date.getFullYear()}-${String(
+      date.getMonth()+1
      ).padStart(2,"0")}`;
 
    }else{
 
-    k=
+    key =
      String(
-      d.getFullYear()
+      date.getFullYear()
      );
 
    }
 
 
-   map[k]=
+   totals[key] =
     (
-     map[k]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     totals[key] || 0
+    ) +
+    Number(expense.amount || 0);
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .sort(
-   (a,b)=>
-    a[0].localeCompare(
-     b[0]
-    )
-  )
-  .slice(-12);
+   .entries(totals)
+   .sort(
+    function(a,b){
+     return a[0].localeCompare(b[0]);
+    }
+   )
+   .slice(-12);
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -5929,33 +6225,34 @@ function drawBars(
  }
 
 
- const max=
-  Math.max(
-   ...rows.map(
-    x=>x[1]
+ const max =
+  Math.max.apply(
+   null,
+   rows.map(
+    function(row){
+     return row[1];
+    }
    )
-  )||1;
+  ) || 1;
 
 
- const left=45;
+ const left = 45;
 
- const bottom=275;
+ const bottom = 275;
 
- const top=25;
+ const top = 25;
 
- const usable=
-  W-left-20;
+ const usable =
+  width - left - 20;
 
- const bw=
+ const barWidth =
   Math.max(
    16,
-   usable/
-   rows.length*
-   .55
+   (usable / rows.length) * .55
   );
 
 
- ctx.strokeStyle=
+ ctx.strokeStyle =
   "#cfd8dc";
 
  ctx.beginPath();
@@ -5971,7 +6268,7 @@ function drawBars(
  );
 
  ctx.lineTo(
-  W-15,
+  width - 15,
   bottom
  );
 
@@ -5979,78 +6276,82 @@ function drawBars(
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const gap=
-    usable/
-    rows.length;
+   const gap =
+    usable / rows.length;
 
+   const centerX =
+    left +
+    gap * index +
+    gap / 2;
 
-   const cx=
-    left+
-    gap*i+
-    gap/2;
-
-
-   const h=
+   const barHeight =
     (
-     x[1]/
-     max
-    )*
+     row[1] / max
+    ) *
     (
-     bottom-
-     top-
+     bottom -
+     top -
      20
     );
 
 
-   ctx.fillStyle=
-    `hsl(${i*300/Math.max(1,rows.length)},65%,50%)`;
+   ctx.fillStyle =
+    `hsl(${
+     index * 300 /
+     Math.max(1,rows.length)
+    },65%,50%)`;
 
 
    ctx.fillRect(
-    cx-bw/2,
-    bottom-h,
-    bw,
-    h
+    centerX - barWidth / 2,
+    bottom - barHeight,
+    barWidth,
+    barHeight
    );
 
 
-   ctx.fillStyle=
+   ctx.fillStyle =
     "#455a64";
 
-   ctx.font=
+   ctx.font =
     "11px Arial";
 
-   ctx.textAlign=
+   ctx.textAlign =
     "center";
 
 
    ctx.fillText(
-    x[0],
-    cx,
-    bottom+17
+    row[0],
+    centerX,
+    bottom + 17
    );
 
 
    ctx.fillText(
-    money(x[1]),
-    cx,
-    bottom-h-6
+    money(row[1]),
+    centerX,
+    bottom - barHeight - 6
    );
 
   }
  );
 
-
 }
 
 
-/* =========================
+/* =========================================================
    RENDER
-========================= */
+========================================================= */
 
 function render(){
+
+ /*
+   IMPORTANT:
+   Each renderer replaces only its own container's
+   innerHTML. It never appends the main application again.
+ */
 
  renderCategories();
 
@@ -6063,182 +6364,219 @@ function render(){
 }
 
 
-/* =========================
+/* =========================================================
    EVENTS
-========================= */
+========================================================= */
 
-$("saveBtn")
-.onclick=
+/* Expense */
+
+$("saveBtn").onclick =
  saveExpense;
 
-
-$("cancelBtn")
-.onclick=
+$("cancelBtn").onclick =
  resetExpenseForm;
 
 
-$("saveIncomeBtn")
-.onclick=
+/* Income */
+
+$("saveIncomeBtn").onclick =
  saveIncome;
 
-
-$("cancelIncomeBtn")
-.onclick=
+$("cancelIncomeBtn").onclick =
  resetIncomeForm;
 
 
-$("categoryBtn")
-.onclick=()=>{
+/* Category */
 
- $("categoryModal")
- .style.display="flex";
+$("categoryBtn").onclick =
+ function(){
 
- renderCategories();
+  $("categoryModal").style.display =
+   "flex";
 
-};
+  renderCategories();
 
-
-$("closeCategoryBtn")
-.onclick=()=>{
-
- $("categoryModal")
- .style.display="none";
-
-};
+ };
 
 
-$("addCategoryBtn")
-.onclick=()=>
- openCategoryEdit();
+$("closeCategoryBtn").onclick =
+ function(){
+
+  $("categoryModal").style.display =
+   "none";
+
+ };
 
 
-$("saveCategoryBtn")
-.onclick=
+$("addCategoryBtn").onclick =
+ function(){
+
+  openCategoryEdit();
+
+ };
+
+
+$("saveCategoryBtn").onclick =
  saveCategory;
 
-
-$("closeCategoryEditBtn")
-.onclick=
+$("closeCategoryEditBtn").onclick =
  closeCategoryEdit;
 
 
-$("chartBtn")
-.onclick=
+/* Chart */
+
+$("chartBtn").onclick =
  openChart;
 
-
-$("closeChartBtn")
-.onclick=()=>{
-
- $("chartModal")
- .style.display="none";
-
-};
+$("closeChartBtn").onclick =
+ closeChart;
 
 
 document
-.querySelectorAll(
- "[data-chart]"
-)
-.forEach(
- b=>
-  b.onclick=()=>{
+ .querySelectorAll("[data-chart]")
+ .forEach(
+  function(button){
 
-   document
-   .querySelectorAll(
-    "[data-chart]"
-   )
-   .forEach(
-    x=>
-     x.classList
-     .remove("active")
-   );
+   button.onclick =
+    function(){
+
+     document
+      .querySelectorAll("[data-chart]")
+      .forEach(
+       function(tab){
+        tab.classList.remove("active");
+       }
+      );
 
 
-   b.classList
-   .add("active");
+     button.classList.add("active");
 
+     chartMode =
+      button.dataset.chart;
 
-   chartMode=
-    b.dataset.chart;
+     drawChart();
 
-
-   drawChart();
+    };
 
   }
  );
 
 
-$("backupBtn")
-.onclick=
+/* Backup */
+
+$("backupBtn").onclick =
  backup;
 
 
-$("restoreBtn")
-.onclick=()=>{
+/* Restore */
 
- $("restoreFile")
- .click();
+$("restoreBtn").onclick =
+ function(){
 
-};
+  $("restoreFile").click();
 
-
-$("restoreFile")
-.onchange=e=>{
-
- restoreFile(
-  e.target.files[0]
- );
-
- e.target.value="";
-
-};
+ };
 
 
-[
- "search",
- "filterDate",
- "filterMonth",
- "filterCategory"
-]
-.forEach(
- id=>
-  $(id).addEventListener(
-   id==="search"
-   ?"input"
-   :"change",
-   render
-  )
+$("restoreFile").onchange =
+ function(event){
+
+  const file =
+   event.target.files[0];
+
+  restoreFile(file);
+
+  /*
+    Same file আবার select করার
+    সুযোগ রাখার জন্য input reset.
+  */
+
+  event.target.value = "";
+
+ };
+
+
+/* Delete confirmation */
+
+$("deleteCancelBtn").onclick =
+ closeDeleteConfirm;
+
+$("deleteConfirmBtn").onclick =
+ confirmDelete;
+
+
+/* Search / Filters */
+
+$("search").addEventListener(
+ "input",
+ render
+);
+
+$("filterDate").addEventListener(
+ "change",
+ render
+);
+
+$("filterMonth").addEventListener(
+ "change",
+ render
+);
+
+$("filterCategory").addEventListener(
+ "change",
+ render
 );
 
 
-/* CLOSE MODAL OUTSIDE */
+/* =========================================================
+   CLOSE MODALS BY BACKDROP
+========================================================= */
 
-window.onclick=e=>{
+window.addEventListener(
+ "click",
+ function(event){
 
- if(
-  e.target.classList
-  .contains("modal")
- ){
+  if(
+   event.target.classList.contains("modal")
+  ){
 
-  e.target.style.display=
-   "none";
+   event.target.style.display =
+    "none";
+
+   if(
+    event.target.id === "categoryEditModal"
+   ){
+
+    editCategoryIndex = null;
+
+   }
+
+
+   if(
+    event.target.id === "deleteModal"
+   ){
+
+    pendingDeleteType = null;
+    pendingDeleteId = null;
+
+   }
+
+  }
 
  }
+);
 
-};
 
-
-/* =========================
-   START
-========================= */
+/* =========================================================
+   START APP
+========================================================= */
 
 loadAll();
 
-$("date").value=
+$("date").value =
  today();
 
-$("incomeDate").value=
+$("incomeDate").value =
  today();
 
 render();
@@ -6258,12 +6596,22 @@ render();
  box-sizing:border-box;
 }
 
-body{
+html,body{
  margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+}
+
+body{
  font-family:Arial,"Noto Sans Bengali",sans-serif;
  background:linear-gradient(180deg,#f7fbff,#eef7f4);
  color:#263238;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 header{
  background:linear-gradient(135deg,#00a878,#00c9a7);
@@ -6284,13 +6632,20 @@ header p{
  font-size:13px;
 }
 
+/* =========================
+   MAIN
+========================= */
+
 .container{
+ width:100%;
  max-width:900px;
- margin:auto;
+ margin:0 auto;
  padding:15px 14px 35px;
 }
 
-/* TOP ICONS */
+/* =========================
+   TOP ICONS
+========================= */
 
 .toolbar{
  display:grid;
@@ -6300,6 +6655,7 @@ header p{
 }
 
 .tool{
+ width:100%;
  background:#fff;
  border:1px solid #e5eeee;
  border-radius:14px;
@@ -6308,6 +6664,7 @@ header p{
  font-weight:700;
  font-size:12px;
  box-shadow:0 3px 10px #0000000d;
+ color:#263238;
 }
 
 .tool span{
@@ -6320,7 +6677,9 @@ header p{
  transform:scale(.97);
 }
 
-/* SUMMARY */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary{
  display:grid;
@@ -6355,7 +6714,9 @@ header p{
  font-size:16px;
 }
 
-/* BOX */
+/* =========================
+   BOX
+========================= */
 
 .box{
  padding:17px;
@@ -6367,7 +6728,9 @@ header p{
  font-size:18px;
 }
 
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 .grid{
  display:grid;
@@ -6410,7 +6773,9 @@ textarea{
  resize:vertical;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 
 button{
  border:0;
@@ -6452,7 +6817,9 @@ button:active{
  color:#fff;
 }
 
-/* EXPENSE */
+/* =========================
+   EXPENSE / INCOME CARD
+========================= */
 
 .expense{
  background:#fff;
@@ -6467,13 +6834,14 @@ button:active{
  display:flex;
  justify-content:space-between;
  gap:8px;
- align-items:center;
+ align-items:flex-start;
 }
 
 .item{
  font-size:16px;
  font-weight:800;
  min-width:0;
+ overflow-wrap:anywhere;
 }
 
 .amount{
@@ -6483,7 +6851,9 @@ button:active{
  white-space:nowrap;
 }
 
-/* CATEGORY BADGE */
+/* =========================
+   CATEGORY BADGE
+========================= */
 
 .category-badge{
  display:inline-flex;
@@ -6528,12 +6898,15 @@ button:active{
  padding:8px 11px;
 }
 
-/* CATEGORY */
+/* =========================
+   CATEGORY
+========================= */
 
 .cat-row{
  display:flex;
  align-items:center;
  justify-content:space-between;
+ gap:8px;
  border:1px solid #e5eeee;
  border-radius:12px;
  padding:9px;
@@ -6549,7 +6922,9 @@ button:active{
  padding:7px 9px;
 }
 
-/* TOTAL */
+/* =========================
+   TOTAL
+========================= */
 
 .total{
  margin-top:12px;
@@ -6561,7 +6936,9 @@ button:active{
  color:#00796b;
 }
 
-/* EMPTY */
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
  text-align:center;
@@ -6569,17 +6946,19 @@ button:active{
  color:#90a4ae;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 .modal{
  display:none;
  position:fixed;
  inset:0;
- background:#0008;
+ background:rgba(0,0,0,.55);
  align-items:center;
  justify-content:center;
  padding:15px;
- z-index:50;
+ z-index:1000;
 }
 
 .modal-content{
@@ -6597,6 +6976,7 @@ button:active{
  display:flex;
  justify-content:space-between;
  align-items:center;
+ gap:10px;
  margin-bottom:12px;
 }
 
@@ -6615,7 +6995,34 @@ button:active{
  flex:1;
 }
 
-/* CHART */
+/* =========================
+   DELETE CONFIRMATION
+========================= */
+
+.confirm-icon{
+ font-size:48px;
+ text-align:center;
+ margin-bottom:8px;
+}
+
+.confirm-text{
+ text-align:center;
+ font-size:16px;
+ font-weight:700;
+ line-height:1.5;
+ color:#37474f;
+}
+
+.confirm-sub{
+ text-align:center;
+ font-size:13px;
+ color:#78909c;
+ margin-top:7px;
+}
+
+/* =========================
+   CHART
+========================= */
 
 .tabs{
  display:flex;
@@ -6640,10 +7047,12 @@ button:active{
  display:flex;
  align-items:center;
  justify-content:center;
+ overflow:hidden;
 }
 
 .chart-wrap canvas{
  max-width:100%;
+ height:auto;
 }
 
 .legend{
@@ -6664,7 +7073,9 @@ button:active{
  display:none;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -6679,6 +7090,7 @@ button:active{
  .toolbar{
   grid-template-columns:repeat(4,1fr);
  }
+
 }
 
 @media(max-width:520px){
@@ -6689,10 +7101,6 @@ button:active{
 
  .full{
   grid-column:auto;
- }
-
- .top{
-  align-items:flex-start;
  }
 
  .item{
@@ -6720,515 +7128,424 @@ button:active{
  .tool span{
   font-size:20px;
  }
+
+ .modal{
+  padding:10px;
+ }
+
+ .modal-content{
+  border-radius:17px;
+  padding:15px;
+ }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
-
-<h1>আমার দৈনন্দিন হিসাব</h1>
-
-<p>আয় ও খরচ সহজে লিখে রাখুন</p>
-
+ <h1>আমার দৈনন্দিন হিসাব</h1>
+ <p>আয় ও খরচ সহজে লিখে রাখুন</p>
 </header>
 
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
 
 <div class="container">
 
-<!-- TOP ICONS -->
+ <!-- TOP ICONS -->
+ <div class="toolbar">
 
-<div class="toolbar">
+  <button type="button" class="tool" id="chartBtn">
+   <span>📊</span>
+   চার্ট
+  </button>
 
-<button class="tool" id="chartBtn">
-<span>📊</span>
-চার্ট
-</button>
+  <button type="button" class="tool" id="categoryBtn">
+   <span>🏷️</span>
+   Category
+  </button>
 
-<button class="tool" id="categoryBtn">
-<span>🏷️</span>
-Category
-</button>
+  <button type="button" class="tool" id="backupBtn">
+   <span>💾</span>
+   Backup
+  </button>
 
-<button class="tool" id="backupBtn">
-<span>💾</span>
-Backup
-</button>
+  <button type="button" class="tool" id="restoreBtn">
+   <span>♻️</span>
+   Restore
+  </button>
 
-<button class="tool" id="restoreBtn">
-<span>♻️</span>
-Restore
-</button>
+  <input
+   class="file-input"
+   id="restoreFile"
+   type="file"
+   accept=".json,application/json"
+  >
 
-<input
- class="file-input"
- id="restoreFile"
- type="file"
- accept=".json,application/json"
->
+ </div>
+
+ <!-- SUMMARY -->
+ <div class="summary">
+
+  <div class="card">
+   <h3>আজকের খরচ</h3>
+   <strong id="todayTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের খরচ</h3>
+   <strong id="monthTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই বছরের খরচ</h3>
+   <strong id="yearTotal">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসের আয়</h3>
+   <strong id="monthIncome">₹0.00</strong>
+  </div>
+
+  <div class="card">
+   <h3>এই মাসে বাকি</h3>
+   <strong id="monthBalance">₹0.00</strong>
+  </div>
+
+ </div>
+
+ <!-- INCOME FORM -->
+ <div class="box">
+
+  <h2 id="incomeFormTitle">
+   💰 নতুন আয় যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="incomeDate">
+   </div>
+
+   <div>
+    <label>আয়ের নাম</label>
+    <input id="incomeItem" placeholder="যেমন: Salary">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="incomeAmount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 30000"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="incomeNote"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveIncomeBtn">
+   💾 আয় Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelIncomeBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- EXPENSE FORM -->
+ <div class="box">
+
+  <h2 id="formTitle">
+   ➕ নতুন খরচ যোগ করুন
+  </h2>
+
+  <div class="grid">
+
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="date">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="category"></select>
+   </div>
+
+   <div>
+    <label>কী কিনেছেন / Item</label>
+    <input id="item" placeholder="যেমন: রুই মাছ">
+   </div>
+
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="amount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 500"
+    >
+   </div>
+
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="note"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
+
+  </div>
+
+  <button type="button" class="primary" id="saveBtn">
+   💾 খরচ Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
+
+ <!-- FILTER -->
+ <div class="box">
+
+  <h2>🔎 হিসাব খুঁজুন / Filter</h2>
+
+  <div class="grid">
+
+   <div>
+    <label>Search</label>
+    <input id="search" placeholder="যেমন: মাছ, সবজি...">
+   </div>
+
+   <div>
+    <label>নির্দিষ্ট তারিখ</label>
+    <input type="date" id="filterDate">
+   </div>
+
+   <div>
+    <label>মাস</label>
+    <input type="month" id="filterMonth">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="filterCategory"></select>
+   </div>
+
+  </div>
+
+  <div class="total">
+   নির্বাচিত হিসাবের মোট:
+   <span id="filteredTotal">₹0.00</span>
+  </div>
+
+ </div>
+
+ <!-- EXPENSE LIST -->
+ <div class="box">
+
+  <h2>📋 খরচের তালিকা</h2>
+
+  <div id="expenseList"></div>
+
+ </div>
+
+ <!-- INCOME LIST -->
+ <div class="box">
+
+  <h2>💰 আয়ের তালিকা</h2>
+
+  <div id="incomeList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY MODAL
+========================= -->
 
-<!-- SUMMARY -->
+<div class="modal" id="categoryModal">
 
-<div class="summary">
+ <div class="modal-content">
 
-<div class="card">
-<h3>আজকের খরচ</h3>
-<strong id="todayTotal">₹0.00</strong>
-</div>
+  <div class="modal-head">
 
-<div class="card">
-<h3>এই মাসের খরচ</h3>
-<strong id="monthTotal">₹0.00</strong>
-</div>
+   <h2>🏷️ Category Manager</h2>
 
-<div class="card">
-<h3>এই বছরের খরচ</h3>
-<strong id="yearTotal">₹0.00</strong>
-</div>
+   <button type="button" class="secondary" id="closeCategoryBtn">
+    ✕
+   </button>
 
-<div class="card">
-<h3>এই মাসের আয়</h3>
-<strong id="monthIncome">₹0.00</strong>
-</div>
+  </div>
 
-<div class="card">
-<h3>এই মাসে বাকি</h3>
-<strong id="monthBalance">₹0.00</strong>
-</div>
+  <button type="button" class="green" id="addCategoryBtn">
+   ➕ নতুন Category
+  </button>
+
+  <div id="categoryList"></div>
+
+ </div>
 
 </div>
 
+<!-- =========================
+     CATEGORY EDIT MODAL
+========================= -->
 
-<!-- INCOME -->
+<div class="modal" id="categoryEditModal">
 
-<div class="box">
+ <div class="modal-content">
 
-<h2 id="incomeFormTitle">
-💰 নতুন আয় যোগ করুন
-</h2>
+  <div class="modal-head">
 
-<div class="grid">
+   <h2 id="catEditTitle">
+    নতুন Category
+   </h2>
 
-<div>
-<label>তারিখ</label>
-<input type="date" id="incomeDate">
-</div>
+  </div>
 
-<div>
-<label>আয়ের নাম</label>
-<input id="incomeItem" placeholder="যেমন: Salary">
-</div>
+  <label>Category-এর নাম</label>
 
-<div>
-<label>টাকার পরিমাণ</label>
-<input
- type="number"
- id="incomeAmount"
- min="0"
- step="0.01"
- placeholder="যেমন: 30000"
->
-</div>
+  <input
+   id="categoryName"
+   placeholder="যেমন: ওষুধ"
+  >
 
-<div class="full">
+  <div class="modal-actions">
 
-<label>নোট (ঐচ্ছিক)</label>
+   <button type="button" class="green" id="saveCategoryBtn">
+    Save
+   </button>
 
-<textarea
- id="incomeNote"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+   <button type="button" class="secondary" id="closeCategoryEditBtn">
+    Cancel
+   </button>
+
+  </div>
+
+ </div>
 
 </div>
 
-</div>
+<!-- =========================
+     CHART MODAL
+========================= -->
 
-<button
- class="primary"
- id="saveIncomeBtn"
->
-💾 আয় Save করুন
-</button>
+<div class="modal" id="chartModal">
 
-<button
- class="primary secondary"
- id="cancelIncomeBtn"
- style="display:none"
->
-Cancel
-</button>
+ <div class="modal-content">
 
-</div>
+  <div class="modal-head">
 
+   <h2>📊 হিসাবের চার্ট</h2>
 
-<!-- EXPENSE FORM -->
+   <button type="button" class="secondary" id="closeChartBtn">
+    ✕
+   </button>
 
-<div class="box">
+  </div>
 
-<h2 id="formTitle">
-➕ নতুন খরচ যোগ করুন
-</h2>
+  <div class="tabs">
 
-<div class="grid">
+   <button type="button" class="active" data-chart="daily">
+    Daily
+   </button>
 
-<div>
+   <button type="button" data-chart="monthly">
+    Monthly
+   </button>
 
-<label>তারিখ</label>
+   <button type="button" data-chart="yearly">
+    Yearly
+   </button>
 
-<input
- type="date"
- id="date"
->
+  </div>
 
-</div>
+  <div class="chart-wrap">
+   <canvas id="chartCanvas" width="650" height="330"></canvas>
+  </div>
 
+  <div id="chartLegend" class="legend"></div>
 
-<div>
-
-<label>Category</label>
-
-<select id="category"></select>
+ </div>
 
 </div>
 
+<!-- =========================
+     DELETE CONFIRM MODAL
+========================= -->
 
-<div>
+<div class="modal" id="deleteModal">
 
-<label>কী কিনেছেন / Item</label>
+ <div class="modal-content">
 
-<input
- id="item"
- placeholder="যেমন: রুই মাছ"
->
+  <div class="confirm-icon">🗑️</div>
 
-</div>
+  <div class="confirm-text" id="deleteMessage">
+   এই হিসাবটি Delete করবেন?
+  </div>
 
+  <div class="confirm-sub" id="deleteSubMessage"></div>
 
-<div>
+  <div class="modal-actions">
 
-<label>টাকার পরিমাণ</label>
+   <button type="button" class="secondary" id="deleteCancelBtn">
+    Cancel
+   </button>
 
-<input
- type="number"
- id="amount"
- min="0"
- step="0.01"
- placeholder="যেমন: 500"
->
+   <button type="button" class="red" id="deleteConfirmBtn">
+    🗑️ Delete
+   </button>
 
-</div>
+  </div>
 
-
-<div class="full">
-
-<label>নোট (ঐচ্ছিক)</label>
-
-<textarea
- id="note"
- placeholder="প্রয়োজনে কিছু লিখুন..."
-></textarea>
+ </div>
 
 </div>
-
-</div>
-
-
-<button
- class="primary"
- id="saveBtn"
->
-💾 খরচ Save করুন
-</button>
-
-
-<button
- class="primary secondary"
- id="cancelBtn"
- style="display:none"
->
-Cancel
-</button>
-
-</div>
-
-
-<!-- FILTER -->
-
-<div class="box">
-
-<h2>
-🔎 হিসাব খুঁজুন / Filter
-</h2>
-
-<div class="grid">
-
-<div>
-
-<label>Search</label>
-
-<input
- id="search"
- placeholder="যেমন: মাছ, সবজি..."
->
-
-</div>
-
-
-<div>
-
-<label>নির্দিষ্ট তারিখ</label>
-
-<input
- type="date"
- id="filterDate"
->
-
-</div>
-
-
-<div>
-
-<label>মাস</label>
-
-<input
- type="month"
- id="filterMonth"
->
-
-</div>
-
-
-<div>
-
-<label>Category</label>
-
-<select id="filterCategory"></select>
-
-</div>
-
-</div>
-
-
-<div class="total">
-
-নির্বাচিত হিসাবের মোট:
-
-<span id="filteredTotal">
-₹0.00
-</span>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE LIST -->
-
-<div class="box">
-
-<h2>
-📋 খরচের তালিকা
-</h2>
-
-<div id="expenseList"></div>
-
-</div>
-
-
-<!-- INCOME LIST -->
-
-<div class="box">
-
-<h2>
-💰 আয়ের তালিকা
-</h2>
-
-<div id="incomeList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY MODAL -->
-
-<div
- class="modal"
- id="categoryModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-🏷️ Category Manager
-</h2>
-
-<button
- class="secondary"
- id="closeCategoryBtn"
->
-✕
-</button>
-
-</div>
-
-
-<button
- class="green"
- id="addCategoryBtn"
->
-➕ নতুন Category
-</button>
-
-
-<div id="categoryList"></div>
-
-</div>
-
-</div>
-
-
-<!-- CATEGORY EDIT MODAL -->
-
-<div
- class="modal"
- id="categoryEditModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2 id="catEditTitle">
-নতুন Category
-</h2>
-
-</div>
-
-
-<label>
-Category-এর নাম
-</label>
-
-<input
- id="categoryName"
- placeholder="যেমন: ওষুধ"
->
-
-
-<div class="modal-actions">
-
-<button
- class="green"
- id="saveCategoryBtn"
->
-Save
-</button>
-
-<button
- class="secondary"
- id="closeCategoryEditBtn"
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- CHART MODAL -->
-
-<div
- class="modal"
- id="chartModal"
->
-
-<div class="modal-content">
-
-<div class="modal-head">
-
-<h2>
-📊 হিসাবের চার্ট
-</h2>
-
-<button
- class="secondary"
- id="closeChartBtn"
->
-✕
-</button>
-
-</div>
-
-
-<div class="tabs">
-
-<button
- class="active"
- data-chart="daily"
->
-Daily
-</button>
-
-<button
- data-chart="monthly"
->
-Monthly
-</button>
-
-<button
- data-chart="yearly"
->
-Yearly
-</button>
-
-</div>
-
-
-<div class="chart-wrap">
-
-<canvas
- id="chartCanvas"
- width="650"
- height="330"
-></canvas>
-
-</div>
-
-
-<div
- id="chartLegend"
- class="legend"
-></div>
-
-</div>
-
-</div>
-
 
 <script>
-
 "use strict";
 
-
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
-let expenses=[];
+let expenses = [];
+let incomes = [];
 
-let incomes=[];
-
-let categories=[
+let categories = [
  "বাজার",
  "সবজি",
  "মাছ",
@@ -7241,28 +7558,29 @@ let categories=[
  "অন্যান্য"
 ];
 
+let editId = null;
+let editIncomeId = null;
+let editCategoryIndex = null;
 
-let editId=null;
+let chartMode = "daily";
 
-let editIncomeId=null;
-
-let editCategoryIndex=null;
-
-let chartMode="daily";
-
-
-/* =========================
-   HELPERS
-========================= */
-
-const $=id=>
- document.getElementById(id);
+let pendingDeleteType = null;
+let pendingDeleteId = null;
 
 
-function money(v){
+/* =========================================================
+   HELPER
+========================================================= */
 
- return "₹"+
- Number(v||0).toLocaleString(
+function $(id){
+ return document.getElementById(id);
+}
+
+
+function money(value){
+
+ return "₹" +
+ Number(value || 0).toLocaleString(
   "en-IN",
   {
    minimumFractionDigits:2,
@@ -7273,44 +7591,53 @@ function money(v){
 }
 
 
-function esc(v){
+function esc(value){
 
- return String(v??"")
- .replace(/&/g,"&amp;")
- .replace(/</g,"&lt;")
- .replace(/>/g,"&gt;")
- .replace(/"/g,"&quot;")
- .replace(/'/g,"&#039;");
+ return String(value ?? "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
 function today(){
 
- const d=new Date();
+ const d = new Date();
 
- return d.getFullYear()+
- "-"+
- String(d.getMonth()+1).padStart(2,"0")+
- "-"+
- String(d.getDate()).padStart(2,"0");
-
-}
-
-
-function fmtDate(s){
-
- return String(s||"")
- .split("-")
- .reverse()
- .join("-");
+ return (
+  d.getFullYear() +
+  "-" +
+  String(d.getMonth()+1).padStart(2,"0") +
+  "-" +
+  String(d.getDate()).padStart(2,"0")
+ );
 
 }
 
 
-/* =========================
+function fmtDate(value){
+
+ if(!value){
+  return "";
+ }
+
+ const parts = String(value).split("-");
+
+ if(parts.length !== 3){
+  return String(value);
+ }
+
+ return parts.reverse().join("-");
+
+}
+
+
+/* =========================================================
    STORAGE
-========================= */
+========================================================= */
 
 function saveAll(){
 
@@ -7336,189 +7663,204 @@ function loadAll(){
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseData") || "[]"
   );
 
-  expenses=Array.isArray(x)?x:[];
+  expenses = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  expenses=[];
+  expenses = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myIncomeData"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myIncomeData") || "[]"
   );
 
-  incomes=Array.isArray(x)?x:[];
+  incomes = Array.isArray(data) ? data : [];
 
- }catch(e){
+ }catch(error){
 
-  incomes=[];
+  incomes = [];
 
  }
 
 
  try{
 
-  let x=JSON.parse(
-   localStorage.getItem(
-    "myExpenseCategories"
-   )||"[]"
+  const data = JSON.parse(
+   localStorage.getItem("myExpenseCategories") || "[]"
   );
 
   if(
-   Array.isArray(x)&&
-   x.length
+   Array.isArray(data) &&
+   data.length > 0
   ){
 
-   categories=x;
+   categories = data;
 
   }
 
- }catch(e){}
+ }catch(error){}
 
 }
 
 
-/* =========================
+/* =========================================================
    CATEGORY
-========================= */
+========================================================= */
 
 function renderCategories(){
 
- const old=$("category").value;
-
- const oldF=$("filterCategory").value;
-
-
- $("category").innerHTML=
- '<option value="">Category নির্বাচন করুন</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ const currentCategory = $("category").value;
+ const currentFilter = $("filterCategory").value;
 
 
- $("filterCategory").innerHTML=
- '<option value="">সব Category</option>'+
- categories.map(
-  c=>
-   `<option value="${esc(c)}">
-    ${esc(c)}
-   </option>`
- ).join("");
+ $("category").innerHTML =
+  '<option value="">Category নির্বাচন করুন</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
 
- if(categories.includes(old)){
+ $("filterCategory").innerHTML =
+  '<option value="">সব Category</option>' +
+  categories.map(
+   function(category){
+    return `
+     <option value="${esc(category)}">
+      ${esc(category)}
+     </option>
+    `;
+   }
+  ).join("");
 
-  $("category").value=old;
+
+ if(categories.includes(currentCategory)){
+  $("category").value = currentCategory;
+ }
+
+ if(categories.includes(currentFilter)){
+  $("filterCategory").value = currentFilter;
+ }
+
+
+ if(categories.length === 0){
+
+  $("categoryList").innerHTML =
+   '<div class="empty">কোনো Category নেই।</div>';
+
+  return;
 
  }
 
 
- if(categories.includes(oldF)){
+ $("categoryList").innerHTML =
+  categories.map(
+   function(category,index){
 
-  $("filterCategory").value=oldF;
+    return `
+     <div class="cat-row">
 
- }
+      <span>
+       🏷️ ${esc(category)}
+      </span>
 
+      <div class="cat-actions">
 
- $("categoryList").innerHTML=
- categories.length
+       <button
+        type="button"
+        class="yellow"
+        data-category-edit="${index}"
+       >
+        ✏️
+       </button>
 
- ?
+       <button
+        type="button"
+        class="red"
+        data-category-delete="${index}"
+       >
+        🗑️
+       </button>
 
- categories.map(
-  (c,i)=>
-  `<div class="cat-row">
+      </div>
 
-   <span>
-    🏷️ ${esc(c)}
-   </span>
+     </div>
+    `;
 
-   <div class="cat-actions">
-
-    <button
-     class="yellow"
-     data-ce="${i}"
-    >
-     ✏️
-    </button>
-
-    <button
-     class="red"
-     data-cd="${i}"
-    >
-     🗑️
-    </button>
-
-   </div>
-
-  </div>`
- ).join("")
-
- :
-
- '<div class="empty">কোনো Category নেই।</div>';
+   }
+  ).join("");
 
 
  document
- .querySelectorAll("[data-ce]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    openCategoryEdit(
-     +b.dataset.ce
-    )
- );
+  .querySelectorAll("[data-category-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     openCategoryEdit(
+      Number(button.dataset.categoryEdit)
+     );
+
+    };
+
+   }
+  );
 
 
  document
- .querySelectorAll("[data-cd]")
- .forEach(
-  b=>
-   b.onclick=()=>
-    deleteCategory(
-     +b.dataset.cd
-    )
- );
+  .querySelectorAll("[data-category-delete]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     deleteCategory(
+      Number(button.dataset.categoryDelete)
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-function openCategoryEdit(i=null){
+function openCategoryEdit(index = null){
 
- editCategoryIndex=i;
+ editCategoryIndex = index;
 
- $("catEditTitle").textContent=
-  i===null
-  ?"নতুন Category"
-  :"Category Edit করুন";
+ $("catEditTitle").textContent =
+  index === null
+  ? "নতুন Category"
+  : "Category Edit করুন";
 
- $("categoryName").value=
-  i===null
-  ?""
-  :categories[i];
+ $("categoryName").value =
+  index === null
+  ? ""
+  : categories[index];
 
- $("categoryEditModal")
- .style.display="flex";
-
+ $("categoryEditModal").style.display = "flex";
 
  setTimeout(
-  ()=>$("categoryName").focus(),
-  80
+  function(){
+   $("categoryName").focus();
+  },
+  100
  );
 
 }
@@ -7526,69 +7868,69 @@ function openCategoryEdit(i=null){
 
 function closeCategoryEdit(){
 
- $("categoryEditModal")
- .style.display="none";
+ $("categoryEditModal").style.display = "none";
 
- editCategoryIndex=null;
+ editCategoryIndex = null;
+
+ $("categoryName").value = "";
 
 }
 
 
 function saveCategory(){
 
- const n=$("categoryName")
- .value
- .trim();
+ const name =
+  $("categoryName").value.trim();
 
 
- if(!n){
+ if(!name){
 
-  alert(
-   "Category-এর নাম লিখুন।"
-  );
+  alert("Category-এর নাম লিখুন।");
 
   return;
 
  }
 
 
- if(
+ const duplicate =
   categories.some(
-   (c,i)=>
-    String(c).toLowerCase()===
-    n.toLowerCase()&&
-    i!==editCategoryIndex
-  )
- ){
+   function(category,index){
 
-  alert(
-   "এই Category আগে থেকেই আছে।"
+    return (
+     String(category).toLowerCase() ===
+     name.toLowerCase() &&
+     index !== editCategoryIndex
+    );
+
+   }
   );
+
+
+ if(duplicate){
+
+  alert("এই Category আগে থেকেই আছে।");
 
   return;
 
  }
 
 
- if(editCategoryIndex===null){
+ if(editCategoryIndex === null){
 
-  categories.push(n);
+  categories.push(name);
 
  }else{
 
-  const old=
+  const oldName =
    categories[editCategoryIndex];
 
-  categories[editCategoryIndex]=n;
-
+  categories[editCategoryIndex] = name;
 
   expenses.forEach(
-   e=>{
+   function(expense){
 
-    if(e.category===old){
-
-     e.category=n;
-
+    if(expense.category === oldName){
+     expense.category = name;
     }
 
    }
@@ -7599,23 +7941,31 @@ function saveCategory(){
 
  saveAll();
 
- render();
-
  closeCategoryEdit();
+
+ render();
 
 }
 
 
-function deleteCategory(i){
+function deleteCategory(index){
 
- const n=categories[i];
+ const name = categories[index];
+
+ if(!name){
+  return;
+ }
 
 
- if(
+ const used =
   expenses.some(
-   e=>e.category===n
-  )
- ){
+   function(expense){
+    return expense.category === name;
+   }
+  );
+
+
+ if(used){
 
   alert(
    "এই Category-তে পুরনো হিসাব আছে। আগে সেই হিসাবগুলো Edit করুন।"
@@ -7626,52 +7976,39 @@ function deleteCategory(i){
  }
 
 
- if(
-  confirm(
-   `"${n}" Category Delete করবেন?`
-  )
- ){
-
-  categories.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "category",
+  index,
+  "এই Category-টি Delete করবেন?",
+  `"${name}" Category`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE
-========================= */
+========================================================= */
 
 function saveExpense(){
 
- const date=$("date").value;
+ const date = $("date").value;
 
- const category=$("category").value;
+ const category = $("category").value;
 
- const item=$("item")
- .value
- .trim();
+ const item =
+  $("item").value.trim();
 
- const amount=parseFloat(
-  $("amount").value
- );
+ const amount =
+  parseFloat($("amount").value);
 
- const note=$("note")
- .value
- .trim();
+ const note =
+  $("note").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন।");
   return;
 
  }
@@ -7679,10 +8016,7 @@ function saveExpense(){
 
  if(!category){
 
-  alert(
-   "Category নির্বাচন করুন।"
-  );
-
+  alert("Category নির্বাচন করুন।");
   return;
 
  }
@@ -7690,68 +8024,60 @@ function saveExpense(){
 
  if(!item){
 
-  alert(
-   "Item-এর নাম লিখুন।"
-  );
-
+  alert("Item-এর নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editId!==null){
+ if(editId !== null){
 
-  const e=
+  const expense =
    expenses.find(
-    x=>
-     Number(x.id)===
-     Number(editId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     category,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editId);
     }
    );
 
-  }
 
-  editId=null;
+  if(expense){
+
+   expense.date = date;
+   expense.category = category;
+   expense.item = item;
+   expense.amount = amount;
+   expense.note = note;
+
+  }
 
  }else{
 
-  expenses.push(
-   {
-    id:Date.now(),
-    date,
-    category,
-    item,
-    amount,
-    note
-   }
-  );
+  expenses.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   category: category,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -7767,152 +8093,125 @@ function saveExpense(){
 
 function resetExpenseForm(){
 
- editId=null;
+ editId = null;
 
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "➕ নতুন খরচ যোগ করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 খরচ Save করুন";
 
- $("cancelBtn")
- .style.display="none";
+ $("cancelBtn").style.display = "none";
 
+ $("date").value = today();
 
- $("date").value=today();
+ $("category").value = "";
 
- $("category").value="";
+ $("item").value = "";
 
- $("item").value="";
+ $("amount").value = "";
 
- $("amount").value="";
-
- $("note").value="";
+ $("note").value = "";
 
 }
 
 
 function editExpense(id){
 
- const e=
+ const expense =
   expenses.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!expense){
   return;
-
  }
 
 
- editId=Number(id);
+ editId = Number(id);
+
+ $("date").value =
+  expense.date || today();
+
+ $("category").value =
+  expense.category || "";
+
+ $("item").value =
+  expense.item || "";
+
+ $("amount").value =
+  expense.amount || "";
+
+ $("note").value =
+  expense.note || "";
 
 
- $("date").value=
-  e.date||today();
-
- $("category").value=
-  e.category||"";
-
- $("item").value=
-  e.item||"";
-
- $("amount").value=
-  e.amount||"";
-
- $("note").value=
-  e.note||"";
-
-
- $("formTitle").textContent=
+ $("formTitle").textContent =
   "✏️ খরচ Edit করুন";
 
- $("saveBtn").textContent=
+ $("saveBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelBtn")
- .style.display="block";
+ $("cancelBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteExpense(id){
 
- const i=
-  expenses.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const expense =
+  expenses.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
-
+ if(!expense){
   return;
-
  }
 
 
- if(
-  confirm(
-   `"${expenses[i].item}" খরচটি Delete করবেন?\n\nপরিমাণ: ${money(expenses[i].amount)}`
-  )
- ){
-
-  expenses.splice(i,1);
-
-  saveAll();
-
-  render();
-
- }
+ openDeleteConfirm(
+  "expense",
+  id,
+  "এই খরচটি Delete করবেন?",
+  `${expense.item} — ${money(expense.amount)}`
+ );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME
-========================= */
+========================================================= */
 
 function saveIncome(){
 
- const date=
+ const date =
   $("incomeDate").value;
 
- const item=
-  $("incomeItem")
-  .value
-  .trim();
+ const item =
+  $("incomeItem").value.trim();
 
- const amount=
-  parseFloat(
-   $("incomeAmount").value
-  );
+ const amount =
+  parseFloat($("incomeAmount").value);
 
- const note=
-  $("incomeNote")
-  .value
-  .trim();
+ const note =
+  $("incomeNote").value.trim();
 
 
  if(!date){
 
-  alert(
-   "তারিখ নির্বাচন করুন।"
-  );
-
+  alert("তারিখ নির্বাচন করুন.");
   return;
 
  }
@@ -7920,66 +8219,57 @@ function saveIncome(){
 
  if(!item){
 
-  alert(
-   "আয়ের নাম লিখুন।"
-  );
-
+  alert("আয়ের নাম লিখুন।");
   return;
 
  }
 
 
  if(
-  isNaN(amount)||
-  amount<=0
+  isNaN(amount) ||
+  amount <= 0
  ){
 
-  alert(
-   "সঠিক টাকার পরিমাণ লিখুন।"
-  );
-
+  alert("সঠিক টাকার পরিমাণ লিখুন।");
   return;
 
  }
 
 
- if(editIncomeId!==null){
+ if(editIncomeId !== null){
 
-  const e=
+  const income =
    incomes.find(
-    x=>
-     Number(x.id)===
-     Number(editIncomeId)
-   );
-
-
-  if(e){
-
-   Object.assign(
-    e,
-    {
-     date,
-     item,
-     amount,
-     note
+    function(entry){
+     return Number(entry.id) === Number(editIncomeId);
     }
    );
 
-  }
 
-  editIncomeId=null;
+  if(income){
+
+   income.date = date;
+   income.item = item;
+   income.amount = amount;
+   income.note = note;
+
+  }
 
  }else{
 
-  incomes.push(
-   {
-    id:Date.now(),
-    date,
-    item,
-    amount,
-    note
-   }
-  );
+  incomes.push({
+
+   id: Date.now(),
+
+   date: date,
+
+   item: item,
+
+   amount: amount,
+
+   note: note
+
+  });
 
  }
 
@@ -7995,188 +8285,283 @@ function saveIncome(){
 
 function resetIncomeForm(){
 
- editIncomeId=null;
+ editIncomeId = null;
 
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "💰 নতুন আয় যোগ করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 আয় Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="none";
+ $("cancelIncomeBtn").style.display = "none";
 
+ $("incomeDate").value = today();
 
- $("incomeDate").value=today();
+ $("incomeItem").value = "";
 
- $("incomeItem").value="";
+ $("incomeAmount").value = "";
 
- $("incomeAmount").value="";
-
- $("incomeNote").value="";
+ $("incomeNote").value = "";
 
 }
 
 
 function editIncome(id){
 
- const e=
+ const income =
   incomes.find(
-   x=>
-    Number(x.id)===
-    Number(id)
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(!e){
-
+ if(!income){
   return;
-
  }
 
 
- editIncomeId=Number(id);
+ editIncomeId = Number(id);
+
+ $("incomeDate").value =
+  income.date || today();
+
+ $("incomeItem").value =
+  income.item || "";
+
+ $("incomeAmount").value =
+  income.amount || "";
+
+ $("incomeNote").value =
+  income.note || "";
 
 
- $("incomeDate").value=e.date;
-
- $("incomeItem").value=e.item;
-
- $("incomeAmount").value=e.amount;
-
- $("incomeNote").value=
-  e.note||"";
-
-
- $("incomeFormTitle")
- .textContent=
+ $("incomeFormTitle").textContent =
   "✏️ আয় Edit করুন";
 
- $("saveIncomeBtn")
- .textContent=
+ $("saveIncomeBtn").textContent =
   "💾 পরিবর্তন Save করুন";
 
- $("cancelIncomeBtn")
- .style.display="block";
+ $("cancelIncomeBtn").style.display = "block";
 
-
- scrollTo(
-  {
-   top:0,
-   behavior:"smooth"
-  }
- );
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 
 }
 
 
 function deleteIncome(id){
 
- const i=
-  incomes.findIndex(
-   x=>
-    Number(x.id)===
-    Number(id)
+ const income =
+  incomes.find(
+   function(entry){
+    return Number(entry.id) === Number(id);
+   }
   );
 
 
- if(i<0){
+ if(!income){
+  return;
+ }
+
+
+ openDeleteConfirm(
+  "income",
+  id,
+  "এই আয়টি Delete করবেন?",
+  `${income.item} — ${money(income.amount)}`
+ );
+
+}
+
+
+/* =========================================================
+   DELETE CONFIRM
+========================================================= */
+
+function openDeleteConfirm(
+ type,
+ id,
+ message,
+ subMessage
+){
+
+ pendingDeleteType = type;
+
+ pendingDeleteId = id;
+
+ $("deleteMessage").textContent =
+  message;
+
+ $("deleteSubMessage").textContent =
+  subMessage || "";
+
+ $("deleteModal").style.display =
+  "flex";
+
+}
+
+
+function closeDeleteConfirm(){
+
+ pendingDeleteType = null;
+
+ pendingDeleteId = null;
+
+ $("deleteModal").style.display =
+  "none";
+
+}
+
+
+function confirmDelete(){
+
+ if(
+  pendingDeleteType === null ||
+  pendingDeleteId === null
+ ){
+
+  closeDeleteConfirm();
 
   return;
 
  }
 
 
- if(
-  confirm(
-   `"${incomes[i].item}" আয়টি Delete করবেন?`
-  )
- ){
+ if(pendingDeleteType === "expense"){
 
-  incomes.splice(i,1);
+  const index =
+   expenses.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
 
-  saveAll();
 
-  render();
+  if(index >= 0){
+
+   expenses.splice(index,1);
+
+  }
 
  }
+
+
+ else if(pendingDeleteType === "income"){
+
+  const index =
+   incomes.findIndex(
+    function(entry){
+     return Number(entry.id) === Number(pendingDeleteId);
+    }
+   );
+
+
+  if(index >= 0){
+
+   incomes.splice(index,1);
+
+  }
+
+ }
+
+
+ else if(pendingDeleteType === "category"){
+
+  const index =
+   Number(pendingDeleteId);
+
+
+  if(
+   index >= 0 &&
+   index < categories.length
+  ){
+
+   categories.splice(index,1);
+
+  }
+
+ }
+
+
+ saveAll();
+
+ closeDeleteConfirm();
+
+ render();
 
 }
 
 
-/* =========================
+/* =========================================================
    FILTER
-========================= */
+========================================================= */
 
-function filtered(){
+function getFilteredExpenses(){
 
- const s=
-  $("search")
-  .value
-  .trim()
-  .toLowerCase();
+ const search =
+  $("search").value
+   .trim()
+   .toLowerCase();
 
- const fd=
+ const filterDate =
   $("filterDate").value;
 
- const fm=
+ const filterMonth =
   $("filterMonth").value;
 
- const fc=
+ const filterCategory =
   $("filterCategory").value;
 
 
  return expenses.filter(
-  e=>{
+  function(expense){
 
-   const item=
-    String(e.item||"")
-    .toLowerCase();
+   const item =
+    String(expense.item || "")
+     .toLowerCase();
 
-   const cat=
-    String(e.category||"")
-    .toLowerCase();
+   const category =
+    String(expense.category || "")
+     .toLowerCase();
 
-   const note=
-    String(e.note||"")
-    .toLowerCase();
+   const note =
+    String(expense.note || "")
+     .toLowerCase();
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   return(
+   const searchMatch =
+    !search ||
+    item.includes(search) ||
+    category.includes(search) ||
+    note.includes(search);
 
-    (
-     !s||
-     item.includes(s)||
-     cat.includes(s)||
-     note.includes(s)
-    )
 
-    &&
+   const dateMatch =
+    !filterDate ||
+    date === filterDate;
 
-    (
-     !fd||
-     d===fd
-    )
 
-    &&
+   const monthMatch =
+    !filterMonth ||
+    date.startsWith(filterMonth);
 
-    (
-     !fm||
-     d.startsWith(fm)
-    )
 
-    &&
+   const categoryMatch =
+    !filterCategory ||
+    expense.category === filterCategory;
 
-    (
-     !fc||
-     e.category===fc
-    )
 
+   return (
+    searchMatch &&
+    dateMatch &&
+    monthMatch &&
+    categoryMatch
    );
 
   }
@@ -8185,316 +8570,332 @@ function filtered(){
 }
 
 
-/* =========================
+/* =========================================================
    EXPENSE LIST
-========================= */
+========================================================= */
 
 function renderExpenses(){
 
- const arr=
-  filtered()
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  getFilteredExpenses()
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("expenseList").innerHTML =
+   '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
+
+  return;
+
+ }
+
+
+ $("expenseList").innerHTML =
+  list.map(
+   function(expense){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+
+        ${esc(expense.item)}
+
+        <span class="category-badge">
+         🏷️ ${esc(expense.category)}
+        </span>
+
+       </div>
+
+       <div class="amount">
+        ${money(expense.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(expense.date)}
+      </div>
+
+      ${
+       expense.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(expense.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-expense-edit="${expense.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-expense-delete="${expense.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-expense-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editExpense(
+      button.dataset.expenseEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("expenseList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-
-      ${esc(e.item)}
-
-      <span class="category-badge">
-
-       🏷️ ${esc(e.category)}
-
-      </span>
-
-     </div>
-
-
-     <div class="amount">
-
-      ${money(e.amount)}
-
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-
-     📅 ${fmtDate(e.date)}
-
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ee="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-ed="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো হিসাব পাওয়া যায়নি।</div>';
-
-
  document
- .querySelectorAll("[data-ee]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editExpense(
-      b.dataset.ee
-     )
- );
+  .querySelectorAll("[data-expense-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-ed]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteExpense(
-      b.dataset.ed
-     )
- );
+      button.dataset.expenseDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    INCOME LIST
-========================= */
+========================================================= */
 
 function renderIncomes(){
 
- const arr=
-  [...incomes]
-  .sort(
-   (a,b)=>
-    String(b.date)
-    .localeCompare(
-     String(a.date)
-    )
-    ||
-    Number(b.id)-
-    Number(a.id)
+ const list =
+  incomes
+   .slice()
+   .sort(
+    function(a,b){
+
+     return (
+      String(b.date).localeCompare(
+       String(a.date)
+      ) ||
+      Number(b.id) - Number(a.id)
+     );
+
+    }
+   );
+
+
+ if(list.length === 0){
+
+  $("incomeList").innerHTML =
+   '<div class="empty">কোনো আয় নেই।</div>';
+
+  return;
+
+ }
+
+
+ $("incomeList").innerHTML =
+  list.map(
+   function(income){
+
+    return `
+     <div class="expense">
+
+      <div class="top">
+
+       <div class="item">
+        ${esc(income.item)}
+       </div>
+
+       <div class="amount">
+        ${money(income.amount)}
+       </div>
+
+      </div>
+
+      <div class="meta">
+       📅 ${fmtDate(income.date)}
+      </div>
+
+      ${
+       income.note
+       ?
+       `
+       <div class="note">
+        📝 ${esc(income.note)}
+       </div>
+       `
+       :
+       ""
+      }
+
+      <div class="actions">
+
+       <button
+        type="button"
+        class="yellow"
+        data-income-edit="${income.id}"
+       >
+        ✏️ Edit
+       </button>
+
+       <button
+        type="button"
+        class="red"
+        data-income-delete="${income.id}"
+       >
+        🗑️ Delete
+       </button>
+
+      </div>
+
+     </div>
+    `;
+
+   }
+  ).join("");
+
+
+ document
+  .querySelectorAll("[data-income-edit]")
+  .forEach(
+   function(button){
+
+    button.onclick = function(){
+
+     editIncome(
+      button.dataset.incomeEdit
+     );
+
+    };
+
+   }
   );
 
 
- $("incomeList").innerHTML=
-  arr.length
-
-  ?
-
-  arr.map(
-   e=>
-
-   `<div class="expense">
-
-    <div class="top">
-
-     <div class="item">
-      ${esc(e.item)}
-     </div>
-
-     <div class="amount">
-      ${money(e.amount)}
-     </div>
-
-    </div>
-
-
-    <div class="meta">
-     📅 ${fmtDate(e.date)}
-    </div>
-
-
-    ${
-     e.note
-
-     ?
-
-     `<div class="note">
-       📝 ${esc(e.note)}
-      </div>`
-
-     :
-
-     ""
-    }
-
-
-    <div class="actions">
-
-     <button
-      class="yellow"
-      data-ie="${e.id}"
-     >
-      ✏️ Edit
-     </button>
-
-
-     <button
-      class="red"
-      data-idel="${e.id}"
-     >
-      🗑️ Delete
-     </button>
-
-    </div>
-
-   </div>`
-
-  ).join("")
-
-  :
-
-  '<div class="empty">কোনো আয় নেই।</div>';
-
-
  document
- .querySelectorAll("[data-ie]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
-     editIncome(
-      b.dataset.ie
-     )
- );
+  .querySelectorAll("[data-income-delete]")
+  .forEach(
+   function(button){
 
+    button.onclick = function(){
 
- document
- .querySelectorAll("[data-idel]")
- .forEach(
-  b=>
-   b.onclick=
-    ()=>
      deleteIncome(
-      b.dataset.idel
-     )
- );
+      button.dataset.incomeDelete
+     );
+
+    };
+
+   }
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    TOTALS
-========================= */
+========================================================= */
 
 function updateTotals(){
 
- const now=new Date();
+ const now = new Date();
 
- const y=
+ const year =
   now.getFullYear();
 
- const m=
+ const month =
   String(
    now.getMonth()+1
   ).padStart(2,"0");
 
- const t=today();
+ const currentDate =
+  today();
 
-
- let day=0;
-
- let month=0;
-
- let year=0;
-
- let inc=0;
+ let todayTotal = 0;
+ let monthTotal = 0;
+ let yearTotal = 0;
+ let incomeTotal = 0;
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const a=
-    Number(e.amount||0);
+   const amount =
+    Number(expense.amount || 0);
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(expense.date || "");
 
 
-   if(d===t){
+   if(date === currentDate){
+    todayTotal += amount;
+   }
 
-    day+=a;
+
+   if(
+    date.startsWith(
+     `${year}-${month}`
+    )
+   ){
+
+    monthTotal += amount;
 
    }
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-`
     )
    ){
 
-    month+=a;
-
-   }
-
-
-   if(
-    d.startsWith(
-     `${y}-`
-    )
-   ){
-
-    year+=a;
+    yearTotal += amount;
 
    }
 
@@ -8503,22 +8904,20 @@ function updateTotals(){
 
 
  incomes.forEach(
-  e=>{
+  function(income){
 
-   const d=
-    String(e.date||"");
+   const date =
+    String(income.date || "");
 
 
    if(
-    d.startsWith(
-     `${y}-${m}`
+    date.startsWith(
+     `${year}-${month}`
     )
    ){
 
-    inc+=
-     Number(
-      e.amount||0
-     );
+    incomeTotal +=
+     Number(income.amount || 0);
 
    }
 
@@ -8526,211 +8925,269 @@ function updateTotals(){
  );
 
 
- $("todayTotal")
- .textContent=
-  money(day);
+ $("todayTotal").textContent =
+  money(todayTotal);
 
- $("monthTotal")
- .textContent=
-  money(month);
+ $("monthTotal").textContent =
+  money(monthTotal);
 
- $("yearTotal")
- .textContent=
-  money(year);
+ $("yearTotal").textContent =
+  money(yearTotal);
 
- $("monthIncome")
- .textContent=
-  money(inc);
+ $("monthIncome").textContent =
+  money(incomeTotal);
 
- $("monthBalance")
- .textContent=
-  money(inc-month);
+ $("monthBalance").textContent =
+  money(incomeTotal - monthTotal);
 
 
- $("filteredTotal")
- .textContent=
-  money(
-   filtered()
+ const filteredTotal =
+  getFilteredExpenses()
    .reduce(
-    (s,e)=>
-     s+
-     Number(
-      e.amount||0
-     ),
+    function(total,expense){
+
+     return total +
+      Number(expense.amount || 0);
+
+    },
     0
-   )
-  );
+   );
+
+
+ $("filteredTotal").textContent =
+  money(filteredTotal);
 
 }
 
 
-/* =========================
+/* =========================================================
    BACKUP
-========================= */
+========================================================= */
 
-function backup(){
+function createBackupData(){
 
- const data={
+ return {
 
   appName:
    "আমার দৈনন্দিন হিসাব",
 
-  backupVersion:2,
+  backupVersion:
+   3,
 
   backupDate:
    new Date().toISOString(),
 
   expenses:
-
-   expenses,
+   JSON.parse(
+    JSON.stringify(expenses)
+   ),
 
   incomes:
-
-   incomes,
+   JSON.parse(
+    JSON.stringify(incomes)
+   ),
 
   categories:
-
-   categories
+   JSON.parse(
+    JSON.stringify(categories)
+   )
 
  };
-
-
- const blob=
-  new Blob(
-   [
-    JSON.stringify(
-     data,
-     null,
-     2
-    )
-   ],
-   {
-    type:
-     "application/json"
-   }
-  );
-
-
- const a=
-  document.createElement("a");
-
-
- a.href=
-  URL.createObjectURL(
-   blob
-  );
-
-
- a.download=
-  `My-Stock-Backup-${today()}-${new Date().getHours()}-${new Date().getMinutes()}.json`;
-
-
- a.click();
-
-
- setTimeout(
-  ()=>
-   URL.revokeObjectURL(
-    a.href
-   ),
-  500
- );
 
 }
 
 
-/* =========================
+function backup(){
+
+ try{
+
+  const backupData =
+   createBackupData();
+
+
+  const json =
+   JSON.stringify(
+    backupData,
+    null,
+    2
+   );
+
+
+  const blob =
+   new Blob(
+    [json],
+    {
+     type:"application/json"
+    }
+   );
+
+
+  const url =
+   URL.createObjectURL(blob);
+
+
+  const link =
+   document.createElement("a");
+
+
+  link.href = url;
+
+  link.download =
+   `My-Stock-Backup-${today()}-${String(
+    new Date().getHours()
+   ).padStart(2,"0")}-${String(
+    new Date().getMinutes()
+   ).padStart(2,"0")}.json`;
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+   function(){
+    URL.revokeObjectURL(url);
+   },
+   1000
+  );
+
+
+ }catch(error){
+
+  alert(
+   "Backup তৈরি করা যায়নি।"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
    RESTORE
-========================= */
+========================================================= */
 
 function restoreFile(file){
 
  if(!file){
-
   return;
-
  }
 
 
- const reader=
+ const reader =
   new FileReader();
 
 
- reader.onload=()=>{
+ reader.onload =
+  function(){
 
-  try{
+   let backupData;
 
-   const d=
-    JSON.parse(
-     reader.result
+
+   try{
+
+    backupData =
+     JSON.parse(
+      reader.result
+     );
+
+   }catch(error){
+
+    alert(
+     "এই Backup ফাইলটি সঠিক JSON নয়।"
     );
-
-
-   if(
-    !Array.isArray(
-     d.expenses
-    )||
-
-    !Array.isArray(
-     d.incomes
-    )||
-
-    !Array.isArray(
-     d.categories
-    )
-   ){
-
-    throw new Error();
-
-   }
-
-
-   if(
-    !confirm(
-     "Restore করলে বর্তমান হিসাবগুলো এই Backup দিয়ে replace হবে। Continue করবেন?"
-    )
-   ){
 
     return;
 
    }
 
 
-   expenses=
-    d.expenses;
+   if(
+    !backupData ||
+    !Array.isArray(backupData.expenses) ||
+    !Array.isArray(backupData.incomes) ||
+    !Array.isArray(backupData.categories)
+   ){
 
-   incomes=
-    d.incomes;
+    alert(
+     "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
+    );
 
-   categories=
-    d.categories;
+    return;
+
+   }
 
 
-   saveAll();
+   const confirmed =
+    window.confirm(
+     "Restore করলে বর্তমান হিসাবগুলো Backup-এর data দিয়ে replace হবে।\n\nContinue করবেন?"
+    );
 
 
-   resetExpenseForm();
+   if(!confirmed){
+    return;
+   }
 
-   resetIncomeForm();
 
-   render();
+   try{
 
+    expenses =
+     JSON.parse(
+      JSON.stringify(
+       backupData.expenses
+      )
+     );
+
+    incomes =
+     JSON.parse(
+      JSON.stringify(
+       backupData.incomes
+      )
+     );
+
+    categories =
+     JSON.parse(
+      JSON.stringify(
+       backupData.categories
+      )
+     );
+
+
+    saveAll();
+
+    resetExpenseForm();
+
+    resetIncomeForm();
+
+    render();
+
+
+    alert(
+     "Restore সফল হয়েছে।"
+    );
+
+   }catch(error){
+
+    alert(
+     "Restore করা যায়নি। বর্তমান data অপরিবর্তিত রাখার চেষ্টা করা হয়েছে।"
+    );
+
+   }
+
+  };
+
+
+ reader.onerror =
+  function(){
 
    alert(
-    "Restore সফল হয়েছে।"
+    "Backup ফাইল পড়া যায়নি।"
    );
 
-  }
-
-  catch(e){
-
-   alert(
-    "এই Backup ফাইলটি সঠিক নয়। বর্তমান ডেটা অপরিবর্তিত আছে।"
-   );
-
-  }
-
- };
+  };
 
 
  reader.readAsText(file);
@@ -8738,63 +9195,68 @@ function restoreFile(file){
 }
 
 
-/* =========================
+/* =========================================================
    CHART
-========================= */
+========================================================= */
 
 function openChart(){
 
- $("chartModal")
- .style.display="flex";
+ $("chartModal").style.display =
+  "flex";
 
  drawChart();
 
 }
 
 
+function closeChart(){
+
+ $("chartModal").style.display =
+  "none";
+
+}
+
+
 function drawChart(){
 
- const canvas=
+ const canvas =
   $("chartCanvas");
 
- const ctx=
+ const ctx =
   canvas.getContext("2d");
 
- const W=
+ const width =
   canvas.width;
 
- const H=
+ const height =
   canvas.height;
 
 
  ctx.clearRect(
   0,
   0,
-  W,
-  H
+  width,
+  height
  );
 
 
- $("chartLegend")
- .innerHTML="";
+ $("chartLegend").innerHTML = "";
 
 
- if(
-  chartMode==="daily"
- ){
+ if(chartMode === "daily"){
 
-  drawPie(
+  drawPieChart(
    ctx,
-   W,
-   H
+   width,
+   height
   );
 
  }else{
 
-  drawBars(
+  drawBarChart(
    ctx,
-   W,
-   H,
+   width,
+   height,
    chartMode
   );
 
@@ -8803,54 +9265,60 @@ function drawChart(){
 }
 
 
-/* =========================
+/* =========================================================
    PIE CHART
-========================= */
+========================================================= */
 
-function drawPie(
+function drawPieChart(
  ctx,
- W,
- H
+ width,
+ height
 ){
 
- const map={};
+ const categoryTotals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   map[e.category]=
+   const category =
+    expense.category || "অন্যান্য";
+
+   const amount =
+    Number(expense.amount || 0);
+
+
+   categoryTotals[category] =
     (
-     map[e.category]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     categoryTotals[category] || 0
+    ) + amount;
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .filter(
-   x=>x[1]>0
-  );
+   .entries(categoryTotals)
+   .filter(
+    function(row){
+     return row[1] > 0;
+    }
+   );
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -8858,194 +9326,191 @@ function drawPie(
  }
 
 
- const total=
+ const total =
   rows.reduce(
-   (s,x)=>
-    s+x[1],
+   function(sum,row){
+    return sum + row[1];
+   },
    0
   );
 
 
- const cx=W/2;
+ const centerX =
+  width / 2;
 
- const cy=145;
+ const centerY =
+  145;
 
- const r=105;
+ const radius =
+  105;
 
- let start=
-  -Math.PI/2;
+
+ let startAngle =
+  -Math.PI / 2;
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const ang=
-    x[1]/
-    total*
-    Math.PI*2;
+   const angle =
+    (row[1] / total) *
+    Math.PI *
+    2;
 
 
    ctx.beginPath();
 
    ctx.moveTo(
-    cx,
-    cy
+    centerX,
+    centerY
    );
-
 
    ctx.arc(
-    cx,
-    cy,
-    r,
-    start,
-    start+ang
+    centerX,
+    centerY,
+    radius,
+    startAngle,
+    startAngle + angle
    );
-
 
    ctx.closePath();
 
 
-   ctx.fillStyle=
-    `hsl(${i*360/rows.length},65%,55%)`;
-
+   ctx.fillStyle =
+    `hsl(${
+     index * 360 / rows.length
+    },65%,55%)`;
 
    ctx.fill();
 
 
-   start+=ang;
+   startAngle += angle;
 
 
-   const sp=
-    document.createElement(
-     "span"
-    );
+   const legend =
+    document.createElement("span");
 
-
-   sp.textContent=
-    `🏷️ ${x[0]}: ${money(x[1])}`;
-
+   legend.textContent =
+    `🏷️ ${row[0]}: ${money(row[1])}`;
 
    $("chartLegend")
-   .appendChild(sp);
+    .appendChild(legend);
 
   }
  );
 
 
+ /* DONUT CENTER */
+
  ctx.beginPath();
 
- ctx.fillStyle="#fff";
+ ctx.fillStyle = "#fff";
 
  ctx.arc(
-  cx,
-  cy,
+  centerX,
+  centerY,
   48,
   0,
-  Math.PI*2
+  Math.PI * 2
  );
 
  ctx.fill();
 
 
- ctx.fillStyle="#263238";
+ ctx.fillStyle = "#263238";
 
- ctx.font=
+ ctx.font =
   "bold 15px Arial";
 
- ctx.textAlign=
+ ctx.textAlign =
   "center";
 
  ctx.fillText(
   money(total),
-  cx,
-  cy+5
+  centerX,
+  centerY + 5
  );
 
 }
 
 
-/* =========================
+/* =========================================================
    BAR CHART
-========================= */
+========================================================= */
 
-function drawBars(
+function drawBarChart(
  ctx,
- W,
- H,
+ width,
+ height,
  mode
 ){
 
- const map={};
+ const totals = {};
 
 
  expenses.forEach(
-  e=>{
+  function(expense){
 
-   const d=
+   const date =
     new Date(
-     e.date+
+     String(expense.date) +
      "T00:00:00"
     );
 
 
-   let k;
+   let key;
 
 
-   if(
-    mode==="monthly"
-   ){
+   if(mode === "monthly"){
 
-    k=
-     `${d.getFullYear()}-${String(
-      d.getMonth()+1
+    key =
+     `${date.getFullYear()}-${String(
+      date.getMonth()+1
      ).padStart(2,"0")}`;
 
    }else{
 
-    k=
+    key =
      String(
-      d.getFullYear()
+      date.getFullYear()
      );
 
    }
 
 
-   map[k]=
+   totals[key] =
     (
-     map[k]||0
-    )+
-    Number(
-     e.amount||0
-    );
+     totals[key] || 0
+    ) +
+    Number(expense.amount || 0);
 
   }
  );
 
 
- const rows=
+ const rows =
   Object
-  .entries(map)
-  .sort(
-   (a,b)=>
-    a[0].localeCompare(
-     b[0]
-    )
-  )
-  .slice(-12);
+   .entries(totals)
+   .sort(
+    function(a,b){
+     return a[0].localeCompare(b[0]);
+    }
+   )
+   .slice(-12);
 
 
- if(!rows.length){
+ if(rows.length === 0){
 
-  ctx.font=
-   "18px Arial";
+  ctx.fillStyle = "#78909c";
 
-  ctx.textAlign=
-   "center";
+  ctx.font = "18px Arial";
+
+  ctx.textAlign = "center";
 
   ctx.fillText(
    "চার্ট দেখানোর মতো খরচ নেই",
-   W/2,
-   H/2
+   width / 2,
+   height / 2
   );
 
   return;
@@ -9053,33 +9518,34 @@ function drawBars(
  }
 
 
- const max=
-  Math.max(
-   ...rows.map(
-    x=>x[1]
+ const max =
+  Math.max.apply(
+   null,
+   rows.map(
+    function(row){
+     return row[1];
+    }
    )
-  )||1;
+  ) || 1;
 
 
- const left=45;
+ const left = 45;
 
- const bottom=275;
+ const bottom = 275;
 
- const top=25;
+ const top = 25;
 
- const usable=
-  W-left-20;
+ const usable =
+  width - left - 20;
 
- const bw=
+ const barWidth =
   Math.max(
    16,
-   usable/
-   rows.length*
-   .55
+   (usable / rows.length) * .55
   );
 
 
- ctx.strokeStyle=
+ ctx.strokeStyle =
   "#cfd8dc";
 
  ctx.beginPath();
@@ -9095,7 +9561,7 @@ function drawBars(
  );
 
  ctx.lineTo(
-  W-15,
+  width - 15,
   bottom
  );
 
@@ -9103,78 +9569,82 @@ function drawBars(
 
 
  rows.forEach(
-  (x,i)=>{
+  function(row,index){
 
-   const gap=
-    usable/
-    rows.length;
+   const gap =
+    usable / rows.length;
 
+   const centerX =
+    left +
+    gap * index +
+    gap / 2;
 
-   const cx=
-    left+
-    gap*i+
-    gap/2;
-
-
-   const h=
+   const barHeight =
     (
-     x[1]/
-     max
-    )*
+     row[1] / max
+    ) *
     (
-     bottom-
-     top-
+     bottom -
+     top -
      20
     );
 
 
-   ctx.fillStyle=
-    `hsl(${i*300/Math.max(1,rows.length)},65%,50%)`;
+   ctx.fillStyle =
+    `hsl(${
+     index * 300 /
+     Math.max(1,rows.length)
+    },65%,50%)`;
 
 
    ctx.fillRect(
-    cx-bw/2,
-    bottom-h,
-    bw,
-    h
+    centerX - barWidth / 2,
+    bottom - barHeight,
+    barWidth,
+    barHeight
    );
 
 
-   ctx.fillStyle=
+   ctx.fillStyle =
     "#455a64";
 
-   ctx.font=
+   ctx.font =
     "11px Arial";
 
-   ctx.textAlign=
+   ctx.textAlign =
     "center";
 
 
    ctx.fillText(
-    x[0],
-    cx,
-    bottom+17
+    row[0],
+    centerX,
+    bottom + 17
    );
 
 
    ctx.fillText(
-    money(x[1]),
-    cx,
-    bottom-h-6
+    money(row[1]),
+    centerX,
+    bottom - barHeight - 6
    );
 
   }
  );
 
-
 }
 
 
-/* =========================
+/* =========================================================
    RENDER
-========================= */
+========================================================= */
 
 function render(){
+
+ /*
+   IMPORTANT:
+   Each renderer replaces only its own container's
+   innerHTML. It never appends the main application again.
+ */
 
  renderCategories();
 
@@ -9187,182 +9657,219 @@ function render(){
 }
 
 
-/* =========================
+/* =========================================================
    EVENTS
-========================= */
+========================================================= */
 
-$("saveBtn")
-.onclick=
+/* Expense */
+
+$("saveBtn").onclick =
  saveExpense;
 
-
-$("cancelBtn")
-.onclick=
+$("cancelBtn").onclick =
  resetExpenseForm;
 
 
-$("saveIncomeBtn")
-.onclick=
+/* Income */
+
+$("saveIncomeBtn").onclick =
  saveIncome;
 
-
-$("cancelIncomeBtn")
-.onclick=
+$("cancelIncomeBtn").onclick =
  resetIncomeForm;
 
 
-$("categoryBtn")
-.onclick=()=>{
+/* Category */
 
- $("categoryModal")
- .style.display="flex";
+$("categoryBtn").onclick =
+ function(){
 
- renderCategories();
+  $("categoryModal").style.display =
+   "flex";
 
-};
+  renderCategories();
 
-
-$("closeCategoryBtn")
-.onclick=()=>{
-
- $("categoryModal")
- .style.display="none";
-
-};
+ };
 
 
-$("addCategoryBtn")
-.onclick=()=>
- openCategoryEdit();
+$("closeCategoryBtn").onclick =
+ function(){
+
+  $("categoryModal").style.display =
+   "none";
+
+ };
 
 
-$("saveCategoryBtn")
-.onclick=
+$("addCategoryBtn").onclick =
+ function(){
+
+  openCategoryEdit();
+
+ };
+
+
+$("saveCategoryBtn").onclick =
  saveCategory;
 
-
-$("closeCategoryEditBtn")
-.onclick=
+$("closeCategoryEditBtn").onclick =
  closeCategoryEdit;
 
 
-$("chartBtn")
-.onclick=
+/* Chart */
+
+$("chartBtn").onclick =
  openChart;
 
-
-$("closeChartBtn")
-.onclick=()=>{
-
- $("chartModal")
- .style.display="none";
-
-};
+$("closeChartBtn").onclick =
+ closeChart;
 
 
 document
-.querySelectorAll(
- "[data-chart]"
-)
-.forEach(
- b=>
-  b.onclick=()=>{
+ .querySelectorAll("[data-chart]")
+ .forEach(
+  function(button){
 
-   document
-   .querySelectorAll(
-    "[data-chart]"
-   )
-   .forEach(
-    x=>
-     x.classList
-     .remove("active")
-   );
+   button.onclick =
+    function(){
+
+     document
+      .querySelectorAll("[data-chart]")
+      .forEach(
+       function(tab){
+        tab.classList.remove("active");
+       }
+      );
 
 
-   b.classList
-   .add("active");
+     button.classList.add("active");
 
+     chartMode =
+      button.dataset.chart;
 
-   chartMode=
-    b.dataset.chart;
+     drawChart();
 
-
-   drawChart();
+    };
 
   }
  );
 
 
-$("backupBtn")
-.onclick=
+/* Backup */
+
+$("backupBtn").onclick =
  backup;
 
 
-$("restoreBtn")
-.onclick=()=>{
+/* Restore */
 
- $("restoreFile")
- .click();
+$("restoreBtn").onclick =
+ function(){
 
-};
+  $("restoreFile").click();
 
-
-$("restoreFile")
-.onchange=e=>{
-
- restoreFile(
-  e.target.files[0]
- );
-
- e.target.value="";
-
-};
+ };
 
 
-[
- "search",
- "filterDate",
- "filterMonth",
- "filterCategory"
-]
-.forEach(
- id=>
-  $(id).addEventListener(
-   id==="search"
-   ?"input"
-   :"change",
-   render
-  )
+$("restoreFile").onchange =
+ function(event){
+
+  const file =
+   event.target.files[0];
+
+  restoreFile(file);
+
+  /*
+    Same file আবার select করার
+    সুযোগ রাখার জন্য input reset.
+  */
+
+  event.target.value = "";
+
+ };
+
+
+/* Delete confirmation */
+
+$("deleteCancelBtn").onclick =
+ closeDeleteConfirm;
+
+$("deleteConfirmBtn").onclick =
+ confirmDelete;
+
+
+/* Search / Filters */
+
+$("search").addEventListener(
+ "input",
+ render
+);
+
+$("filterDate").addEventListener(
+ "change",
+ render
+);
+
+$("filterMonth").addEventListener(
+ "change",
+ render
+);
+
+$("filterCategory").addEventListener(
+ "change",
+ render
 );
 
 
-/* CLOSE MODAL OUTSIDE */
+/* =========================================================
+   CLOSE MODALS BY BACKDROP
+========================================================= */
 
-window.onclick=e=>{
+window.addEventListener(
+ "click",
+ function(event){
 
- if(
-  e.target.classList
-  .contains("modal")
- ){
+  if(
+   event.target.classList.contains("modal")
+  ){
 
-  e.target.style.display=
-   "none";
+   event.target.style.display =
+    "none";
+
+   if(
+    event.target.id === "categoryEditModal"
+   ){
+
+    editCategoryIndex = null;
+
+   }
+
+
+   if(
+    event.target.id === "deleteModal"
+   ){
+
+    pendingDeleteType = null;
+    pendingDeleteId = null;
+
+   }
+
+  }
 
  }
+);
 
-};
 
-
-/* =========================
-   START
-========================= */
+/* =========================================================
+   START APP
+========================================================= */
 
 loadAll();
 
-$("date").value=
+$("date").value =
  today();
 
-$("incomeDate").value=
+$("incomeDate").value =
  today();
 
 render();

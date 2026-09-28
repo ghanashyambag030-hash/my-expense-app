@@ -1217,6 +1217,100 @@ function renderIncomeList(){
     .join("-")
    )}
   </div>
+
+  ${
+   e.note
+   ? `<div class="note">
+      📝 ${esc(e.note)}
+     </div>`
+   : ""
+  }
+
+  <div class="actions">
+
+   <button
+    class="deleteIncomeBtn"
+    data-id="${e.id}"
+    type="button"
+   >
+    🗑️ Delete
+   </button>
+
+  </div>
+
+ </div>
+
+ `).join("");
+
+
+ document.querySelectorAll(
+  ".deleteIncomeBtn"
+ ).forEach(btn=>{
+
+  btn.addEventListener(
+   "click",
+   ()=>{
+
+    const id=Number(
+     btn.dataset.id
+    );
+
+    if(!confirm(
+     "এই আয়ের হিসাবটি Delete করতে চান?"
+    )){
+     return;
+    }
+
+    incomes=incomes.filter(
+     e=>Number(e.id)!==id
+    );
+
+    saveIncomeData();
+
+    updateTotals();
+
+    renderIncomeList();
+
+   }
+  );
+
+ });
+
+}
+
+ const arr=[...incomes].sort(
+  (a,b)=>
+   String(b.date||"").localeCompare(
+    String(a.date||"")
+   ) ||
+   Number(b.id)-Number(a.id)
+ );
+
+
+ list.innerHTML=arr.map(e=>`
+
+ <div class="expense">
+
+  <div class="top">
+
+   <div class="item">
+    ${esc(e.item)}
+   </div>
+
+   <div class="amount">
+    ${money(e.amount)}
+   </div>
+
+  </div>
+
+  <div class="meta">
+   📅 ${esc(
+    String(e.date||"")
+    .split("-")
+    .reverse()
+    .join("-")
+   )}
+  </div>
   
   <div class="actions">
 

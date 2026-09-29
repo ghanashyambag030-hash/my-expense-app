@@ -121,321 +121,243 @@ header p{
  font-size:11px;
 }
 
-.card .value{
+.card strong{
+ display:block;
  margin-top:6px;
- font-size:17px;
- font-weight:800;
-}
-
-.income-value{
- color:#00897b;
-}
-
-.expense-value{
- color:#e53935;
-}
-
-.balance-value{
- color:#1565c0;
-}
-
-.month-value{
- color:#6a1b9a;
-}
-
-.year-value{
- color:#ef6c00;
+ color:#009688;
+ font-size:16px;
 }
 
 /* =========================
-   SECTION
+   BOX
 ========================= */
 
-.section{
- margin-top:15px;
- padding:15px;
+.box{
+ padding:17px;
+ margin-bottom:15px;
 }
 
-.section-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:10px;
- margin-bottom:12px;
-}
-
-.section-title h2{
- margin:0;
+.box h2{
+ margin:0 0 14px;
  font-size:18px;
-}
-
-.section-title button{
- border:0;
- background:#e8f5e9;
- color:#00897b;
- border-radius:10px;
- padding:8px 11px;
- font-weight:700;
 }
 
 /* =========================
    FORM
 ========================= */
 
-.form-grid{
+.grid{
  display:grid;
- grid-template-columns:repeat(2,1fr);
+ grid-template-columns:1fr 1fr;
  gap:10px;
 }
 
-.field{
- display:flex;
- flex-direction:column;
- gap:5px;
-}
-
-.field.full{
+.full{
  grid-column:1/-1;
 }
 
-.field label{
+label{
+ display:block;
  font-size:12px;
  color:#607d8b;
- font-weight:700;
+ margin-bottom:5px;
 }
 
-.field input,
-.field select,
-.field textarea{
+input,
+select,
+textarea{
  width:100%;
- border:1px solid #dce7e7;
- border-radius:11px;
  padding:11px;
- outline:none;
- background:#fbfefe;
- color:#263238;
- font-size:14px;
+ border:1px solid #dce5e8;
+ border-radius:11px;
+ background:#fbfdfd;
+ font-size:15px;
 }
 
-.field textarea{
- min-height:80px;
+input:focus,
+select:focus,
+textarea:focus{
+ outline:none;
+ border-color:#00a878;
+ box-shadow:0 0 0 3px #00a8781c;
+}
+
+textarea{
+ min-height:65px;
  resize:vertical;
 }
 
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
- border-color:#00a878;
- box-shadow:0 0 0 3px #00a87818;
-}
+/* =========================
+   BUTTONS
+========================= */
 
-.form-actions{
- display:flex;
- gap:8px;
- margin-top:12px;
-}
-
-.primary-btn,
-.secondary-btn,
-.danger-btn{
+button{
  border:0;
  border-radius:11px;
- padding:11px 15px;
- font-weight:800;
+ padding:10px 13px;
+ font-size:13px;
+ font-weight:700;
  cursor:pointer;
 }
 
-.primary-btn{
+button:active{
+ transform:scale(.97);
+}
+
+.primary{
+ width:100%;
+ margin-top:10px;
+ background:linear-gradient(135deg,#00a878,#00c9a7);
+ color:#fff;
+}
+
+.green{
  background:#00a878;
  color:#fff;
 }
 
-.secondary-btn{
- background:#eceff1;
- color:#37474f;
+.yellow{
+ background:#ffb300;
+ color:#fff;
 }
 
-.danger-btn{
- background:#ffebee;
- color:#c62828;
+.red{
+ background:#ef5350;
+ color:#fff;
 }
 
-.primary-btn:active,
-.secondary-btn:active,
-.danger-btn:active{
- transform:scale(.98);
+.secondary{
+ background:#78909c;
+ color:#fff;
 }
 
 /* =========================
-   FILTER
+   EXPENSE / INCOME CARD
 ========================= */
 
-.filter-box{
- margin-top:15px;
- padding:12px;
-}
-
-.filter-row{
- display:grid;
- grid-template-columns:1.2fr 1fr 1fr;
- gap:8px;
-}
-
-.filter-row input,
-.filter-row select{
- width:100%;
- padding:10px;
- border:1px solid #dce7e7;
- border-radius:10px;
+.expense{
  background:#fff;
- outline:none;
+ border:1px solid #e4eeee;
+ border-radius:15px;
+ padding:14px;
+ margin-bottom:10px;
+ box-shadow:0 3px 11px #00000009;
 }
 
-/* =========================
-   LIST
-========================= */
-
-.list{
+.top{
  display:flex;
- flex-direction:column;
- gap:9px;
- margin-top:12px;
-}
-
-.empty{
- text-align:center;
- padding:25px 10px;
- color:#90a4ae;
- font-size:14px;
+ justify-content:space-between;
+ gap:8px;
+ align-items:flex-start;
 }
 
 .item{
- background:#fff;
- border:1px solid #e7eeee;
- border-radius:15px;
- padding:12px;
- box-shadow:0 3px 12px #0000000b;
-}
-
-.item-top{
- display:flex;
- justify-content:space-between;
- align-items:flex-start;
- gap:10px;
-}
-
-.item-main{
- min-width:0;
- flex:1;
-}
-
-.item-name{
+ font-size:16px;
  font-weight:800;
- font-size:15px;
- word-break:break-word;
-}
-
-.item-meta{
- display:flex;
- flex-wrap:wrap;
- gap:5px;
- margin-top:5px;
- align-items:center;
-}
-
-.badge{
- display:inline-flex;
- align-items:center;
- background:#e8f5e9;
- color:#2e7d32;
- border-radius:20px;
- padding:3px 8px;
- font-size:11px;
- font-weight:700;
-}
-
-.date-badge{
- background:#e3f2fd;
- color:#1565c0;
-}
-
-.item-note{
- margin-top:6px;
- color:#78909c;
- font-size:12px;
- white-space:pre-wrap;
- word-break:break-word;
+ min-width:0;
+ overflow-wrap:anywhere;
 }
 
 .amount{
  font-size:17px;
- font-weight:900;
+ font-weight:800;
+ color:#00a878;
  white-space:nowrap;
 }
 
-.amount.expense{
- color:#e53935;
+/* =========================
+   CATEGORY BADGE
+========================= */
+
+.category-badge{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:3px;
+ margin-left:7px;
+ padding:4px 8px;
+ border-radius:999px;
+ background:linear-gradient(135deg,#e8f7f2,#f2fbf8);
+ color:#00866a;
+ font-size:11px;
+ font-weight:700;
+ border:1px solid #cceee4;
+ box-shadow:0 2px 5px rgba(0,168,120,.08);
+ vertical-align:middle;
+ white-space:nowrap;
 }
 
-.amount.income{
- color:#00897b;
+.meta{
+ margin-top:7px;
+ font-size:12px;
+ color:#78909c;
 }
 
-.item-actions{
+.note{
+ margin-top:7px;
+ background:#f7faf9;
+ padding:8px 10px;
+ border-radius:9px;
+ font-size:13px;
+ color:#546e7a;
+}
+
+.actions{
  display:flex;
- gap:6px;
+ gap:7px;
  margin-top:9px;
 }
 
-.item-actions button{
- border:0;
- border-radius:9px;
- padding:7px 10px;
- font-size:11px;
- font-weight:700;
-}
-
-.edit-btn{
- background:#e3f2fd;
- color:#1565c0;
-}
-
-.delete-btn{
- background:#ffebee;
- color:#c62828;
+.actions button{
+ padding:8px 11px;
 }
 
 /* =========================
-   CATEGORY MANAGER
+   CATEGORY
 ========================= */
 
-.category-list{
- display:flex;
- flex-wrap:wrap;
- gap:7px;
- margin-top:12px;
-}
-
-.category-chip{
+.cat-row{
  display:flex;
  align-items:center;
- gap:6px;
- background:#f1f8e9;
- border:1px solid #dcedc8;
- color:#558b2f;
- padding:7px 9px;
- border-radius:20px;
- font-size:12px;
- font-weight:700;
+ justify-content:space-between;
+ gap:8px;
+ border:1px solid #e5eeee;
+ border-radius:12px;
+ padding:9px;
+ margin-top:7px;
 }
 
-.category-chip button{
- border:0;
- background:transparent;
- color:#c62828;
- font-size:14px;
- font-weight:900;
- padding:0;
+.cat-actions{
+ display:flex;
+ gap:5px;
+}
+
+.cat-actions button{
+ padding:7px 9px;
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.total{
+ margin-top:12px;
+ padding:12px;
+ border-radius:11px;
+ background:#e4f7f2;
+ text-align:center;
+ font-weight:800;
+ color:#00796b;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+ text-align:center;
+ padding:28px;
+ color:#90a4ae;
 }
 
 /* =========================
@@ -443,37 +365,33 @@ header p{
 ========================= */
 
 .modal{
+ display:none;
  position:fixed;
  inset:0;
- background:#0007;
- display:none;
+ background:rgba(0,0,0,.55);
  align-items:center;
  justify-content:center;
  padding:15px;
  z-index:1000;
 }
 
-.modal.show{
- display:flex;
-}
-
-.modal-box{
+.modal-content{
+ background:#fff;
  width:100%;
- max-width:500px;
+ max-width:520px;
  max-height:90vh;
  overflow:auto;
- background:#fff;
  border-radius:20px;
  padding:18px;
- box-shadow:0 15px 50px #0005;
+ box-shadow:0 15px 40px #0004;
 }
 
 .modal-head{
  display:flex;
- align-items:center;
  justify-content:space-between;
+ align-items:center;
  gap:10px;
- margin-bottom:15px;
+ margin-bottom:12px;
 }
 
 .modal-head h2{
@@ -481,165 +399,106 @@ header p{
  font-size:19px;
 }
 
-.close-btn{
- border:0;
- background:#eceff1;
- width:34px;
- height:34px;
- border-radius:50%;
- font-size:18px;
+.modal-actions{
+ display:flex;
+ gap:8px;
+ margin-top:12px;
+}
+
+.modal-actions button{
+ flex:1;
+}
+
+/* =========================
+   DELETE CONFIRMATION
+========================= */
+
+.confirm-icon{
+ font-size:48px;
+ text-align:center;
+ margin-bottom:8px;
+}
+
+.confirm-text{
+ text-align:center;
+ font-size:16px;
+ font-weight:700;
+ line-height:1.5;
+ color:#37474f;
+}
+
+.confirm-sub{
+ text-align:center;
+ font-size:13px;
+ color:#78909c;
+ margin-top:7px;
 }
 
 /* =========================
    CHART
 ========================= */
 
-.chart-area{
+.tabs{
+ display:flex;
+ gap:6px;
+ margin-bottom:12px;
+}
+
+.tabs button{
+ flex:1;
+ background:#edf4f3;
+ color:#456;
+}
+
+.tabs button.active{
+ background:#00a878;
+ color:#fff;
+}
+
+.chart-wrap{
+ width:100%;
  min-height:300px;
  display:flex;
- flex-direction:column;
- gap:12px;
-}
-
-.chart-bar-row{
- display:grid;
- grid-template-columns:90px 1fr 70px;
- gap:7px;
  align-items:center;
-}
-
-.chart-label{
- font-size:11px;
- overflow:hidden;
- text-overflow:ellipsis;
- white-space:nowrap;
-}
-
-.chart-track{
- height:22px;
- background:#eceff1;
- border-radius:20px;
- overflow:hidden;
-}
-
-.chart-bar{
- height:100%;
- background:linear-gradient(90deg,#00a878,#00c9a7);
- border-radius:20px;
- min-width:2px;
-}
-
-.chart-value{
- font-size:11px;
- font-weight:800;
- text-align:right;
-}
-
-.donut-wrap{
- display:flex;
  justify-content:center;
- align-items:center;
- min-height:250px;
+ overflow:hidden;
 }
 
-.donut{
- width:220px;
- height:220px;
- border-radius:50%;
- position:relative;
- background:conic-gradient(
-   #00a878 0deg 90deg,
-   #42a5f5 90deg 160deg,
-   #ffca28 160deg 220deg,
-   #ef5350 220deg 280deg,
-   #ab47bc 280deg 360deg
- );
+.chart-wrap canvas{
+ max-width:100%;
+ height:auto;
 }
 
-.donut::after{
- content:"";
- position:absolute;
- width:110px;
- height:110px;
- background:#fff;
- border-radius:50%;
- top:55px;
- left:55px;
-}
-
-.chart-legend{
+.legend{
  display:flex;
  flex-wrap:wrap;
- justify-content:center;
- gap:8px;
+ gap:7px;
+ margin-top:10px;
 }
 
-.legend-item{
- display:flex;
- align-items:center;
- gap:5px;
+.legend span{
  font-size:11px;
+ background:#f2f5f5;
+ border-radius:20px;
+ padding:5px 8px;
 }
 
-.legend-dot{
- width:10px;
- height:10px;
- border-radius:50%;
-}
-
-/* =========================
-   CONFIRM
-========================= */
-
-.confirm-text{
- text-align:center;
- color:#546e7a;
- line-height:1.6;
- margin:8px 0 18px;
-}
-
-.confirm-actions{
- display:flex;
- gap:8px;
- justify-content:center;
+.file-input{
+ display:none;
 }
 
 /* =========================
-   TOAST
-========================= */
-
-.toast{
- position:fixed;
- left:50%;
- bottom:20px;
- transform:translateX(-50%) translateY(100px);
- background:#263238;
- color:#fff;
- padding:11px 17px;
- border-radius:12px;
- font-size:13px;
- font-weight:700;
- opacity:0;
- pointer-events:none;
- transition:.3s;
- z-index:2000;
- max-width:90%;
- text-align:center;
-}
-
-.toast.show{
- opacity:1;
- transform:translateX(-50%) translateY(0);
-}
-
-/* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 
 @media(max-width:700px){
 
  .summary{
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(2,1fr);
+ }
+
+ .summary .card:last-child{
+  grid-column:1/-1;
  }
 
  .toolbar{
@@ -648,42 +507,49 @@ header p{
 
 }
 
-@media(max-width:500px){
+@media(max-width:520px){
 
- header{
-  padding:18px 12px 21px;
- }
-
- header h1{
-  font-size:22px;
- }
-
- .container{
-  padding:12px 10px 30px;
- }
-
- .summary{
-  grid-template-columns:repeat(2,1fr);
- }
-
- .form-grid{
+ .grid{
   grid-template-columns:1fr;
  }
 
- .field.full{
+ .full{
   grid-column:auto;
  }
 
- .filter-row{
-  grid-template-columns:1fr;
+ .item{
+  font-size:15px;
+ }
+
+ .amount{
+  font-size:16px;
+ }
+
+ .category-badge{
+  font-size:10px;
+  padding:3px 6px;
  }
 
  .toolbar{
-  grid-template-columns:repeat(2,1fr);
+  gap:5px;
  }
 
- .chart-bar-row{
-  grid-template-columns:70px 1fr 60px;
+ .tool{
+  font-size:10px;
+  padding:9px 2px;
+ }
+
+ .tool span{
+  font-size:20px;
+ }
+
+ .modal{
+  padding:10px;
+ }
+
+ .modal-content{
+  border-radius:17px;
+  padding:15px;
  }
 
 }
@@ -692,423 +558,437 @@ header p{
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
  <h1>আমার দৈনন্দিন হিসাব</h1>
- <p>আয়, খরচ এবং ব্যালেন্স সহজে হিসাব রাখুন</p>
+ <p>আয় ও খরচ সহজে লিখে রাখুন</p>
 </header>
 
-<main class="container">
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
 
- <!-- TOOLBAR -->
+<div class="container">
+
+ <!-- TOP ICONS -->
  <div class="toolbar">
 
-  <button class="tool" type="button" onclick="openChartModal()">
+  <button type="button" class="tool" id="chartBtn">
    <span>📊</span>
    চার্ট
   </button>
 
-  <button class="tool" type="button" onclick="openCategoryModal()">
+  <button type="button" class="tool" id="categoryBtn">
    <span>🏷️</span>
-   ক্যাটাগরি
+   Category
   </button>
 
-  <button class="tool" type="button" onclick="backupData()">
+  <button type="button" class="tool" id="backupBtn">
    <span>💾</span>
-   ব্যাকআপ
+   Backup
   </button>
 
-  <button class="tool" type="button" onclick="document.getElementById('restoreInput').click()">
-   <span>📂</span>
-   রিস্টোর
+  <button type="button" class="tool" id="restoreBtn">
+   <span>♻️</span>
+   Restore
   </button>
+
+  <input
+   class="file-input"
+   id="restoreFile"
+   type="file"
+   accept=".json,application/json"
+  >
 
  </div>
 
- <input
-  type="file"
-  id="restoreInput"
-  accept=".json,application/json"
-  style="display:none"
-  onchange="restoreData(event)"
- >
-
  <!-- SUMMARY -->
- <section class="summary">
+ <div class="summary">
 
   <div class="card">
    <h3>আজকের খরচ</h3>
-   <div class="value expense-value" id="todayExpense">₹0.00</div>
+   <strong id="todayTotal">₹0.00</strong>
   </div>
 
   <div class="card">
    <h3>এই মাসের খরচ</h3>
-   <div class="value month-value" id="monthExpense">₹0.00</div>
+   <strong id="monthTotal">₹0.00</strong>
   </div>
 
   <div class="card">
    <h3>এই বছরের খরচ</h3>
-   <div class="value year-value" id="yearExpense">₹0.00</div>
+   <strong id="yearTotal">₹0.00</strong>
   </div>
 
   <div class="card">
    <h3>এই মাসের আয়</h3>
-   <div class="value income-value" id="monthIncome">₹0.00</div>
+   <strong id="monthIncome">₹0.00</strong>
   </div>
 
   <div class="card">
-   <h3>ব্যালেন্স</h3>
-   <div class="value balance-value" id="monthBalance">₹0.00</div>
+   <h3>এই মাসে বাকি</h3>
+   <strong id="monthBalance">₹0.00</strong>
   </div>
 
- </section>
+ </div>
 
- <!-- INCOME -->
- <section class="section box">
+ <!-- INCOME FORM -->
+ <div class="box">
 
-  <div class="section-title">
-   <h2>💰 আয় যোগ করুন</h2>
-  </div>
+  <h2 id="incomeFormTitle">
+   💰 নতুন আয় যোগ করুন
+  </h2>
 
-  <form id="incomeForm" onsubmit="saveIncome(event)">
+  <div class="grid">
 
-   <input type="hidden" id="incomeEditId">
-
-   <div class="form-grid">
-
-    <div class="field">
-     <label for="incomeDate">তারিখ</label>
-     <input type="date" id="incomeDate" required>
-    </div>
-
-    <div class="field">
-     <label for="incomeItem">আয়ের নাম</label>
-     <input
-      type="text"
-      id="incomeItem"
-      placeholder="যেমন: বেতন"
-      required
-     >
-    </div>
-
-    <div class="field">
-     <label for="incomeAmount">পরিমাণ (₹)</label>
-     <input
-      type="number"
-      id="incomeAmount"
-      min="0"
-      step="0.01"
-      placeholder="0.00"
-      required
-     >
-    </div>
-
-    <div class="field">
-     <label for="incomeNote">নোট</label>
-     <input
-      type="text"
-      id="incomeNote"
-      placeholder="ঐচ্ছিক"
-     >
-    </div>
-
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="incomeDate">
    </div>
 
-   <div class="form-actions">
+   <div>
+    <label>আয়ের নাম</label>
+    <input id="incomeItem" placeholder="যেমন: Salary">
+   </div>
 
-    <button class="primary-btn" type="submit" id="incomeSubmitBtn">
-     আয় যোগ করুন
-    </button>
-
-    <button
-     class="secondary-btn"
-     type="button"
-     onclick="resetIncomeForm()"
-     id="incomeCancelBtn"
-     style="display:none"
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="incomeAmount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 30000"
     >
-     বাতিল
-    </button>
-
    </div>
 
-  </form>
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="incomeNote"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
 
- </section>
-
- <!-- EXPENSE -->
- <section class="section box">
-
-  <div class="section-title">
-   <h2>💸 খরচ যোগ করুন</h2>
   </div>
 
-  <form id="expenseForm" onsubmit="saveExpense(event)">
+  <button type="button" class="primary" id="saveIncomeBtn">
+   💾 আয় Save করুন
+  </button>
 
-   <input type="hidden" id="expenseEditId">
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelIncomeBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
 
-   <div class="form-grid">
+ </div>
 
-    <div class="field">
-     <label for="expenseDate">তারিখ</label>
-     <input type="date" id="expenseDate" required>
-    </div>
+ <!-- EXPENSE FORM -->
+ <div class="box">
 
-    <div class="field">
-     <label for="expenseCategory">ক্যাটাগরি</label>
-     <select id="expenseCategory" required></select>
-    </div>
+  <h2 id="formTitle">
+   ➕ নতুন খরচ যোগ করুন
+  </h2>
 
-    <div class="field">
-     <label for="expenseItem">খরচের নাম</label>
-     <input
-      type="text"
-      id="expenseItem"
-      placeholder="যেমন: রুই মাছ"
-      required
-     >
-    </div>
+  <div class="grid">
 
-    <div class="field">
-     <label for="expenseAmount">পরিমাণ (₹)</label>
-     <input
-      type="number"
-      id="expenseAmount"
-      min="0"
-      step="0.01"
-      placeholder="0.00"
-      required
-     >
-    </div>
-
-    <div class="field full">
-     <label for="expenseNote">নোট</label>
-     <textarea
-      id="expenseNote"
-      placeholder="প্রয়োজনে বিস্তারিত লিখুন"
-     ></textarea>
-    </div>
-
+   <div>
+    <label>তারিখ</label>
+    <input type="date" id="date">
    </div>
 
-   <div class="form-actions">
+   <div>
+    <label>Category</label>
+    <select id="category"></select>
+   </div>
 
-    <button class="primary-btn" type="submit" id="expenseSubmitBtn">
-     খরচ যোগ করুন
-    </button>
+   <div>
+    <label>কী কিনেছেন / Item</label>
+    <input id="item" placeholder="যেমন: রুই মাছ">
+   </div>
 
-    <button
-     class="secondary-btn"
-     type="button"
-     onclick="resetExpenseForm()"
-     id="expenseCancelBtn"
-     style="display:none"
+   <div>
+    <label>টাকার পরিমাণ</label>
+    <input
+     type="number"
+     id="amount"
+     min="0"
+     step="0.01"
+     placeholder="যেমন: 500"
     >
-     বাতিল
-    </button>
-
    </div>
 
-  </form>
+   <div class="full">
+    <label>নোট (ঐচ্ছিক)</label>
+    <textarea
+     id="note"
+     placeholder="প্রয়োজনে কিছু লিখুন..."
+    ></textarea>
+   </div>
 
- </section>
+  </div>
+
+  <button type="button" class="primary" id="saveBtn">
+   💾 খরচ Save করুন
+  </button>
+
+  <button
+   type="button"
+   class="primary secondary"
+   id="cancelBtn"
+   style="display:none"
+  >
+   Cancel
+  </button>
+
+ </div>
 
  <!-- FILTER -->
- <section class="filter-box box">
+ <div class="box">
 
-  <div class="section-title">
-   <h2>🔎 খুঁজুন / ফিল্টার</h2>
+  <h2>🔎 হিসাব খুঁজুন / Filter</h2>
+
+  <div class="grid">
+
+   <div>
+    <label>Search</label>
+    <input id="search" placeholder="যেমন: মাছ, সবজি...">
+   </div>
+
+   <div>
+    <label>নির্দিষ্ট তারিখ</label>
+    <input type="date" id="filterDate">
+   </div>
+
+   <div>
+    <label>মাস</label>
+    <input type="month" id="filterMonth">
+   </div>
+
+   <div>
+    <label>Category</label>
+    <select id="filterCategory"></select>
+   </div>
+
   </div>
 
-  <div class="filter-row">
-
-   <input
-    type="search"
-    id="searchInput"
-    placeholder="নাম বা নোট লিখুন..."
-    oninput="renderAll()"
-   >
-
-   <select id="filterCategory" onchange="renderAll()">
-    <option value="">সব ক্যাটাগরি</option>
-   </select>
-
-   <select id="filterPeriod" onchange="renderAll()">
-    <option value="all">সব সময়</option>
-    <option value="today">আজ</option>
-    <option value="month">এই মাস</option>
-    <option value="year">এই বছর</option>
-   </select>
-
+  <div class="total">
+   নির্বাচিত হিসাবের মোট:
+   <span id="filteredTotal">₹0.00</span>
   </div>
 
- </section>
+ </div>
 
  <!-- EXPENSE LIST -->
- <section class="section box">
+ <div class="box">
 
-  <div class="section-title">
-   <h2>🧾 খরচের তালিকা</h2>
-   <button type="button" onclick="clearAllExpenses()">
-    সব মুছুন
-   </button>
-  </div>
+  <h2>📋 খরচের তালিকা</h2>
 
-  <div class="list" id="expenseList"></div>
+  <div id="expenseList"></div>
 
- </section>
+ </div>
 
  <!-- INCOME LIST -->
- <section class="section box">
+ <div class="box">
 
-  <div class="section-title">
-   <h2>💵 আয়ের তালিকা</h2>
-   <button type="button" onclick="clearAllIncomes()">
-    সব মুছুন
-   </button>
-  </div>
+  <h2>💰 আয়ের তালিকা</h2>
 
-  <div class="list" id="incomeList"></div>
-
- </section>
-
-</main>
-
-<!-- CATEGORY MODAL -->
-<div class="modal" id="categoryModal">
-
- <div class="modal-box">
-
-  <div class="modal-head">
-   <h2>🏷️ ক্যাটাগরি ম্যানেজার</h2>
-
-   <button
-    class="close-btn"
-    type="button"
-    onclick="closeCategoryModal()"
-   >
-    ×
-   </button>
-  </div>
-
-  <form onsubmit="addCategory(event)">
-
-   <div class="field">
-    <label for="newCategory">নতুন ক্যাটাগরি</label>
-
-    <input
-     type="text"
-     id="newCategory"
-     placeholder="যেমন: ওষুধ"
-     required
-    >
-   </div>
-
-   <div class="form-actions">
-
-    <button class="primary-btn" type="submit">
-     ক্যাটাগরি যোগ করুন
-    </button>
-
-   </div>
-
-  </form>
-
-  <div
-   class="category-list"
-   id="categoryList"
-  ></div>
+  <div id="incomeList"></div>
 
  </div>
 
 </div>
 
-<!-- CHART MODAL -->
+<!-- =========================
+     CATEGORY MODAL
+========================= -->
+
+<div class="modal" id="categoryModal">
+
+ <div class="modal-content">
+
+  <div class="modal-head">
+
+   <h2>🏷️ Category Manager</h2>
+
+   <button type="button" class="secondary" id="closeCategoryBtn">
+    ✕
+   </button>
+
+  </div>
+
+  <button type="button" class="green" id="addCategoryBtn">
+   ➕ নতুন Category
+  </button>
+
+  <div id="categoryList"></div>
+
+ </div>
+
+</div>
+
+<!-- =========================
+     CATEGORY EDIT MODAL
+========================= -->
+
+<div class="modal" id="categoryEditModal">
+
+ <div class="modal-content">
+
+  <div class="modal-head">
+
+   <h2 id="catEditTitle">
+    নতুন Category
+   </h2>
+
+   <button
+    type="button"
+    class="secondary"
+    id="closeCategoryEditBtn"
+   >
+    ✕
+   </button>
+
+  </div>
+
+  <label>Category Name</label>
+
+  <input
+   id="categoryNameInput"
+   placeholder="যেমন: ওষুধ"
+  >
+
+  <div class="modal-actions">
+
+   <button
+    type="button"
+    class="secondary"
+    id="cancelCategoryEditBtn"
+   >
+    Cancel
+   </button>
+
+   <button
+    type="button"
+    class="green"
+    id="saveCategoryBtn"
+   >
+    Save
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+<!-- =========================
+     CHART MODAL
+========================= -->
+
 <div class="modal" id="chartModal">
 
- <div class="modal-box">
+ <div class="modal-content">
 
   <div class="modal-head">
 
    <h2>📊 খরচের চার্ট</h2>
 
    <button
-    class="close-btn"
     type="button"
-    onclick="closeChartModal()"
+    class="secondary"
+    id="closeChartBtn"
    >
-    ×
+    ✕
    </button>
 
   </div>
 
-  <div style="margin-bottom:12px">
+  <div class="tabs">
 
-   <select
-    id="chartPeriod"
-    onchange="renderChart()"
-    style="
-     width:100%;
-     padding:10px;
-     border:1px solid #dce7e7;
-     border-radius:10px;
-     background:#fff;
-    "
+   <button
+    type="button"
+    id="dailyChartBtn"
+    class="active"
    >
+    Daily
+   </button>
 
-    <option value="today">আজ</option>
-    <option value="month">এই মাস</option>
-    <option value="year">এই বছর</option>
+   <button
+    type="button"
+    id="monthlyChartBtn"
+   >
+    Monthly
+   </button>
 
-   </select>
+   <button
+    type="button"
+    id="yearlyChartBtn"
+   >
+    Yearly
+   </button>
 
   </div>
 
-  <div id="chartArea" class="chart-area"></div>
+  <div class="chart-wrap">
+   <canvas id="chartCanvas" width="480" height="300"></canvas>
+  </div>
+
+  <div class="legend" id="chartLegend"></div>
 
  </div>
 
 </div>
 
-<!-- CONFIRM MODAL -->
+<!-- =========================
+     CONFIRM MODAL
+========================= -->
+
 <div class="modal" id="confirmModal">
 
- <div class="modal-box">
+ <div class="modal-content">
 
-  <div class="modal-head">
-
-   <h2 id="confirmTitle">নিশ্চিত করুন</h2>
-
-   <button
-    class="close-btn"
-    type="button"
-    onclick="closeConfirmModal()"
-   >
-    ×
-   </button>
-
+  <div class="confirm-icon">
+   ⚠️
   </div>
 
   <div
    class="confirm-text"
    id="confirmText"
-  ></div>
+  >
+   আপনি কি এটি মুছে ফেলতে চান?
+  </div>
 
-  <div class="confirm-actions">
+  <div
+   class="confirm-sub"
+   id="confirmSub"
+  >
+   এই কাজটি পরে ফিরিয়ে আনা যাবে না।
+  </div>
+
+  <div class="modal-actions">
 
    <button
-    class="secondary-btn"
     type="button"
-    onclick="closeConfirmModal()"
+    class="secondary"
+    id="confirmCancelBtn"
    >
-    বাতিল
+    Cancel
    </button>
 
    <button
-    class="danger-btn"
     type="button"
+    class="red"
     id="confirmOkBtn"
    >
-    মুছে ফেলুন
+    Delete
    </button>
 
   </div>
@@ -1117,12 +997,10 @@ header p{
 
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
 
 /* =========================================================
-   STORAGE
+   STORAGE KEYS
 ========================================================= */
 
 const EXPENSE_KEY = "myExpenseData";
@@ -1149,173 +1027,87 @@ const DEFAULT_CATEGORIES = [
 
 
 /* =========================================================
-   DATA
+   DATA VARIABLES
 ========================================================= */
 
 let expenses = [];
 let incomes = [];
 let categories = [];
 
-let confirmAction = null;
+let editingExpenseId = null;
+let editingIncomeId = null;
+let editingCategoryIndex = null;
+
+let pendingConfirmAction = null;
+
+let currentChartType = "daily";
 
 
 /* =========================================================
-   DOM READY
+   DOM HELPER
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded",function(){
+function $(id){
 
- loadAll();
-
- setDefaultDates();
-
- populateCategories();
-
- renderAll();
-
-});
-
-
-/* =========================================================
-   LOAD DATA
-========================================================= */
-
-function loadAll(){
-
- try{
-
-  const savedExpenses =
-   localStorage.getItem(EXPENSE_KEY);
-
-  const savedCategories =
-   localStorage.getItem(CATEGORY_KEY);
-
-  const savedIncomes =
-   localStorage.getItem(INCOME_KEY);
-
-
-  expenses =
-   savedExpenses
-   ? JSON.parse(savedExpenses)
-   : [];
-
-
-  incomes =
-   savedIncomes
-   ? JSON.parse(savedIncomes)
-   : [];
-
-
-  categories =
-   savedCategories
-   ? JSON.parse(savedCategories)
-   : [...DEFAULT_CATEGORIES];
-
-
-  if(!Array.isArray(expenses)){
-   expenses=[];
-  }
-
-  if(!Array.isArray(incomes)){
-   incomes=[];
-  }
-
-  if(!Array.isArray(categories) || categories.length===0){
-   categories=[...DEFAULT_CATEGORIES];
-  }
-
- }catch(error){
-
-  console.error(error);
-
-  expenses=[];
-  incomes=[];
-  categories=[...DEFAULT_CATEGORIES];
-
- }
+ return document.getElementById(id);
 
 }
 
 
 /* =========================================================
-   SAVE ALL
+   DATE HELPER
 ========================================================= */
 
-function saveAll(){
+function todayString(){
 
- localStorage.setItem(
-  EXPENSE_KEY,
-  JSON.stringify(expenses)
- );
+ const date = new Date();
 
- localStorage.setItem(
-  INCOME_KEY,
-  JSON.stringify(incomes)
- );
+ const year = date.getFullYear();
 
- localStorage.setItem(
-  CATEGORY_KEY,
-  JSON.stringify(categories)
- );
+ const month = String(
+  date.getMonth() + 1
+ ).padStart(2,"0");
 
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function getToday(){
-
- const d=new Date();
-
- const year=d.getFullYear();
-
- const month=
-  String(d.getMonth()+1).padStart(2,"0");
-
- const day=
-  String(d.getDate()).padStart(2,"0");
+ const day = String(
+  date.getDate()
+ ).padStart(2,"0");
 
  return `${year}-${month}-${day}`;
 
 }
 
 
-function getCurrentMonth(){
+/* =========================================================
+   MONTH HELPER
+========================================================= */
 
- return getToday().slice(0,7);
+function currentMonthString(){
 
-}
-
-
-function getCurrentYear(){
-
- return getToday().slice(0,4);
-
-}
-
-
-function setDefaultDates(){
-
- const today=getToday();
-
- document.getElementById("expenseDate").value=today;
-
- document.getElementById("incomeDate").value=today;
+ return todayString().slice(0,7);
 
 }
 
 
 /* =========================================================
-   MONEY
+   YEAR HELPER
 ========================================================= */
 
-function money(value){
+function currentYearString(){
 
- const num=Number(value)||0;
+ return todayString().slice(0,4);
 
- return "₹"+num.toLocaleString(
+}
+
+
+/* =========================================================
+   MONEY FORMAT
+========================================================= */
+
+function formatMoney(value){
+
+ const number = Number(value) || 0;
+
+ return "₹" + number.toLocaleString(
   "en-IN",
   {
    minimumFractionDigits:2,
@@ -1327,5 +1119,262 @@ function money(value){
 
 
 /* =========================================================
+   UNIQUE ID
+========================================================= */
+
+function createId(){
+
+ return Date.now().toString(36)
+  + Math.random()
+   .toString(36)
+   .substring(2);
+
+}
+
+
+/* =========================================================
    ESCAPE HTML
-===========
+========================================================= */
+
+function escapeHTML(value){
+
+ return String(value ?? "")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+function loadData(){
+
+ try{
+
+  const expenseData =
+   localStorage.getItem(EXPENSE_KEY);
+
+  const incomeData =
+   localStorage.getItem(INCOME_KEY);
+
+  const categoryData =
+   localStorage.getItem(CATEGORY_KEY);
+
+
+  if(expenseData){
+
+   const parsedExpenses =
+    JSON.parse(expenseData);
+
+   if(Array.isArray(parsedExpenses)){
+
+    expenses = parsedExpenses;
+
+   }
+
+  }
+
+
+  if(incomeData){
+
+   const parsedIncome =
+    JSON.parse(incomeData);
+
+   if(Array.isArray(parsedIncome)){
+
+    incomes = parsedIncome;
+
+   }
+
+  }
+
+
+  if(categoryData){
+
+   const parsedCategories =
+    JSON.parse(categoryData);
+
+   if(Array.isArray(parsedCategories)){
+
+    categories = parsedCategories;
+
+   }
+
+  }
+
+
+ }catch(error){
+
+  console.error(
+   "Data loading error:",
+   error
+  );
+
+ }
+
+
+ /* -----------------------------------------
+    ALWAYS ENSURE DEFAULT CATEGORIES
+ ----------------------------------------- */
+
+ if(
+  !Array.isArray(categories) ||
+  categories.length === 0
+ ){
+
+  categories = [
+   ...DEFAULT_CATEGORIES
+  ];
+
+ }
+
+
+ /* -----------------------------------------
+    ADD MISSING DEFAULT CATEGORIES
+ ----------------------------------------- */
+
+ DEFAULT_CATEGORIES.forEach(
+  function(defaultCategory){
+
+   if(
+    !categories.includes(defaultCategory)
+   ){
+
+    categories.push(defaultCategory);
+
+   }
+
+  }
+ );
+
+
+ saveData();
+
+}
+
+
+/* =========================================================
+   SAVE DATA
+========================================================= */
+
+function saveData(){
+
+ try{
+
+  localStorage.setItem(
+   EXPENSE_KEY,
+   JSON.stringify(expenses)
+  );
+
+  localStorage.setItem(
+   INCOME_KEY,
+   JSON.stringify(incomes)
+  );
+
+  localStorage.setItem(
+   CATEGORY_KEY,
+   JSON.stringify(categories)
+  );
+
+ }catch(error){
+
+  console.error(
+   "Data saving error:",
+   error
+  );
+
+  alert(
+   "ডেটা Save করা যায়নি।"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+ "DOMContentLoaded",
+ function(){
+
+  loadData();
+
+  setDefaultDates();
+
+  populateCategorySelects();
+
+  renderEverything();
+
+  attachEvents();
+
+ }
+);
+
+
+/* =========================================================
+   DEFAULT DATES
+========================================================= */
+
+function setDefaultDates(){
+
+ const today = todayString();
+
+ $("date").value = today;
+
+ $("incomeDate").value = today;
+
+}
+
+
+/* =========================================================
+   CATEGORY SELECTS
+========================================================= */
+
+function populateCategorySelects(){
+
+ const categorySelect =
+  $("category");
+
+ const filterCategory =
+  $("filterCategory");
+
+
+ categorySelect.innerHTML = "";
+
+ filterCategory.innerHTML = "";
+
+
+ const allOption =
+  document.createElement("option");
+
+ allOption.value = "";
+
+ allOption.textContent =
+  "সব Category";
+
+ filterCategory.appendChild(
+  allOption
+ );
+
+
+ categories.forEach(
+  function(categoryName){
+
+   const option =
+    document.createElement("option");
+
+   option.value =
+    categoryName;
+
+   option.textContent =
+    categoryName;
+
+   categorySelect.appendChild

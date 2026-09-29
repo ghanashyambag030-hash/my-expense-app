@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -27,10 +26,6 @@ jobs:
         run: |
           mkdir -p app/src/main/java/com/myexpense/app
           mkdir -p app/src/main/assets
-          mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/drawable
-
-          cp app_icon.png app/src/main/res/drawable/app_icon.png
 
           cp index.html app/src/main/assets/index.html
 
@@ -76,15 +71,11 @@ jobs:
 
               defaultConfig {
                   applicationId 'com.myexpense.app'
-                  minSdk 24
+                  minSdk 23
                   targetSdk 35
-                  versionCode 4
-                  versionName '1.3'
+                  versionCode 1
+                  versionName '1.0'
               }
-          }
-
-          dependencies {
-              implementation 'androidx.webkit:webkit:1.17.0'
           }
           EOF
 
@@ -94,7 +85,6 @@ jobs:
               <application
                   android:theme="@style/AppTheme"
                   android:label="আমার হিসাব"
-                  android:icon="@drawable/app_icon"
                   android:allowBackup="true"
                   android:supportsRtl="true">
 
@@ -109,27 +99,21 @@ jobs:
                       </intent-filter>
 
                   </activity>
-
               </application>
 
           </manifest>
           EOF
 
+          mkdir -p app/src/main/res/values
+
           cat > app/src/main/res/values/styles.xml <<'EOF'
           <resources>
-
-              <style
-                  name="AppTheme"
-                  parent="android:style/Theme.Material.Light.NoActionBar">
-
+              <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
                   <item name="android:fontFamily">sans</item>
                   <item name="android:colorAccent">#2196F3</item>
                   <item name="android:navigationBarColor">#000000</item>
                   <item name="android:statusBarColor">#000000</item>
-                  <item name="android:windowLightStatusBar">false</item>
-
               </style>
-
           </resources>
           EOF
 
@@ -137,55 +121,14 @@ jobs:
           package com.myexpense.app;
 
           import android.app.Activity;
-          import android.net.Uri;
           import android.os.Bundle;
-          import android.webkit.WebResourceRequest;
-          import android.webkit.WebResourceResponse;
           import android.webkit.WebSettings;
           import android.webkit.WebView;
-          import android.webkit.WebChromeClient;
-
-          import androidx.annotation.NonNull;
-          import androidx.annotation.RequiresApi;
-          import androidx.webkit.WebViewAssetLoader;
-          import androidx.webkit.WebViewClientCompat;
+          import android.webkit.WebViewClient;
 
           public class MainActivity extends Activity {
 
               private WebView webView;
-
-              private static class LocalContentWebViewClient
-                      extends WebViewClientCompat {
-
-                  private final WebViewAssetLoader assetLoader;
-
-                  LocalContentWebViewClient(
-                          WebViewAssetLoader assetLoader) {
-                      this.assetLoader = assetLoader;
-                  }
-
-                  @Override
-                  @RequiresApi(21)
-                  public WebResourceResponse shouldInterceptRequest(
-                          WebView view,
-                          @NonNull WebResourceRequest request) {
-
-                      return assetLoader.shouldInterceptRequest(
-                              request.getUrl()
-                      );
-                  }
-
-                  @Override
-                  @SuppressWarnings("deprecation")
-                  public WebResourceResponse shouldInterceptRequest(
-                          WebView view,
-                          String url) {
-
-                      return assetLoader.shouldInterceptRequest(
-                              Uri.parse(url)
-                      );
-                  }
-              }
 
               @Override
               protected void onCreate(Bundle savedInstanceState) {
@@ -194,77 +137,32 @@ jobs:
                   webView = new WebView(this);
                   setContentView(webView);
 
-                  WebSettings settings =
-                          webView.getSettings();
-
+                  WebSettings settings = webView.getSettings();
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
-                  settings.setDatabaseEnabled(true);
+                  settings.setAllowFileAccess(true);
+                  settings.setAllowContentAccess(true);
 
-                  settings.setAllowFileAccess(false);
-                  settings.setAllowContentAccess(false);
-
-                  /*
-                   * পুরনো WebView cache পরিষ্কার করা হচ্ছে।
-                   */
-                  webView.clearCache(true);
-                  webView.clearHistory();
-
-                  WebViewAssetLoader assetLoader =
-                          new WebViewAssetLoader.Builder()
-                                  .addPathHandler(
-                                          "/assets/",
-                                          new WebViewAssetLoader
-                                                  .AssetsPathHandler(this)
-                                  )
-                                  .build();
-
-                  webView.setWebViewClient(
-                          new LocalContentWebViewClient(
-                                  assetLoader
-                          )
-                  );
-
-                  webView.setWebChromeClient(
-                          new WebChromeClient()
-                  );
-
-                  /*
-                   * ?v=4 ব্যবহার করা হয়েছে যাতে
-                   * পুরনো cached page-এর সঙ্গে নতুন page
-                   * মিশে না যায়।
-                   */
-                  webView.loadUrl(
-                          "https://appassets.androidplatform.net/assets/index.html?v=4"
-                  );
+                  webView.setWebViewClient(new WebViewClient());
+                  webView.loadUrl("file:///android_asset/index.html");
               }
 
               @Override
               public void onBackPressed() {
-
-                  if (
-                      webView != null &&
-                      webView.canGoBack()
-                  ) {
-
+                  if (webView.canGoBack()) {
                       webView.goBack();
-
                   } else {
-
                       super.onBackPressed();
-
                   }
               }
           }
           EOF
 
-      - name: Clean and Build APK
-        run: |
-          gradle clean
-          gradle assembleDebug
+      - name: Build APK
+        run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: My-Expense-App-v4
+          name: My-Expense-App
           path: app/build/outputs/apk/debug/app-debug.apk

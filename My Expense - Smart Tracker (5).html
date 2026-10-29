@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Expense - Smart Tracker</title>
+<style>
+  :root {
+    --bg-main: #0b0e17;
+    --bg-card: rgba(22, 27, 42, 0.78);
+    --bg-card-solid: #161b2a;
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --text-main: #ffffff;
+    --text-muted: #8b95b0;
+    --green-neon: #10d876;
+    --green-glow: rgba(16, 216, 118, 0.42);
+    --pink-neon: #ff4d79;
+    --pink-glow: rgba(255, 77, 121, 0.42);
+  }
+
+  body.light-mode {
+    --bg-main: #f1f5f9;
+    --bg-card: rgba(255, 255, 255, 0.92);
+    --bg-card-solid: #ffffff;
+    --border-glass: rgba(15, 23, 42, 0.1);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    background-image: 
+      radial-gradient(circle at 15% 22%, rgba(16, 216, 118, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 85% 28%, rgba(255, 77, 121, 0.08) 0%, transparent 45%);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 92px;
+    user-select: none;
+  }
+
+  .app-container {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 14px 16px 24px;
+  }
+
+  /* OriginOS Tactile Blur + Scale Click Effect */
+  .origin-btn {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease;
+    cursor: pointer;
+  }
+  .origin-btn:active {
+    transform: scale(0.95);
+    filter: blur(0.5px) brightness(1.12);
+  }
+
+  /* Header */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-top: 4px;
+  }
+
+  .brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #131b2e, #0d1322);
+    border: 1px solid rgba(16, 216, 118, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 210, 140, 0.16);
+    flex-shrink: 0;
+  }
+
+  .brand-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    line-height: 1.15;
+  }
+  .brand-title span { color: var(--green-neon); }
+  .brand-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .circle-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    position: relative;
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+  }
+
+  .notif-dot {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff3b5c;
+    box-shadow: 0 0 8px #ff3b5c;
+    display: none;
+  }
+
+  /* Total Balance Card */
+  .balance-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  .balance-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .balance-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .period-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .balance-main-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .balance-amount {
+    font-size: 33px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .balance-trend {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .trend-up { color: var(--green-neon); }
+  .trend-down { color: var(--pink-neon); }
+  .trend-sub {
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-left: 3px;
+  }
+
+  .sparkline-wrap {
+    width: 128px;
+    height: 62px;
+    flex-shrink: 0;
+  }
+
+  /* Glowing Action Pill Buttons */
+  .action-pills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .pill-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .glow-pill-outer {
+    width: 100%;
+    padding: 4px;
+    border-radius: 999px;
+  }
+  .glow-pill-outer.income-outer {
+    background: linear-gradient(135deg, rgba(16, 216, 118, 0.45), rgba(16, 216, 118, 0.12));
+    box-shadow: 0 0 26px var(--green-glow), inset 0 0 12px rgba(16, 216, 118, 0.25);
+  }
+  .glow-pill-outer.expense-outer {
+    background: linear-gradient(135deg, rgba(255, 77, 121, 0.45), rgba(255, 77, 121, 0.12));
+    box-shadow: 0 0 26px var(--pink-glow), inset 0 0 12px rgba(255, 77, 121, 0.25);
+  }
+
+  .glow-pill-btn {
+    width: 100%;
+    height: 58px;
+    border-radius: 999px;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 6px 16px 6px 8px;
+    gap: 12px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .glow-pill-btn.income-btn { background: linear-gradient(135deg, #16e07f 0%, #0ca65a 100%); }
+  .glow-pill-btn.expense-btn { background: linear-gradient(135deg, #ff5c86 0%, #e0325f 100%); }
+
+  .pill-circle-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .pill-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 9px;
+    font-weight: 500;
+  }
+
+  /* Recent Transactions Card */
+  .transactions-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 18px 16px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(16px);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 8px;
+  }
+
+  .section-title { font-size: 16px; font-weight: 700; }
+  .section-actions { display: flex; align-items: center; gap: 10px; }
+
+  .clear-all-btn {
+    background: rgba(255, 77, 121, 0.12);
+    border: 1px solid rgba(255, 77, 121, 0.28);
+    color: #ff7597;
+    padding: 4px 11px;
+    border-radius: 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  .view-all-link {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .tx-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .tx-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .tx-item:last-child { border-bottom: none; padding-bottom: 2px; }
+
+  .tx-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+    cursor: pointer;
+  }
+
+  .tx-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .tx-icon.exp-bg {
+    background: linear-gradient(135deg, #ff4d79, #d92654);
+    box-shadow: 0 4px 14px rgba(255, 77, 121, 0.35);
+  }
+  .tx-icon.inc-bg {
+    background: linear-gradient(135deg, #10d876, #099e54);
+    box-shadow: 0 4px 14px rgba(16, 216, 118, 0.35);
+  }
+
+  .tx-info { min-width: 0; flex: 1; }
+  .tx-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tx-cat {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tx-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.78;
+    margin-top: 1px;
+  }
+
+  .tx-right {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .tx-amount {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-right: 2px;
+    white-space: nowrap;
+  }
+  .tx-amount.inc { color: var(--green-neon); }
+  .tx-amount.exp { color: var(--pink-neon); }
+
+  .tx-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tx-action-btn.edit-btn {
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.22);
+  }
+  .tx-action-btn.del-btn {
+    color: #f87171;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.22);
+  }
+
+  /* Summary Strip */
+  .summary-strip {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 22px;
+    padding: 15px 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    backdrop-filter: blur(16px);
+  }
+
+  .strip-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .strip-col:last-child { border-right: none; }
+
+  .strip-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: 700;
+  }
+  .badge-inc { background: var(--green-neon); color: #062916; box-shadow: 0 0 12px var(--green-glow); }
+  .badge-exp { background: var(--pink-neon); color: #330613; box-shadow: 0 0 12px var(--pink-glow); }
+  .badge-sav { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.35); }
+  .badge-bud { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.35); }
+
+  .strip-label {
+    font-size: 9.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .strip-val { font-size: 12px; font-weight: 800; white-space: nowrap; }
+
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(13, 17, 28, 0.94);
+    border-top: 1px solid var(--border-glass);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+  }
+  body.light-mode .bottom-nav { background: rgba(255, 255, 255, 0.94); }
+
+  .bottom-nav-inner {
+    max-width: 440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 8px 0 10px;
+  }
+
+  .nav-item {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    padding: 4px 0;
+  }
+  .nav-item.active { color: var(--green-neon); }
+  .nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    width: 24px;
+    height: 3px;
+    border-radius: 4px;
+    background: var(--green-neon);
+    box-shadow: 0 0 8px var(--green-neon);
+  }
+
+  /* Modals */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 15, 0.78);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 14px;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal-box {
+    width: 100%;
+    max-width: 410px;
+    max-height: 90vh;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-glass);
+    border-radius: 26px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.65);
+  }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .close-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .form-group { margin-bottom: 13px; }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    border-radius: 14px;
+    padding: 11px 13px;
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+  }
+  body.light-mode .form-input, body.light-mode .form-select {
+    background: #f8fafc;
+    color: #0f172a;
+  }
+  .form-select option { background: #161b2a; color: #fff; }
+
+  .inline-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .inline-input-row .form-input,
+  .inline-input-row .form-select {
+    flex: 1;
+    min-width: 0;
+  }
+  .inline-action-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: none;
+    border-radius: 13px;
+    padding: 11px 15px;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--green-neon);
+    color: #052614;
+    cursor: pointer;
+  }
+
+  .date-picker-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .date-display-btn {
+    flex: 1;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    border-radius: 14px;
+    padding: 11px 13px;
+    color: var(--text-main);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .calendar-trigger-btn {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 13px;
+    border: 1px solid rgba(16, 216, 118, 0.32);
+    background: rgba(16, 216, 118, 0.14);
+    color: var(--green-neon);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /* Custom Visual Calendar Grid */
+  .cal-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 10px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+  .cal-nav-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-main);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .cal-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  .cal-day-btn {
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .cal-day-btn.empty {
+    background: transparent;
+    pointer-events: none;
+  }
+  .cal-day-btn.today {
+    border-color: #3b82f6;
+    color: #60a5fa;
+  }
+  .cal-day-btn.selected {
+    background: var(--green-neon);
+    color: #052614;
+    font-weight: 800;
+  }
+
+  .logo-picker-grid {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .logo-choice {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .logo-choice.selected {
+    border-color: var(--green-neon);
+    background: rgba(16, 216, 118, 0.18);
+    box-shadow: 0 0 10px var(--green-glow);
+  }
+
+  .primary-submit-btn {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 13px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #10d876, #0a9e54);
+    margin-top: 6px;
+    cursor: pointer;
+  }
+  .primary-submit-btn.exp-mode { background: linear-gradient(135deg, #ff4d79, #d92654); }
+
+  .filter-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .view-all-scroll-area {
+    flex: 1;
+    min-height: 220px;
+    max-height: 44vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 2px;
+    margin: 8px 0 12px;
+    border-top: 1px solid var(--border-glass);
+    border-bottom: 1px solid var(--border-glass);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .filter-totals-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 10px 8px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .settings-section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .settings-sec-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .settings-btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .soft-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .owner-watermark {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(139, 149, 176, 0.26);
+    margin-top: 8px;
+    padding: 6px;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+  }
+
+  .confirm-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .confirm-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  .confirm-cancel {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+    border: 1px solid var(--border-glass);
+  }
+  .confirm-delete {
+    background: linear-gradient(135deg, #ff4d79, #e11d48);
+    color: #fff;
+  }
+
+  .pro-tabs-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 5px;
+    border-radius: 14px;
+  }
+  .pro-tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px 4px;
+    border-radius: 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .pro-tab-btn.active {
+    background: var(--green-neon);
+    color: #052614;
+  }
+  .pro-pane { display: none; }
+  .pro-pane.active { display: block; }
+
+  .month-option-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-glass);
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .month-option-item.active {
+    border-color: var(--green-neon);
+    background: rgba(16, 216, 118, 0.12);
+  }
+
+  .toast-msg {
+    position: fixed;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #10d876;
+    color: #042412;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 800;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    z-index: 2000;
+    display: none;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top Header -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="logo-box">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="walletGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#10d876"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <path d="M6 9C6 6.79086 7.79086 5 10 5H22C23.1046 5 24 5.89543 24 7C24 8.10457 23.1046 9 22 9H8C6.89543 9 6 9.89543 6 11V9Z" fill="#10d876" opacity="0.75"/>
+          <rect x="4" y="8" width="24" height="19" rx="5" fill="url(#walletGrad)"/>
+          <path d="M21 15C21 13.8954 21.8954 13 23 13H28V21H23C21.8954 21 21 20.1046 21 19V15Z" fill="#0b1324"/>
+          <circle cx="24" cy="17" r="1.8" fill="#10d876"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">My <span>Expense</span></div>
+        <div class="brand-sub">Track • Plan • Save</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="circle-icon-btn origin-btn" onclick="openNotificationsModal()" aria-label="Notifications">
+        <span class="notif-dot" id="notifBadgeDot"></span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+      </button>
+      <button class="circle-icon-btn origin-btn" onclick="openSettingsModal()" aria-label="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Total Balance Card -->
+  <section class="balance-card">
+    <div class="balance-top">
+      <span class="balance-label">Total Balance</span>
+      <button class="period-pill origin-btn" onclick="openMonthSelectorModal()">
+        <span id="activePeriodLabel">This Month</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+    <div class="balance-main-row">
+      <div>
+        <div class="balance-amount" id="totalBalanceDisplay">₹ 0.00</div>
+        <div class="balance-trend" id="balanceTrendDisplay">
+          <span class="trend-up">↑ +₹ 0.00</span>
+          <span class="trend-sub" id="trendPeriodSub">this month</span>
+        </div>
+      </div>
+      <div class="sparkline-wrap">
+        <svg viewBox="0 0 130 60" width="100%" height="100%" fill="none">
+          <defs>
+            <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="60">
+              <stop offset="0%" stop-color="#10d876" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#10d876" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M5 48 Q 25 35, 42 38 T 78 28 T 118 8 L 118 58 L 5 58 Z" fill="url(#sparkFill)"/>
+          <path d="M5 48 Q 25 35, 42 38 T 78 28 T 118 8" stroke="#10d876" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <polyline points="108 7 119 7 119 18" stroke="#10d876" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Glowing Income & Expense Buttons -->
+  <section class="action-pills-grid">
+    <div class="pill-col">
+      <div class="glow-pill-outer income-outer origin-btn" onclick="openTxModal('income')">
+        <button class="glow-pill-btn income-btn" type="button">
+          <span class="pill-circle-icon">+</span>
+          <span>Income</span>
+        </button>
+      </div>
+      <span class="pill-caption">Add money you receive</span>
+    </div>
+    <div class="pill-col">
+      <div class="glow-pill-outer expense-outer origin-btn" onclick="openTxModal('expense')">
+        <button class="glow-pill-btn expense-btn" type="button">
+          <span class="pill-circle-icon">−</span>
+          <span>Expense</span>
+        </button>
+      </div>
+      <span class="pill-caption">Add money you spend</span>
+    </div>
+  </section>
+
+  <!-- Recent Transactions Card -->
+  <section class="transactions-card">
+    <div class="section-head">
+      <h2 class="section-title">Recent Transactions</h2>
+      <div class="section-actions">
+        <button class="clear-all-btn origin-btn" onclick="confirmClearAll()">Clear All</button>
+        <button class="view-all-link origin-btn" onclick="openViewAllModal()">
+          <span>View All</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="tx-list" id="recentTxList"></div>
+  </section>
+
+  <!-- Bottom 4-Column Summary Strip -->
+  <section class="summary-strip">
+    <div class="strip-col">
+      <div class="strip-badge badge-inc">↑</div>
+      <div class="strip-label" id="stripIncLabel">This Month Income</div>
+      <div class="strip-val" style="color: var(--green-neon);" id="stripIncVal">₹ 0.00</div>
+    </div>
+    <div class="strip-col">
+      <div class="strip-badge badge-exp">↓</div>
+      <div class="strip-label" id="stripExpLabel">This Month Expense</div>
+      <div class="strip-val" style="color: var(--pink-neon);" id="stripExpVal">₹ 0.00</div>
+    </div>
+    <div class="strip-col">
+      <div class="strip-badge badge-sav">👛</div>
+      <div class="strip-label">Savings</div>
+      <div class="strip-val" id="stripSavVal">₹ 0.00</div>
+    </div>
+    <div class="strip-col">
+      <div class="strip-badge badge-bud">◎</div>
+      <div class="strip-label">Budget Used</div>
+      <div class="strip-val" style="color: #a78bfa;" id="stripBudVal">0%</div>
+    </div>
+  </section>
+</div>
+
+<!-- Fixed Bottom Navigation Bar -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-item active origin-btn" id="navHome" onclick="switchNav('home')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item origin-btn" id="navTx" onclick="openViewAllModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line>
+      </svg>
+      <span>Transactions</span>
+    </button>
+    <button class="nav-item origin-btn" id="navReports" onclick="openProHubModal('charts')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline>
+      </svg>
+      <span>Reports</span>
+    </button>
+    <button class="nav-item origin-btn" id="navProfile" onclick="openProHubModal('wallets')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Profile</span>
+    </button>
+  </div>
+</nav>
+
+<!-- 1. Add / Edit Transaction Modal -->
+<div class="modal-overlay" id="txModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="txModalTitle">➕ Add Transaction</div>
+      <button class="close-btn origin-btn" onclick="closeModal('txModal')">✕</button>
+    </div>
+    <input type="hidden" id="editTxId">
+    <input type="hidden" id="txTypeInput" value="expense">
+    <input type="hidden" id="txDateInput">
+
+    <div class="form-group">
+      <label class="form-label">Title / Description (খরচ বা আয়ের নাম)</label>
+      <input type="text" class="form-input" id="txTitleInput" placeholder="যেমন: Diwali light, Food, Salary...">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Amount (₹ টাকার পরিমাণ)</label>
+      <input type="number" step="0.01" class="form-input" id="txAmountInput" placeholder="0.00">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Date (ক্যালেন্ডার থেকে যেকোনো মাসের তারিখ নিন)</label>
+      <div class="date-picker-wrap">
+        <button type="button" class="date-display-btn origin-btn" onclick="openVisualCalendar('txDateInput', 'txDateTextDisplay', false)">
+          <span id="txDateTextDisplay">28 Oct 2026</span>
+          <span style="font-size:11px; color:var(--green-neon);">Change ▾</span>
+        </button>
+        <button type="button" class="calendar-trigger-btn origin-btn" onclick="openVisualCalendar('txDateInput', 'txDateTextDisplay', false)" title="Open Calendar">📅</button>
+      </div>
+    </div>
+
+    <div class="filter-grid-2">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Category (ক্যাটাগরি)</label>
+        <select class="form-select" id="txCategorySelect"></select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Account (UPI / Cash / Bank)</label>
+        <select class="form-select" id="txAccountSelect"></select>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; margin: 6px 0 12px;">
+      <button type="button" style="background:none; border:none; color:#60a5fa; font-size:11.5px; font-weight:600; cursor:pointer;" onclick="openManageCategoriesModal()">⚙️ Edit Categories</button>
+      <button type="button" style="background:none; border:none; color:#10d876; font-size:11.5px; font-weight:600; cursor:pointer;" onclick="openManageAccountsModal()">💼 Edit UPI/Cash/Bank</button>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Select Icon (লোগো)</label>
+      <div class="logo-picker-grid" id="txLogoPicker"></div>
+    </div>
+
+    <button class="primary-submit-btn origin-btn" id="txSubmitBtn" onclick="saveTransaction()">Save Transaction</button>
+  </div>
+</div>
+
+<!-- 2. Interactive Visual Calendar Modal -->
+<div class="modal-overlay" id="visualCalendarModal" style="z-index: 1200;">
+  <div class="modal-box" style="max-width:360px;">
+    <div class="modal-head">
+      <div class="modal-title">📅 Select Date (তারিখ)</div>
+      <button class="close-btn origin-btn" onclick="closeModal('visualCalendarModal')">✕</button>
+    </div>
+    <div class="cal-nav-bar">
+      <button type="button" class="cal-nav-btn origin-btn" onclick="shiftCalendarMonth(-1)">◀</button>
+      <div style="font-size:14.5px; font-weight:800;" id="calMonthYearTitle">October 2026</div>
+      <button type="button" class="cal-nav-btn origin-btn" onclick="shiftCalendarMonth(1)">▶</button>
+    </div>
+    <div class="cal-weekdays">
+      <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+    <div class="cal-days-grid" id="calDaysGrid"></div>
+    <div class="confirm-btn-row" style="margin-top:14px;">
+      <button type="button" class="confirm-btn confirm-cancel origin-btn" onclick="pickCalendarToday()">Today (আজ)</button>
+      <button type="button" class="confirm-btn origin-btn" style="background:var(--green-neon); color:#052614;" onclick="closeModal('visualCalendarModal')">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Month Selector ("This Month ▾") Modal -->
+<div class="modal-overlay" id="monthSelectorModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">📅 Select Month & Expense</div>
+      <button class="close-btn origin-btn" onclick="closeModal('monthSelectorModal')">✕</button>
+    </div>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">যেকোনো মাসের ওপর ক্লিক করলে ওই মাসের মোট খরচ ও হিসাব ড্যাশবোর্ডে দেখাবে:</p>
+    <div id="monthOptionsContainer" style="max-height:62vh; overflow-y:auto; padding-right:2px;"></div>
+  </div>
+</div>
+
+<!-- 4. View All & Filter Modal -->
+<div class="modal-overlay" id="viewAllModal">
+  <div class="modal-box" style="max-width:430px;">
+    <div class="modal-head">
+      <div class="modal-title">📜 All Transactions & Filter</div>
+      <button class="close-btn origin-btn" onclick="closeModal('viewAllModal')">✕</button>
+    </div>
+    <div class="form-group" style="margin-bottom:10px;">
+      <input type="text" class="form-input" id="filterSearchInput" placeholder="🔍 Search expense (যেমন: Bill, Food, Light)..." oninput="renderViewAllList()">
+    </div>
+    <div class="filter-grid-2">
+      <div>
+        <label class="form-label">📅 Filter by Date (তারিখ)</label>
+        <input type="hidden" id="filterDateInput" value="">
+        <div class="date-picker-wrap">
+          <button type="button" class="date-display-btn origin-btn" style="padding:10px 11px; font-size:12.5px;" onclick="openVisualCalendar('filterDateInput', 'filterDateTextDisplay', true)">
+            <span id="filterDateTextDisplay">All Dates</span>
+            <span>📅</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <label class="form-label">🏷️ Category (ক্যাটাগরি)</label>
+        <select class="form-select" id="filterCategorySelect" style="padding:10px 11px; font-size:12.5px;" onchange="renderViewAllList()"></select>
+      </div>
+    </div>
+    <div class="inline-input-row" style="margin-bottom:4px;">
+      <select class="form-select" id="filterMonthSelect" onchange="renderViewAllList()"></select>
+      <button class="soft-btn origin-btn" style="flex-shrink:0; padding:10px 14px;" onclick="resetViewAllFilters()">Reset ↺</button>
+    </div>
+    <div class="view-all-scroll-area" id="viewAllListContainer"></div>
+    <div class="filter-totals-bar">
+      <div>
+        <div style="font-size:10.5px; color:var(--text-muted);">Total Income</div>
+        <div style="font-size:13.5px; font-weight:800; color:var(--green-neon); margin-top:2px;" id="filterTotalInc">₹ 0.00</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; color:var(--text-muted);">Total Expense (মোট খরচ)</div>
+        <div style="font-size:13.5px; font-weight:800; color:var(--pink-neon); margin-top:2px;" id="filterTotalExp">₹ 0.00</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; color:var(--text-muted);">Items Found</div>
+        <div style="font-size:13.5px; font-weight:800; margin-top:2px;" id="filterTotalCount">0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Pro Features Hub Modal -->
+<div class="modal-overlay" id="proHubModal">
+  <div class="modal-box" style="max-width:430px;">
+    <div class="modal-head">
+      <div class="modal-title">⚡ My Expense Pro Hub</div>
+      <button class="close-btn origin-btn" onclick="closeModal('proHubModal')">✕</button>
+    </div>
+    <div class="pro-tabs-nav">
+      <button class="pro-tab-btn active" id="tabBtn_wallets" onclick="switchProTab('wallets')">💼 Wallets</button>
+      <button class="pro-tab-btn" id="tabBtn_charts" onclick="switchProTab('charts')">📊 Charts/PDF</button>
+      <button class="pro-tab-btn" id="tabBtn_bills" onclick="switchProTab('bills')">📅 Bills</button>
+      <button class="pro-tab-btn" id="tabBtn_goals" onclick="switchProTab('goals')">🎯 Goals</button>
+    </div>
+    <div class="pro-pane active" id="proPane_wallets">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-size:13px; font-weight:700;">Account-wise Balance</span>
+        <button class="soft-btn origin-btn" style="padding:6px 11px; color:var(--green-neon);" onclick="openManageAccountsModal()">+ Add / Edit Accounts</button>
+      </div>
+      <div id="walletsBreakdownList" style="display:flex; flex-direction:column; gap:8px; max-height:48vh; overflow-y:auto;"></div>
+    </div>
+    <div class="pro-pane" id="proPane_charts">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+        <button class="soft-btn origin-btn" style="background:rgba(16,216,118,0.14); border-color:rgba(16,216,118,0.35); color:var(--green-neon); padding:12px;" onclick="openExportPreview('csv')">📊 Excel (.csv) Save</button>
+        <button class="soft-btn origin-btn" style="background:rgba(59,130,246,0.14); border-color:rgba(59,130,246,0.35); color:#60a5fa; padding:12px;" onclick="openExportPreview('pdf')">🖨️ PDF / Print Save</button>
+      </div>
+      <div id="donutChartContainer" style="display:flex; flex-direction:column; align-items:center; margin-bottom:14px;"></div>
+      <div id="categoryBarsContainer" style="display:flex; flex-direction:column; gap:8px; max-height:30vh; overflow-y:auto;"></div>
+    </div>
+    <div class="pro-pane" id="proPane_bills">
+      <div class="settings-section" style="margin-bottom:10px;">
+        <div class="settings-sec-title">➕ Add Monthly Recurring Bill</div>
+        <div class="filter-grid-2" style="margin-bottom:8px;">
+          <input type="text" class="form-input" id="billTitleInput" placeholder="Bill Name (e.g. Wi-Fi)">
+          <input type="number" class="form-input" id="billAmountInput" placeholder="Amount ₹">
+        </div>
+        <div class="inline-input-row">
+          <input type="number" min="1" max="31" class="form-input" id="billDayInput" placeholder="Due Day of Month (1-31)">
+          <button class="inline-action-btn origin-btn" onclick="addRecurringBill()">+ Save Bill</button>
+        </div>
+      </div>
+      <div id="recurringBillsList" style="display:flex; flex-direction:column; gap:8px; max-height:38vh; overflow-y:auto;"></div>
+    </div>
+    <div class="pro-pane" id="proPane_goals">
+      <div class="settings-section" style="margin-bottom:10px;">
+        <div class="settings-sec-title">🎯 Create Savings Goal</div>
+        <div class="filter-grid-2" style="margin-bottom:8px;">
+          <input type="text" class="form-input" id="goalTitleInput" placeholder="Goal (e.g. New Cycle)">
+          <input type="number" class="form-input" id="goalTargetInput" placeholder="Target ₹">
+        </div>
+        <div class="inline-input-row">
+          <input type="number" class="form-input" id="goalSavedInput" placeholder="Already Saved ₹ (0)">
+          <button class="inline-action-btn origin-btn" onclick="addSavingsGoal()">+ Add Goal</button>
+        </div>
+      </div>
+      <div id="savingsGoalsList" style="display:flex; flex-direction:column; gap:8px; max-height:38vh; overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. Export Preview & File Manager Save Modal -->
+<div class="modal-overlay" id="exportPreviewModal">
+  <div class="modal-box" style="max-width:430px;">
+    <div class="modal-head">
+      <div class="modal-title" id="exportModalTitle">📄 Export File</div>
+      <button class="close-btn origin-btn" onclick="closeModal('exportPreviewModal')">✕</button>
+    </div>
+    <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">আপনার ফোনের ফাইল ম্যানেজারে সেভ করতে নিচের সবুজ বাটনে ট্যাপ করুন:</p>
+    <div style="display:grid; grid-template-columns:1fr; gap:8px; margin-bottom:12px;">
+      <button class="primary-submit-btn origin-btn" style="margin-top:0;" onclick="saveExportToFileManager()">📂 Save to File Manager / Share</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <button class="soft-btn origin-btn" onclick="directDownloadExportFile()">⬇️ Direct Download</button>
+        <button class="soft-btn origin-btn" onclick="copyExportReportText()">📋 Copy Text</button>
+      </div>
+    </div>
+    <div id="exportSheetPreview" style="background:#ffffff; color:#0f172a; border-radius:14px; padding:12px; max-height:42vh; overflow-y:auto; font-size:11.5px;"></div>
+  </div>
+</div>
+
+<!-- 7. Notifications Modal -->
+<div class="modal-overlay" id="notificationsModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">🔔 Notifications</div>
+      <button class="close-btn origin-btn" onclick="closeModal('notificationsModal')">✕</button>
+    </div>
+    <div id="notificationsContent"></div>
+  </div>
+</div>
+
+<!-- 8. Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">⚙️ Settings & Backup</div>
+      <button class="close-btn origin-btn" onclick="closeModal('settingsModal')">✕</button>
+    </div>
+    <div class="settings-section">
+      <div class="settings-sec-title">💾 Data Backup, Restore & App File</div>
+      <div class="settings-btn-grid">
+        <button class="soft-btn origin-btn" onclick="downloadBackupJson()">⬇ Save Backup (.json)</button>
+        <button class="soft-btn origin-btn" onclick="shareBackupJson()">📤 Share to Phone Files</button>
+        <button class="soft-btn origin-btn" onclick="document.getElementById('restoreFileInput').click()">📂 Restore File (.json)</button>
+        <button class="soft-btn origin-btn" onclick="downloadFullHtmlApp()" style="color:var(--green-neon); border-color:rgba(16,216,118,0.3);">⬇ Download App (.html)</button>
+      </div>
+      <input type="file" id="restoreFileInput" accept=".json" style="display:none" onchange="handleRestoreFile(event)">
+    </div>
+    <div class="settings-section">
+      <div class="settings-sec-title">🏷️ Customize Categories, Accounts & Logos</div>
+      <div class="settings-btn-grid" style="grid-template-columns:1fr 1fr 1fr;">
+        <button class="soft-btn origin-btn" onclick="openManageCategoriesModal()">🏷️ Categories</button>
+        <button class="soft-btn origin-btn" onclick="openManageAccountsModal()">💼 Accounts</button>
+        <button class="soft-btn origin-btn" onclick="openManageLogosModal()">🎨 Logos</button>
+      </div>
+    </div>
+    <div class="settings-section" style="margin-bottom:6px;">
+      <div class="settings-sec-title">🌗 Appearance & Monthly Budget</div>
+      <div class="settings-btn-grid" style="margin-bottom:10px;">
+        <button class="soft-btn origin-btn" onclick="setThemeMode('dark')">🌙 Dark Mode</button>
+        <button class="soft-btn origin-btn" onclick="setThemeMode('light')">☀️ Light Mode</button>
+      </div>
+      <label class="form-label">Monthly Budget Limit (₹)</label>
+      <div class="inline-input-row">
+        <input type="number" class="form-input" id="budgetLimitInput" placeholder="5000">
+        <button class="inline-action-btn origin-btn" onclick="saveBudgetLimit()">Save</button>
+      </div>
+    </div>
+    <div class="owner-watermark" onclick="handleOwnerSecretTap()">Owner: Ghanashyam</div>
+  </div>
+</div>
+
+<!-- 9. Manage Categories Modal -->
+<div class="modal-overlay" id="manageCategoriesModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">🏷️ Manage Categories</div>
+      <button class="close-btn origin-btn" onclick="closeModal('manageCategoriesModal')">✕</button>
+    </div>
+    <div class="inline-input-row" style="margin-bottom:12px;">
+      <input type="text" class="form-input" id="newCategoryInput" placeholder="New Category name...">
+      <button class="inline-action-btn origin-btn" onclick="addCategoryItem()">+ Add</button>
+    </div>
+    <div id="categoriesListContainer" style="display:flex; flex-direction:column; gap:8px; max-height:48vh; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<!-- 10. Manage Accounts Modal -->
+<div class="modal-overlay" id="manageAccountsModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">💼 Manage Accounts (UPI / Cash)</div>
+      <button class="close-btn origin-btn" onclick="closeModal('manageAccountsModal')">✕</button>
+    </div>
+    <div class="inline-input-row" style="margin-bottom:12px;">
+      <input type="text" class="form-input" id="newAccountInput" placeholder="e.g. PhonePe, Cash, SBI Bank...">
+      <button class="inline-action-btn origin-btn" id="saveAccountBtn" onclick="addOrUpdateAccountItem()">+ Add</button>
+    </div>
+    <div id="accountsListContainer" style="display:flex; flex-direction:column; gap:8px; max-height:48vh; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<!-- 11. Manage Logos Modal -->
+<div class="modal-overlay" id="manageLogosModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">🎨 Manage Logos</div>
+      <button class="close-btn origin-btn" onclick="closeModal('manageLogosModal')">✕</button>
+    </div>
+    <div class="inline-input-row" style="margin-bottom:12px;">
+      <input type="text" class="form-input" id="newLogoInput" placeholder="Paste emoji or symbol (e.g. 🍔, 🚲)...">
+      <button class="inline-action-btn origin-btn" onclick="addLogoItem()">+ Add</button>
+    </div>
+    <div id="logosListContainer" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; max-height:48vh; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<!-- 12. Confirm Delete Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box" style="max-width:350px; text-align:center;">
+    <div style="font-size:34px; margin-bottom:8px;">⚠️</div>
+    <div style="font-size:17px; font-weight:800; margin-bottom:6px;" id="confirmModalTitle">Are you sure?</div>
+    <div style="font-size:13px; color:var(--text-muted);" id="confirmModalDesc">Do you really want to delete this item?</div>
+    <div class="confirm-btn-row">
+      <button class="confirm-btn confirm-cancel origin-btn" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="confirm-btn confirm-delete origin-btn" id="confirmProceedBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-msg" id="toastMsg">Saved!</div>
+
+<script>
+  const STORAGE_KEY = 'my_expense_ghanashyam_v6';
+  const defaultData = {
+    budget: 5000,
+    theme: 'dark',
+    selectedPeriod: 'this_month',
+    categories: ['Food & Dining', 'Shopping', 'Transport', 'Bills & Utilities', 'Medical & Health', 'Entertainment', 'Salary', 'Bank Transfer', 'Other'],
+    accounts: ['Cash', 'UPI', 'Bank Transfer'],
+    logos: ['🛒', '⇄', '↓', '🍽️', '💊', '🎬', '💡', '🚌', '💰', '🏠', '📱', '🎁'],
+    transactions: [
+      { id: 't1', type: 'expense', title: 'Di', category: 'Transport', account: 'Cash', amount: 200, date: '2026-10-28', logo: '⇄' },
+      { id: 't2', type: 'expense', title: 'Diwali light', category: 'Shopping', account: 'UPI', amount: 868, date: '2026-10-28', logo: '🛒' },
+      { id: 't3', type: 'income', title: 'Monthly salary', category: 'Bank Transfer', account: 'Bank Transfer', amount: 3000, date: '2026-10-28', logo: '↓' }
+    ],
+    bills: [{ id: 'b1', title: 'Mobile Recharge / Wi-Fi', amount: 299, day: 5 }],
+    goals: [{ id: 'g1', title: 'Emergency / Gadget Fund', target: 10000, saved: 1932 }]
+  };
+
+  let appState = loadState();
+  let selectedLogo = '🛒';
+  let editingAccountIndex = -1;
+  let currentExportType = 'pdf';
+  let ownerTapCount = 0;
+  let ownerTapTimer = null;
+
+  // Visual Calendar State
+  let calYear = 2026;
+  let calMonth = 9; // 0-indexed (9 = October)
+  let calTargetInputId = 'txDateInput';
+  let calTargetTextId = 'txDateTextDisplay';
+  let calIsFilterMode = false;
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('my_expense_ghanashyam_v5');
+      if (!raw) return JSON.parse(JSON.stringify(defaultData));
+      const parsed = JSON.parse(raw);
+      return {
+        ...defaultData,
+        ...parsed,
+        categories: parsed.categories?.length ? parsed.categories : defaultData.categories,
+        accounts: parsed.accounts?.length ? parsed.accounts : defaultData.accounts,
+        logos: parsed.logos?.length ? parsed.logos : defaultData.logos,
+        transactions: Array.isArray(parsed.transactions) ? parsed.transactions : defaultData.transactions,
+        bills: Array.isArray(parsed.bills) ? parsed.bills : defaultData.bills,
+        goals: Array.isArray(parsed.goals) ? parsed.goals : defaultData.goals
+      };
+    } catch (e) {
+      return JSON.parse(JSON.stringify(defaultData));
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+    renderDashboard();
+    checkSmartNotifications();
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toastMsg');
+    t.textContent = msg;
+    t.style.display = 'block';
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => { t.style.display = 'none'; }, 2400);
+  }
+
+  function formatINR(num) {
+    return (Number(num) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function formatDisplayDate(isoDate) {
+    if (!isoDate) return '';
+    const p = isoDate.split('-');
+    if (p.length !== 3) return isoDate;
+    const m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${parseInt(p[2], 10)} ${m[parseInt(p[1], 10) - 1] || ''} ${p[0]}`;
+  }
+
+  function getTodayISO() {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  }
+
+  function getCurrentYearMonth() {
+    const now = new Date();
+    const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const allDates = appState.transactions.map(t => t.date).filter(Boolean);
+    if (allDates.length > 0 && !allDates.some(d => d.startsWith(ym)) && allDates.some(d => d.startsWith('2026-10'))) {
+      return '2026-10';
+    }
+    return ym;
+  }
+
+  function getFilteredTransactionsByPeriod(periodKey) {
+    const activeYM = getCurrentYearMonth();
+    if (periodKey === 'all_time') return appState.transactions;
+    if (periodKey === 'this_week') {
+      const refDate = new Date(activeYM + '-28');
+      const weekAgo = new Date(refDate.getTime() - 7 * 86400000);
+      return appState.transactions.filter(t => {
+        const d = new Date(t.date);
+        return d >= weekAgo && d <= refDate;
+      });
+    }
+    const targetYM = (periodKey === 'this_month' || !periodKey) ? activeYM : periodKey;
+    return appState.transactions.filter(t => (t.date || '').startsWith(targetYM));
+  }
+
+  function getPeriodDisplayName(periodKey) {
+    if (periodKey === 'this_month' || !periodKey) return 'This Month';
+    if (periodKey === 'this_week') return 'This Week';
+    if (periodKey === 'all_time') return 'All Time';
+    const [y, m] = periodKey.split('-');
+    const mNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${mNames[parseInt(m, 10) - 1]} ${y}`;
+  }
+
+  function renderDashboard() {
+    document.body.classList.toggle('light-mode', appState.theme === 'light');
+    const period = appState.selectedPeriod || 'this_month';
+    document.getElementById('activePeriodLabel').textContent = getPeriodDisplayName(period);
+
+    const periodTxs = getFilteredTransactionsByPeriod(period);
+    let periodInc = 0, periodExp = 0;
+    periodTxs.forEach(t => {
+      if (t.type === 'income') periodInc += Number(t.amount) || 0;
+      else periodExp += Number(t.amount) || 0;
+    });
+
+    const netBal = periodInc - periodExp;
+    document.getElementById('totalBalanceDisplay').textContent = `${netBal < 0 ? '-₹ ' : '₹ '}${formatINR(Math.abs(netBal))}`;
+
+    const trendEl = document.getElementById('balanceTrendDisplay');
+    const pSub = period === 'this_month' ? 'this month' : getPeriodDisplayName(period).toLowerCase();
+    trendEl.innerHTML = netBal >= 0
+      ? `<span class="trend-up">↑ +₹ ${formatINR(netBal)}</span><span class="trend-sub">${pSub}</span>`
+      : `<span class="trend-down">↓ -₹ ${formatINR(Math.abs(netBal))}</span><span class="trend-sub">${pSub}</span>`;
+
+    const labelPrefix = period === 'this_month' ? 'This Month' : getPeriodDisplayName(period);
+    document.getElementById('stripIncLabel').textContent = `${labelPrefix} Income`;
+    document.getElementById('stripExpLabel').textContent = `${labelPrefix} Expense`;
+    document.getElementById('stripIncVal').textContent = `₹ ${formatINR(periodInc)}`;
+    document.getElementById('stripExpVal').textContent = `₹ ${formatINR(periodExp)}`;
+    document.getElementById('stripSavVal').textContent = `${netBal < 0 ? '-₹ ' : '₹ '}${formatINR(Math.abs(netBal))}`;
+
+    const budget = Number(appState.budget) || 5000;
+    document.getElementById('stripBudVal').textContent = `${Math.round((periodExp / budget) * 100)}%`;
+
+    const listEl = document.getElementById('recentTxList');
+    const sorted = [...periodTxs].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    listEl.innerHTML = sorted.length === 0
+      ? `<div style="text-align:center; padding:18px 8px; color:var(--text-muted); font-size:13px;">এই সময়ে কোনো লেনদেন পাওয়া যায়নি।</div>`
+      : sorted.slice(0, 6).map(t => renderTxRowHTML(t)).join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function renderTxRowHTML(t) {
+    const isInc = t.type === 'income';
+    const accText = t.account ? ` • ${t.account}` : '';
+    const catLine = isInc ? `Income${accText}` : `${t.category}${accText}`;
+    return `
+      <div class="tx-item">
+        <div class="tx-left" onclick="openEditTxModal('${t.id}')">
+          <div class="tx-icon ${isInc ? 'inc-bg' : 'exp-bg'}">${t.logo || (isInc ? '↓' : '🛒')}</div>
+          <div class="tx-info">
+            <div class="tx-title">${escapeHtml(t.title)}</div>
+            <div class="tx-cat">${escapeHtml(catLine)}</div>
+            <div class="tx-date">${formatDisplayDate(t.date)}</div>
+          </div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amount ${isInc ? 'inc' : 'exp'}">${isInc ? '+' : '-'} ₹ ${formatINR(t.amount)}</div>
+          <button class="tx-action-btn edit-btn origin-btn" onclick="openEditTxModal('${t.id}')" title="Edit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button class="tx-action-btn del-btn origin-btn" onclick="confirmDeleteTx('${t.id}')" title="Delete">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </button>
+        </div>
+      </div>`;
+  }
+
+  // Month Selector ("This Month ▾") Modal showing all 12 months & expenses
+  function openMonthSelectorModal() {
+    const activeYM = getCurrentYearMonth();
+    const activeYear = activeYM.split('-')[0] || '2026';
+    const monthsFull = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const quickOptions = [
+      { key: 'this_month', label: 'This Month (বর্তমান মাস)' },
+      { key: 'this_week', label: 'This Week (এই সপ্তাহ)' },
+      { key: 'all_time', label: 'All Time (সব মাসের সম্পূর্ণ হিসাব)' }
+    ];
+
+    let html = '';
+    quickOptions.forEach(opt => {
+      const txs = getFilteredTransactionsByPeriod(opt.key);
+      const exp = txs.filter(t => t.type === 'expense').reduce((s, t) => s + (Number(t.amount)||0), 0);
+      const inc = txs.filter(t => t.type === 'income').reduce((s, t) => s + (Number(t.amount)||0), 0);
+      html += `
+        <div class="month-option-item origin-btn ${appState.selectedPeriod === opt.key ? 'active' : ''}" onclick="selectDashboardPeriod('${opt.key}')">
+          <div>
+            <div style="font-size:13.5px; font-weight:700;">${opt.label}</div>
+            <div style="font-size:11px; color:var(--text-muted);">Income: +₹ ${formatINR(inc)}</div>
+          </div>
+          <div style="font-size:13px; font-weight:800; color:var(--pink-neon);">Expense: ₹ ${formatINR(exp)}</div>
+        </div>`;
+    });
+
+    html += `<div style="font-size:11.5px; color:var(--text-muted); margin:12px 0 8px; font-weight:700;">📆 মাস অনুযায়ী খরচের হিসাব (${activeYear}):</div>`;
+    for (let m = 1; m <= 12; m++) {
+      const ym = `${activeYear}-${String(m).padStart(2, '0')}`;
+      const mTxs = appState.transactions.filter(t => (t.date || '').startsWith(ym));
+      const mExp = mTxs.filter(t => t.type === 'expense').reduce((s, t) => s + (Number(t.amount)||0), 0);
+      const mInc = mTxs.filter(t => t.type === 'income').reduce((s, t) => s + (Number(t.amount)||0), 0);
+      html += `
+        <div class="month-option-item origin-btn ${appState.selectedPeriod === ym ? 'active' : ''}" onclick="selectDashboardPeriod('${ym}')">
+          <div>
+            <div style="font-size:13.5px; font-weight:700;">${monthsFull[m-1]} ${activeYear}</div>
+            <div style="font-size:11px; color:var(--text-muted);">${mTxs.length} items • Income: +₹ ${formatINR(mInc)}</div>
+          </div>
+          <div style="font-size:13px; font-weight:800; color:var(--pink-neon);">- ₹ ${formatINR(mExp)}</div>
+        </div>`;
+    }
+    document.getElementById('monthOptionsContainer').innerHTML = html;
+    document.getElementById('monthSelectorModal').classList.add('show');
+  }
+
+  function selectDashboardPeriod(periodKey) {
+    appState.selectedPeriod = periodKey;
+    saveState();
+    closeModal('monthSelectorModal');
+    showToast(`Showing: ${getPeriodDisplayName(periodKey)}`);
+  }
+
+  // Interactive Visual Calendar Functions
+  function openVisualCalendar(inputId, textId, isFilter) {
+    calTargetInputId = inputId;
+    calTargetTextId = textId;
+    calIsFilterMode = isFilter;
+    const curVal = document.getElementById(inputId).value || getTodayISO();
+    const parts = curVal.split('-');
+    if (parts.length === 3) {
+      calYear = parseInt(parts[0], 10);
+      calMonth = parseInt(parts[1], 10) - 1;
+    } else {
+      const now = new Date();
+      calYear = now.getFullYear();
+      calMonth = now.getMonth();
+    }
+    renderVisualCalendarGrid();
+    document.getElementById('visualCalendarModal').classList.add('show');
+  }
+
+  function shiftCalendarMonth(delta) {
+    calMonth += delta;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    else if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderVisualCalendarGrid();
+  }
+
+  function renderVisualCalendarGrid() {
+    const mNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonthYearTitle').textContent = `${mNames[calMonth]} ${calYear}`;
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const totalDays = new Date(calYear, calMonth + 1, 0).getDate();
+    const selVal = document.getElementById(calTargetInputId).value;
+    const todayVal = getTodayISO();
+
+    let html = '';
+    for (let i = 0; i < firstDay; i++) {
+      html += `<div class="cal-day-btn empty"></div>`;
+    }
+    for (let d = 1; d <= totalDays; d++) {
+      const iso = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const cls = [
+        'cal-day-btn origin-btn',
+        iso === todayVal ? 'today' : '',
+        iso === selVal ? 'selected' : ''
+      ].join(' ');
+      html += `<button type="button" class="${cls}" onclick="selectVisualCalendarDate('${iso}')">${d}</button>`;
+    }
+    document.getElementById('calDaysGrid').innerHTML = html;
+  }
+
+  function selectVisualCalendarDate(iso) {
+    document.getElementById(calTargetInputId).value = iso;
+    document.getElementById(calTargetTextId).textContent = formatDisplayDate(iso);
+    renderVisualCalendarGrid();
+    if (calIsFilterMode) renderViewAllList();
+    setTimeout(() => closeModal('visualCalendarModal'), 140);
+  }
+
+  function pickCalendarToday() {
+    selectVisualCalendarDate(getTodayISO());
+  }
+
+  function populateDropdowns() {
+    document.getElementById('txCategorySelect').innerHTML = appState.categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+    document.getElementById('txAccountSelect').innerHTML = appState.accounts.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+    document.getElementById('txLogoPicker').innerHTML = appState.logos.map(l => `
+      <div class="logo-choice ${l === selectedLogo ? 'selected' : ''}" onclick="selectTxLogo('${escapeHtml(l)}')">${escapeHtml(l)}</div>
+    `).join('');
+  }
+
+  function selectTxLogo(logo) {
+    selectedLogo = logo;
+    populateDropdowns();
+  }
+
+  function openTxModal(type) {
+    document.getElementById('editTxId').value = '';
+    document.getElementById('txTypeInput').value = type;
+    document.getElementById('txTitleInput').value = '';
+    document.getElementById('txAmountInput').value = '';
+    const today = getTodayISO();
+    document.getElementById('txDateInput').value = today;
+    document.getElementById('txDateTextDisplay').textContent = formatDisplayDate(today);
+    selectedLogo = type === 'income' ? '↓' : '🛒';
+    populateDropdowns();
+
+    const titleEl = document.getElementById('txModalTitle');
+    const btnEl = document.getElementById('txSubmitBtn');
+    titleEl.textContent = type === 'income' ? '➕ Add Income (জমা)' : '➖ Add Expense (খরচ)';
+    btnEl.textContent = type === 'income' ? 'Save Income' : 'Save Expense';
+    btnEl.classList.toggle('exp-mode', type === 'expense');
+    document.getElementById('txModal').classList.add('show');
+  }
+
+  function openEditTxModal(txId) {
+    const tx = appState.transactions.find(t => t.id === txId);
+    if (!tx) return;
+    document.getElementById('editTxId').value = tx.id;
+    document.getElementById('txTypeInput').value = tx.type;
+    document.getElementById('txTitleInput').value = tx.title;
+    document.getElementById('txAmountInput').value = tx.amount;
+    document.getElementById('txDateInput').value = tx.date;
+    document.getElementById('txDateTextDisplay').textContent = formatDisplayDate(tx.date);
+    selectedLogo = tx.logo || (tx.type === 'income' ? '↓' : '🛒');
+    populateDropdowns();
+    document.getElementById('txCategorySelect').value = tx.category;
+    document.getElementById('txAccountSelect').value = tx.account || appState.accounts[0];
+    document.getElementById('txModalTitle').textContent = '✏️ Edit Transaction';
+    const btnEl = document.getElementById('txSubmitBtn');
+    btnEl.textContent = 'Update Transaction';
+    btnEl.classList.toggle('exp-mode', tx.type === 'expense');
+    document.getElementById('txModal').classList.add('show');
+  }
+
+  function saveTransaction() {
+    const editId = document.getElementById('editTxId').value;
+    const type = document.getElementById('txTypeInput').value;
+    const rawTitle = document.getElementById('txTitleInput').value.trim();
+    const amount = parseFloat(document.getElementById('txAmountInput').value);
+    const date = document.getElementById('txDateInput').value || getTodayISO();
+    const category = document.getElementById('txCategorySelect').value;
+    const account = document.getElementById('txAccountSelect').value;
+
+    if (isNaN(amount) || amount <= 0) {
+      showToast('অনুগ্রহ করে সঠিক টাকার পরিমাণ দিন!');
+      return;
+    }
+    const title = rawTitle || (type === 'income' ? 'Income' : category);
+    if (editId) {
+      const idx = appState.transactions.findIndex(t => t.id === editId);
+      if (idx > -1) appState.transactions[idx] = { ...appState.transactions[idx], type, title, amount, date, category, account, logo: selectedLogo };
+      showToast('Transaction Updated!');
+    } else {
+      appState.transactions.unshift({ id: 'tx_' + Date.now(), type, title, amount, date, category, account, logo: selectedLogo });
+      showToast('Transaction Saved!');
+    }
+    saveState();
+    closeModal('txModal');
+    if (document.getElementById('viewAllModal').classList.contains('show')) renderViewAllList();
+  }
+
+  function openConfirmDialog(title, desc, onConfirm) {
+    document.getElementById('confirmModalTitle').textContent = title;
+    document.getElementById('confirmModalDesc').textContent = desc;
+    document.getElementById('confirmProceedBtn').onclick = () => { onConfirm(); closeModal('confirmModal'); };
+    document.getElementById('confirmModal').classList.add('show');
+  }
+
+  function confirmDeleteTx(id) {
+    openConfirmDialog('Delete Transaction?', 'আপনি কি নিশ্চিতভাবে এই হিসাবটি ডিলিট করতে চান?', () => {
+      appState.transactions = appState.transactions.filter(t => t.id !== id);
+      saveState();
+      if (document.getElementById('viewAllModal').classList.contains('show')) renderViewAllList();
+      showToast('Deleted!');
+    });
+  }
+
+  function confirmClearAll() {
+    openConfirmDialog('Clear All Transactions?', 'সবগুলো লেনদেনের হিসাব কি মুছে ফেলতে চান?', () => {
+      appState.transactions = [];
+      saveState();
+      showToast('All Cleared!');
+    });
+  }
+
+  function openViewAllModal() {
+    document.getElementById('filterCategorySelect').innerHTML = `<option value="ALL">All Categories (সব ক্যাটাগরি)</option>` +
+      appState.categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+    const sortedMonths = Array.from(new Set(appState.transactions.map(t => (t.date || '').slice(0, 7)).filter(Boolean))).sort().reverse();
+    document.getElementById('filterMonthSelect').innerHTML = `<option value="ALL">🗓️ All Months (সব মাস)</option>` +
+      sortedMonths.map(ym => `<option value="${ym}">${getPeriodDisplayName(ym)}</option>`).join('');
+    renderViewAllList();
+    document.getElementById('viewAllModal').classList.add('show');
+  }
+
+  function resetViewAllFilters() {
+    document.getElementById('filterSearchInput').value = '';
+    document.getElementById('filterDateInput').value = '';
+    document.getElementById('filterDateTextDisplay').textContent = 'All Dates';
+    document.getElementById('filterCategorySelect').value = 'ALL';
+    document.getElementById('filterMonthSelect').value = 'ALL';
+    renderViewAllList();
+  }
+
+  function renderViewAllList() {
+    const q = (document.getElementById('filterSearchInput').value || '').trim().toLowerCase();
+    const dFilter = document.getElementById('filterDateInput').value;
+    const cFilter = document.getElementById('filterCategorySelect').value;
+    const mFilter = document.getElementById('filterMonthSelect').value;
+
+    const filtered = appState.transactions.filter(t => {
+      if (q && !`${t.title} ${t.category} ${t.account || ''}`.toLowerCase().includes(q)) return false;
+      if (dFilter && t.date !== dFilter) return false;
+      if (cFilter && cFilter !== 'ALL' && t.category !== cFilter) return false;
+      if (mFilter && mFilter !== 'ALL' && !(t.date || '').startsWith(mFilter)) return false;
+      return true;
+    }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    let totInc = 0, totExp = 0;
+    filtered.forEach(t => {
+      if (t.type === 'income') totInc += Number(t.amount) || 0;
+      else totExp += Number(t.amount) || 0;
+    });
+
+    document.getElementById('filterTotalInc').textContent = `₹ ${formatINR(totInc)}`;
+    document.getElementById('filterTotalExp').textContent = `₹ ${formatINR(totExp)}`;
+    document.getElementById('filterTotalCount').textContent = filtered.length;
+    document.getElementById('viewAllListContainer').innerHTML = filtered.length === 0
+      ? `<div style="text-align:center; padding:32px 10px; color:var(--text-muted); font-size:13px;">কোনো হিসাব পাওয়া যায়নি।</div>`
+      : filtered.map(t => renderTxRowHTML(t)).join('');
+  }
+
+  function checkSmartNotifications() {
+    const activeYM = getCurrentYearMonth();
+    const monthTxs = appState.transactions.filter(t => (t.date || '').startsWith(activeYM));
+    let mInc = 0, mExp = 0;
+    monthTxs.forEach(t => {
+      if (t.type === 'income') mInc += Number(t.amount) || 0;
+      else mExp += Number(t.amount) || 0;
+    });
+    const budget = Number(appState.budget) || 5000;
+    const alerts = [];
+    if (mExp > budget) {
+      alerts.push({ title: '🚨 Monthly Budget Exceeded!', desc: `আপনার এই মাসের খরচ নির্ধারিত বাজেট (₹ ${formatINR(budget)}) অতিক্রম করেছে! অতিরিক্ত খরচ: ₹ ${formatINR(mExp - budget)}।`, color: '#ff4d79' });
+    } else if (mExp >= budget * 0.85) {
+      alerts.push({ title: '⚠️ Budget Limit Warning', desc: `আপনার মাসিক বাজেটের ${Math.round((mExp/budget)*100)}% ইতিমধ্যে খরচ হয়ে গেছে (₹ ${formatINR(mExp)} / ₹ ${formatINR(budget)})।`, color: '#f59e0b' });
+    }
+    if (mExp > mInc && mExp > 0) {
+      alerts.push({ title: '📉 Low Balance Alert', desc: `এই মাসে আপনার জমার চেয়ে খরচ ₹ ${formatINR(mExp - mInc)} বেশি হয়েছে।`, color: '#60a5fa' });
+    }
+    document.getElementById('notifBadgeDot').style.display = alerts.length > 0 ? 'block' : 'none';
+    return alerts;
+  }
+
+  function openNotificationsModal() {
+    const alerts = checkSmartNotifications();
+    document.getElementById('notificationsContent').innerHTML = alerts.length === 0
+      ? `<div style="text-align:center; padding:34px 12px; color:var(--text-muted); opacity:0.6; font-size:13.5px;">No notifications</div>`
+      : alerts.map(a => `
+        <div style="background:rgba(255,255,255,0.04); border-left:4px solid ${a.color}; border-radius:12px; padding:12px; margin-bottom:10px;">
+          <div style="font-size:13.5px; font-weight:800; color:${a.color}; margin-bottom:4px;">${a.title}</div>
+          <div style="font-size:12.5px; color:var(--text-main); line-height:1.45;">${a.desc}</div>
+        </div>`).join('');
+    document.getElementById('notificationsModal').classList.add('show');
+  }
+
+  function openProHubModal(tab) {
+    switchProTab(tab || 'wallets');
+    document.getElementById('proHubModal').classList.add('show');
+  }
+
+  function switchProTab(tab) {
+    ['wallets','charts','bills','goals'].forEach(t => {
+      document.getElementById('tabBtn_' + t).classList.toggle('active', t === tab);
+      document.getElementById('proPane_' + t).classList.toggle('active', t === tab);
+    });
+    if (tab === 'wallets') renderWalletsTab();
+    if (tab === 'charts') renderChartsTab();
+    if (tab === 'bills') renderBillsTab();
+    if (tab === 'goals') renderGoalsTab();
+  }
+
+  function renderWalletsTab() {
+    document.getElementById('walletsBreakdownList').innerHTML = appState.accounts.map(acc => {
+      const txs = appState.transactions.filter(t => (t.account || 'Cash') === acc);
+      let inc = 0, exp = 0;
+      txs.forEach(t => { if (t.type === 'income') inc += Number(t.amount) || 0; else exp += Number(t.amount) || 0; });
+      const bal = inc - exp;
+      return `
+        <div class="settings-section" style="margin-bottom:0; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:14px; font-weight:800;">💳 ${escapeHtml(acc)}</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">In: +₹ ${formatINR(inc)} • Out: -₹ ${formatINR(exp)}</div>
+          </div>
+          <div style="font-size:15px; font-weight:800; color:${bal >= 0 ? 'var(--green-neon)' : 'var(--pink-neon)'};">
+            ${bal < 0 ? '-₹ ' : '₹ '}${formatINR(Math.abs(bal))}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function renderChartsTab() {
+    const expTxs = appState.transactions.filter(t => t.type === 'expense');
+    const totalExp = expTxs.reduce((s, t) => s + (Number(t.amount)||0), 0);
+    const byCat = {};
+    expTxs.forEach(t => { byCat[t.category] = (byCat[t.category] || 0) + (Number(t.amount)||0); });
+    const entries = Object.entries(byCat).sort((a,b) => b[1] - a[1]);
+    const palette = ['#10d876','#ff4d79','#3b82f6','#f59e0b','#8b5cf6','#06b6d4','#ec4899'];
+    const donutBox = document.getElementById('donutChartContainer');
+    const barsBox = document.getElementById('categoryBarsContainer');
+
+    if (entries.length === 0 || totalExp <= 0) {
+      donutBox.innerHTML = `<div style="color:var(--text-muted); font-size:13px; padding:18px;">কোনো খরচের গ্রাফ নেই।</div>`;
+      barsBox.innerHTML = '';
+      return;
+    }
+    let cumPct = 0;
+    const r = 52, circ = 2 * Math.PI * r;
+    const circlesSvg = entries.map(([cat, amt], i) => {
+      const pct = amt / totalExp, dash = pct * circ, offset = -cumPct * circ;
+      cumPct += pct;
+      return `<circle cx="70" cy="70" r="${r}" fill="transparent" stroke="${palette[i % palette.length]}" stroke-width="18" stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 70 70)"/>`;
+    }).join('');
+
+    donutBox.innerHTML = `
+      <div style="position:relative; width:140px; height:140px; display:flex; align-items:center; justify-content:center;">
+        <svg width="140" height="140" viewBox="0 0 140 140">${circlesSvg}</svg>
+        <div style="position:absolute; text-align:center;">
+          <div style="font-size:10px; color:var(--text-muted);">Total Spent</div>
+          <div style="font-size:13px; font-weight:800;">₹ ${formatINR(totalExp)}</div>
+        </div>
+      </div>`;
+    barsBox.innerHTML = entries.map(([cat, amt], i) => {
+      const pct = Math.round((amt / totalExp) * 100);
+      return `
+        <div style="background:rgba(255,255,255,0.03); border-radius:12px; padding:9px 12px;">
+          <div style="display:flex; justify-content:space-between; font-size:12.5px; font-weight:700; margin-bottom:5px;">
+            <span>${escapeHtml(cat)} (${pct}%)</span><span>₹ ${formatINR(amt)}</span>
+          </div>
+          <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden;">
+            <div style="width:${pct}%; height:100%; background:${palette[i % palette.length]}; border-radius:6px;"></div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function renderBillsTab() {
+    const box = document.getElementById('recurringBillsList');
+    box.innerHTML = appState.bills.length === 0
+      ? `<div style="text-align:center; padding:16px; color:var(--text-muted); font-size:12.5px;">কোনো মাসিক বিল যোগ করা হয়নি।</div>`
+      : appState.bills.map(b => `
+        <div class="settings-section" style="margin-bottom:0; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <div style="min-width:0; flex:1;">
+            <div style="font-size:13.5px; font-weight:800;">📅 ${escapeHtml(b.title)}</div>
+            <div style="font-size:11.5px; color:var(--text-muted);">₹ ${formatINR(b.amount)} • প্রতি মাসের ${b.day} তারিখ</div>
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="soft-btn origin-btn" style="padding:6px 10px; color:var(--green-neon);" onclick="payRecurringBill('${b.id}')">⚡ Pay</button>
+            <button class="tx-action-btn del-btn origin-btn" onclick="deleteRecurringBill('${b.id}')">🗑️</button>
+          </div>
+        </div>`).join('');
+  }
+
+  function addRecurringBill() {
+    const title = document.getElementById('billTitleInput').value.trim();
+    const amount = parseFloat(document.getElementById('billAmountInput').value);
+    const day = parseInt(document.getElementById('billDayInput').value, 10) || 1;
+    if (!title || isNaN(amount) || amount <= 0) { showToast('বিলের নাম ও টাকার পরিমাণ দিন!'); return; }
+    appState.bills.push({ id: 'b_' + Date.now(), title, amount, day: Math.min(31, Math.max(1, day)) });
+    document.getElementById('billTitleInput').value = '';
+    document.getElementById('billAmountInput').value = '';
+    document.getElementById('billDayInput').value = '';
+    saveState(); renderBillsTab(); showToast('Bill Added!');
+  }
+
+  function payRecurringBill(id) {
+    const bill = appState.bills.find(b => b.id === id);
+    if (!bill) return;
+    appState.transactions.unshift({
+      id: 'tx_' + Date.now(), type: 'expense', title: bill.title, category: 'Bills & Utilities',
+      account: appState.accounts[0] || 'UPI', amount: bill.amount, date: getTodayISO(), logo: '💡'
+    });
+    saveState(); showToast(`Paid: ${bill.title}`);
+  }
+
+  function deleteRecurringBill(id) {
+    appState.bills = appState.bills.filter(b => b.id !== id);
+    saveState(); renderBillsTab();
+  }
+
+  function renderGoalsTab() {
+    const box = document.getElementById('savingsGoalsList');
+    box.innerHTML = appState.goals.length === 0
+      ? `<div style="text-align:center; padding:16px; color:var(--text-muted); font-size:12.5px;">কোনো সেভিংস গোল নেই।</div>`
+      : appState.goals.map(g => {
+        const pct = Math.min(100, Math.round(((Number(g.saved)||0) / (Number(g.target)||1)) * 100));
+        return `
+          <div class="settings-section" style="margin-bottom:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:13.5px; font-weight:800;">🎯 ${escapeHtml(g.title)} (${pct}%)</span>
+              <button class="tx-action-btn del-btn origin-btn" onclick="deleteSavingsGoal('${g.id}')">🗑️</button>
+            </div>
+            <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">Saved: ₹ ${formatINR(g.saved)} / Target: ₹ ${formatINR(g.target)}</div>
+            <div style="height:7px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden; margin-bottom:8px;">
+              <div style="width:${pct}%; height:100%; background:var(--green-neon);"></div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="soft-btn origin-btn" style="padding:5px 10px; font-size:11px; color:var(--green-neon);" onclick="addGoalProgress('${g.id}', 500)">+ ₹500</button>
+              <button class="soft-btn origin-btn" style="padding:5px 10px; font-size:11px; color:var(--green-neon);" onclick="addGoalProgress('${g.id}', 1000)">+ ₹1,000</button>
+            </div>
+          </div>`;
+      }).join('');
+  }
+
+  function addSavingsGoal() {
+    const title = document.getElementById('goalTitleInput').value.trim();
+    const target = parseFloat(document.getElementById('goalTargetInput').value);
+    const saved = parseFloat(document.getElementById('goalSavedInput').value) || 0;
+    if (!title || isNaN(target) || target <= 0) { showToast('গোলের নাম ও টার্গেট টাকা দিন!'); return; }
+    appState.goals.push({ id: 'g_' + Date.now(), title, target, saved });
+    document.getElementById('goalTitleInput').value = '';
+    document.getElementById('goalTargetInput').value = '';
+    document.getElementById('goalSavedInput').value = '';
+    saveState(); renderGoalsTab(); showToast('Goal Created!');
+  }
+
+  function addGoalProgress(id, addAmt) {
+    const g = appState.goals.find(x => x.id === id);
+    if (!g) return;
+    g.saved = (Number(g.saved) || 0) + addAmt;
+    saveState(); renderGoalsTab(); showToast(`+₹${addAmt} added!`);
+  }
+
+  function deleteSavingsGoal(id) {
+    appState.goals = appState.goals.filter(g => g.id !== id);
+    saveState(); renderGoalsTab();
+  }
+
+  function buildCsvContent() {
+    const header = ['Date', 'Type', 'Title', 'Category', 'Account', 'Amount (INR)'];
+    const rows = appState.transactions.map(t => [
+      t.date, t.type.toUpperCase(),
+      `"${String(t.title || '').replace(/"/g, '""')}"`,
+      `"${String(t.category || '').replace(/"/g, '""')}"`,
+      `"${String(t.account || 'Cash').replace(/"/g, '""')}"`,
+      Number(t.amount || 0).toFixed(2)
+    ]);
+    return '\uFEFF' + [header.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+  }
+
+  function buildRealPdfBytes() {
+    const sanitize = str => String(str || '').replace(/[^\x20-\x7E]/g, '');
+    const lines = [
+      'MY EXPENSE - FINANCIAL STATEMENT',
+      'Owner: Ghanashyam | Generated: ' + getTodayISO(),
+      '----------------------------------------------------------------------'
+    ];
+    let inc = 0, exp = 0;
+    appState.transactions.forEach(t => { if (t.type === 'income') inc += Number(t.amount)||0; else exp += Number(t.amount)||0; });
+    lines.push(`Total Income: Rs. ${inc.toFixed(2)} | Total Expense: Rs. ${exp.toFixed(2)} | Net: Rs. ${(inc-exp).toFixed(2)}`);
+    lines.push('----------------------------------------------------------------------');
+    lines.push('DATE         TYPE      CATEGORY          ACCOUNT       AMOUNT (INR)   TITLE');
+    lines.push('----------------------------------------------------------------------');
+    appState.transactions.slice(0, 38).forEach(t => {
+      lines.push(`${(t.date || '').padEnd(12, ' ')} ${(t.type === 'income' ? 'INCOME' : 'EXPENSE').padEnd(9, ' ')} ${sanitize(t.category).slice(0, 16).padEnd(17, ' ')} ${sanitize(t.account || 'Cash').slice(0, 12).padEnd(13, ' ')} ${((t.type === 'income' ? '+' : '-') + Number(t.amount||0).toFixed(2)).padEnd(14, ' ')} ${sanitize(t.title).slice(0, 22)}`);
+    });
+
+    let stream = 'BT\n/F1 10 Tf\n36 790 Td\n14 TL\n';
+    lines.forEach(l => { stream += `(${l.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)')}) Tj T*\n`; });
+    stream += 'ET';
+
+    const objs = [
+      '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n',
+      '2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n',
+      '3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj\n',
+      `4 0 obj\n<< /Length ${stream.length} >>\nstream\n${stream}\nendstream\nendobj\n`,
+      '5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>\nendobj\n'
+    ];
+    let pdf = '%PDF-1.4\n';
+    const offsets = [0];
+    objs.forEach(o => { offsets.push(pdf.length); pdf += o; });
+    const xrefPos = pdf.length;
+    pdf += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n`;
+    for (let i = 1; i <= objs.length; i++) pdf += String(offsets[i]).padStart(10, '0') + ' 00000 n \n';
+    pdf += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF`;
+
+    const bytes = new Uint8Array(pdf.length);
+    for (let i = 0; i < pdf.length; i++) bytes[i] = pdf.charCodeAt(i) & 0xff;
+    return bytes;
+  }
+
+  function openExportPreview(type) {
+    currentExportType = type;
+    document.getElementById('exportModalTitle').textContent = type === 'csv' ? '📊 Save Excel (.csv) File' : '🖨️ Save PDF Statement (.pdf)';
+    let inc = 0, exp = 0;
+    appState.transactions.forEach(t => { if (t.type === 'income') inc += Number(t.amount)||0; else exp += Number(t.amount)||0; });
+    const rowsHtml = appState.transactions.map(t => `
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:5px 4px;">${t.date}</td>
+        <td style="padding:5px 4px; font-weight:700;">${escapeHtml(t.title)}</td>
+        <td style="padding:5px 4px;">${escapeHtml(t.category)} (${escapeHtml(t.account||'Cash')})</td>
+        <td style="padding:5px 4px; text-align:right; font-weight:700; color:${t.type==='income'?'#059669':'#e11d48'};">${t.type==='income'?'+':'-'}₹${formatINR(t.amount)}</td>
+      </tr>`).join('');
+    document.getElementById('exportSheetPreview').innerHTML = `
+      <div style="font-weight:800; font-size:14px; margin-bottom:2px;">MY EXPENSE REPORT</div>
+      <div style="font-size:11px; color:#64748b; margin-bottom:8px;">Income: ₹${formatINR(inc)} | Expense: ₹${formatINR(exp)} | Net: ₹${formatINR(inc-exp)}</div>
+      <table style="width:100%; border-collapse:collapse; font-size:11px;">
+        <thead><tr style="background:#f1f5f9; text-align:left;"><th style="padding:5px 4px;">Date</th><th style="padding:5px 4px;">Title</th><th style="padding:5px 4px;">Category</th><th style="padding:5px 4px; text-align:right;">Amount</th></tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>`;
+    document.getElementById('exportPreviewModal').classList.add('show');
+  }
+
+  async function saveExportToFileManager() {
+    const dateStr = getTodayISO();
+    if (currentExportType === 'csv') {
+      const csv = buildCsvContent(), fileName = `My_Expense_${dateStr}.csv`;
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      if (navigator.canShare) {
+        const file = new File([blob], fileName, { type: 'text/csv' });
+        if (navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: fileName }); return; } catch (e) {} }
+      }
+      directDownloadExportFile();
+    } else {
+      const pdfBytes = buildRealPdfBytes(), fileName = `My_Expense_Report_${dateStr}.pdf`;
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      if (navigator.canShare) {
+        const file = new File([blob], fileName, { type: 'application/pdf' });
+        if (navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: fileName }); return; } catch (e) {} }
+      }
+      directDownloadExportFile();
+    }
+  }
+
+  function directDownloadExportFile() {
+    const dateStr = getTodayISO();
+    if (currentExportType === 'csv') {
+      const csv = buildCsvContent(), fileName = `My_Expense_${dateStr}.csv`;
+      triggerUniversalFileDownload(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), fileName, 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+      showToast('Excel (.csv) Downloading...');
+    } else {
+      const pdfBytes = buildRealPdfBytes(), fileName = `My_Expense_Report_${dateStr}.pdf`;
+      let binary = '';
+      for (let i = 0; i < pdfBytes.byteLength; i++) binary += String.fromCharCode(pdfBytes[i]);
+      triggerUniversalFileDownload(new Blob([pdfBytes], { type: 'application/pdf' }), fileName, 'data:application/pdf;base64,' + btoa(binary));
+      showToast('PDF (.pdf) Downloading...');
+    }
+  }
+
+  function triggerUniversalFileDownload(blob, fileName, fallbackDataUri) {
+    try {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = fileName;
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1200);
+    } catch (e) {
+      if (fallbackDataUri) {
+        const a2 = document.createElement('a');
+        a2.href = fallbackDataUri; a2.download = fileName;
+        document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
+      }
+    }
+  }
+
+  function copySafeText(text, msg) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast(msg || 'Copied!'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copyExportReportText() {
+    copySafeText(buildCsvContent(), 'Report Copied!');
+  }
+
+  function openSettingsModal() {
+    document.getElementById('budgetLimitInput').value = appState.budget || 5000;
+    document.getElementById('settingsModal').classList.add('show');
+  }
+
+  function setThemeMode(mode) {
+    appState.theme = mode; saveState();
+    showToast(mode === 'light' ? 'Light Mode Active' : 'Dark Mode Active');
+  }
+
+  function saveBudgetLimit() {
+    const val = parseFloat(document.getElementById('budgetLimitInput').value);
+    if (!isNaN(val) && val > 0) { appState.budget = val; saveState(); showToast('Monthly Budget Saved!'); }
+  }
+
+  function openManageCategoriesModal() {
+    renderCategoriesManager();
+    document.getElementById('manageCategoriesModal').classList.add('show');
+  }
+
+  function renderCategoriesManager() {
+    document.getElementById('categoriesListContainer').innerHTML = appState.categories.map((c, i) => `
+      <div class="settings-section" style="margin-bottom:0; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:13.5px; font-weight:700;">🏷️ ${escapeHtml(c)}</span>
+        <button class="tx-action-btn del-btn origin-btn" onclick="deleteCategoryItem(${i})">🗑️</button>
+      </div>`).join('');
+  }
+
+  function addCategoryItem() {
+    const inp = document.getElementById('newCategoryInput'), val = inp.value.trim();
+    if (val && !appState.categories.includes(val)) {
+      appState.categories.push(val); inp.value = '';
+      saveState(); renderCategoriesManager(); populateDropdowns(); showToast('Category Added!');
+    }
+  }
+
+  function deleteCategoryItem(idx) {
+    if (appState.categories.length <= 1) return;
+    openConfirmDialog('Delete Category?', `"${appState.categories[idx]}" ডিলিট করতে চান?`, () => {
+      appState.categories.splice(idx, 1); saveState(); renderCategoriesManager(); populateDropdowns();
+    });
+  }
+
+  function openManageAccountsModal() {
+    editingAccountIndex = -1;
+    document.getElementById('newAccountInput').value = '';
+    document.getElementById('saveAccountBtn').textContent = '+ Add';
+    renderAccountsManager();
+    document.getElementById('manageAccountsModal').classList.add('show');
+  }
+
+  function renderAccountsManager() {
+    document.getElementById('accountsListContainer').innerHTML = appState.accounts.map((acc, i) => `
+      <div class="settings-section" style="margin-bottom:0; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:13.5px; font-weight:700;">💼 ${escapeHtml(acc)}</span>
+        <div style="display:flex; gap:6px;">
+          <button class="tx-action-btn edit-btn origin-btn" onclick="startEditAccount(${i})">✏️</button>
+          <button class="tx-action-btn del-btn origin-btn" onclick="deleteAccountItem(${i})">🗑️</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function startEditAccount(idx) {
+    editingAccountIndex = idx;
+    document.getElementById('newAccountInput').value = appState.accounts[idx];
+    document.getElementById('saveAccountBtn').textContent = 'Update';
+    document.getElementById('newAccountInput').focus();
+  }
+
+  function addOrUpdateAccountItem() {
+    const inp = document.getElementById('newAccountInput'), val = inp.value.trim();
+    if (!val) return;
+    if (editingAccountIndex > -1) {
+      const oldName = appState.accounts[editingAccountIndex];
+      appState.accounts[editingAccountIndex] = val;
+      appState.transactions.forEach(t => { if (t.account === oldName) t.account = val; });
+      editingAccountIndex = -1;
+      document.getElementById('saveAccountBtn').textContent = '+ Add';
+      showToast('Account Updated!');
+    } else if (!appState.accounts.includes(val)) {
+      appState.accounts.push(val);
+      showToast('Account Added!');
+    }
+    inp.value = ''; saveState(); renderAccountsManager(); populateDropdowns();
+    if (document.getElementById('proHubModal').classList.contains('show')) renderWalletsTab();
+  }
+
+  function deleteAccountItem(idx) {
+    if (appState.accounts.length <= 1) { showToast('অন্তত ১টি অ্যাকাউন্ট থাকা প্রয়োজন!'); return; }
+    openConfirmDialog('Delete Account?', `"${appState.accounts[idx]}" অ্যাকাউন্টটি ডিলিট করতে চান?`, () => {
+      appState.accounts.splice(idx, 1); saveState(); renderAccountsManager(); populateDropdowns();
+      if (document.getElementById('proHubModal').classList.contains('show')) renderWalletsTab();
+    });
+  }
+
+  function openManageLogosModal() {
+    renderLogosManager();
+    document.getElementById('manageLogosModal').classList.add('show');
+  }
+
+  function renderLogosManager() {
+    document.getElementById('logosListContainer').innerHTML = appState.logos.map((l, i) => `
+      <div class="settings-section" style="margin-bottom:0; padding:8px; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-size:18px;">${escapeHtml(l)}</span>
+        <button class="tx-action-btn del-btn origin-btn" style="width:26px; height:26px;" onclick="deleteLogoItem(${i})">✕</button>
+      </div>`).join('');
+  }
+
+  function addLogoItem() {
+    const inp = document.getElementById('newLogoInput'), val = inp.value.trim();
+    if (!val) return;
+    appState.logos.push(val); inp.value = ''; saveState(); renderLogosManager(); populateDropdowns(); showToast('Logo Added!');
+  }
+
+  function deleteLogoItem(idx) {
+    if (appState.logos.length <= 1) return;
+    appState.logos.splice(idx, 1); saveState(); renderLogosManager(); populateDropdowns();
+  }
+
+  function downloadBackupJson() {
+    const json = JSON.stringify(appState, null, 2);
+    const fileName = `my_expense_backup_${getTodayISO()}.json`;
+    triggerUniversalFileDownload(new Blob([json], { type: 'application/json' }), fileName, 'data:application/json;charset=utf-8,' + encodeURIComponent(json));
+    showToast('Backup (.json) Saved!');
+  }
+
+  async function shareBackupJson() {
+    const json = JSON.stringify(appState, null, 2);
+    const fileName = `my_expense_backup_${getTodayISO()}.json`;
+    const blob = new Blob([json], { type: 'application/json' });
+    if (navigator.canShare) {
+      const file = new File([blob], fileName, { type: 'application/json' });
+      if (navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: fileName }); return; } catch (e) {} }
+    }
+    downloadBackupJson();
+  }
+
+  function handleRestoreFile(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (parsed && Array.isArray(parsed.transactions)) {
+          appState = { ...defaultData, ...parsed }; saveState(); closeModal('settingsModal'); showToast('Data Restored!');
+        }
+      } catch (err) { showToast('Invalid Backup File!'); }
+    };
+    reader.readAsText(file);
+  }
+
+  function downloadFullHtmlApp() {
+    const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    triggerUniversalFileDownload(new Blob([fullHtml], { type: 'text/html;charset=utf-8' }), 'index.html', 'data:text/html;charset=utf-8,' + encodeURIComponent(fullHtml));
+    showToast('Downloading index.html...');
+  }
+
+  function handleOwnerSecretTap() {
+    ownerTapCount++;
+    clearTimeout(ownerTapTimer);
+    ownerTapTimer = setTimeout(() => { ownerTapCount = 0; }, 1200);
+    if (ownerTapCount >= 3) {
+      ownerTapCount = 0;
+      const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      copySafeText(fullHtml, 'HTML Code Copied & Downloading!');
+      downloadFullHtmlApp();
+    }
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+  function switchNav() {
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('navHome').classList.add('active');
+  }
+
+  renderDashboard();
+  checkSmartNotifications();
+</script>
+</body>
+</html>
